@@ -1,0 +1,135 @@
+.container {
+  max-width: 1470px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+section.home-block-section {
+  padding: 50px 0;
+}
+
+.home-block-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+.home-block-col {
+  width: 33.33%;
+  padding: 0 15px;
+  text-align: center;
+}
+
+.work-inner-title {
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 15px;
+  text-align: center;
+  margin: 28px 0;
+  color: #000000;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+@media(max-width: 991px){
+  .work-col {
+      width: 33.33%;
+      margin-bottom: 30px;
+  }
+  .block-inner img {
+      width: 100%;
+  }
+}
+@media(max-width: 767px){
+  .header-col-center {
+      display: none;
+  }
+  .banner-right-col {
+      display: none;
+  }
+  .home-block-col {
+      width: 100%;
+  }
+  .header-row {
+      justify-content: space-between;
+  }
+  .work-col {
+      width: 100%;
+  }
+  .work-col-inner {
+      text-align: center;
+  }
+  .work-content {
+      text-align: left;
+  }
+  .work-col {
+      width: 100%;
+      margin-bottom: 60px;
+  }
+  .work-col-inner img {
+      width: auto;
+  }
+  .banner-left-inner {
+      padding: 54px 20px 50px 20px;
+  }
+  .work-inner-title {
+      line-height: 36px;
+      margin: 45px 0;
+  }
+  .center-content {
+      font-size: 25px;
+      line-height: 30px;
+  }
+  .header-wrap {
+      padding: 11px 20px 10px 35px;
+  }
+  .site-header {
+      margin-top: 19px;
+  }
+  .home-banner {
+      padding: 25px 0 40px;
+  }
+  .banner-content {
+      margin: 15px 0 60px;
+  }
+  .home-center-wrapper {
+      padding: 57px 0 31px;
+  }
+  p.center-content {
+      text-align: left;
+      padding: 0 31px;
+      font-size: 25px;
+      line-height: 30px;
+      margin: 0 auto 45px;
+  }
+  .container {
+      max-width: 330px;
+  }
+  .work-sec .container {
+      max-width: 330px;
+  }
+  .work-title-box {
+      margin: 29px 0 29px;
+  }
+  .site-footer-row {
+      flex-wrap: wrap;
+      padding: 44px 25px;
+  }
+}
+@media(max-width: 500px){
+  .footer-newsletter-row {
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+  }
+  .footer-input {
+      margin-right: 10px;
+      margin-bottom: 20px;
+  }
+  .site-footer .container {
+      max-width: 330px;
+  }
+}
+@media(max-width: 380px){
+  .header-wrap {
+      padding: 11px 20px 10px 11px;
+  }
+}
