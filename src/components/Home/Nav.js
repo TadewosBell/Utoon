@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import classes from "./Nav.module.css";
 import Logoimage from "../../assets/Logo.png";
 import Button from "../UI/Button";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   return (
@@ -24,9 +25,7 @@ const Nav = () => {
                       </a>
                     </li>
                     <li className={classes["header-menu-item"]}>
-                      <a href="#" className={classes["menu-link"]}>
-                        Create
-                      </a>
+                        <Link to="/Animator" className={classes["menu-link"]} >Create</Link>
                     </li>
                     <li className={classes["header-menu-item"]}>
                       <a href="#" className={classes["menu-link"]}>
@@ -41,9 +40,12 @@ const Nav = () => {
                   {/* <button className={classes["header-btn-link"]} type="submit">
                     Create
                   </button> */}
-                  <Button classes={classes["header-btn-link"]} type="submit">
-                    Create
-                  </Button>
+                  {/* go to route animator */}
+                  <Link to="/Animator">
+                    <Button classes={classes["header-btn-link"]} > 
+                      Create
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>

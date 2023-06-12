@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./Hero.module.css";
 import BannerLeftImage from "../../assets/banner-left.png";
 import Button from "../UI/Button";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -19,11 +20,13 @@ const Hero = () => {
                   move hearts.
                 </p>
                 {/* <a href="#" className={classes["create-card"]}>
-                  Create Card
+                  Create
                 </a> */}
+                <Link to="/Animator">
                 <Button classes={classes["create-card"]} type="submit">
-                  Create Card
+                  Create
                 </Button>
+                </Link>
               </div>
             </div>
             <div className={classes["banner-right-col"]}>

@@ -1,0 +1,17 @@
+.card {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
+    width: 40%;
+    border-radius: 20px;
+    background-color: white;
+  }
+.Title{
+  text-align: center;
+  background-color: white;
+}
+  
+  
+  .container {
+    padding: 2px 16px;
+    background-color: white;
+    border-radius: 20px;
+  }
