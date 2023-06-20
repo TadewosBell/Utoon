@@ -1,44 +1,67 @@
 import Instructions from "./Instructions";
 import classes from "./Animator.module.css";
+import imgAnimate from "../../assets/image-1.png";
+import imgSelectAnimation from "../../assets/image-3.png";
 
-const Animations = () => {
-    return (
-        <div>
-            <div className={classes["outer-grid"]}>
-            <div className={classes["inner-grid"]}>
-            <img src="https://images.pexels.com/photos/1083822/pexels-photo-1083822.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
-            <img src="https://images.pexels.com/photos/1083822/pexels-photo-1083822.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
-            <img src="https://images.pexels.com/photos/1083822/pexels-photo-1083822.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
-            </div>
-            <div className={classes["inner-grid"]}>
-            <img src="https://images.pexels.com/photos/3805102/pexels-photo-3805102.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
-            <img src="https://images.pexels.com/photos/3805102/pexels-photo-3805102.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
-            <img src="https://images.pexels.com/photos/3805102/pexels-photo-3805102.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
-            </div>
-            <div className={classes["inner-grid"]}>
-            <img src="https://images.pexels.com/photos/3863778/pexels-photo-3863778.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
-            <img src="https://images.pexels.com/photos/3863778/pexels-photo-3863778.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
-            <img src="https://images.pexels.com/photos/3863778/pexels-photo-3863778.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
-            </div>
-            </div>
+const Animations = (props) => {
+  const { StepForward, StepBackward } = props;
+  return (
+    <div>
+      <div className={classes["pre-img-box"]}>
+        <img
+          className={classes["pre-img"]}
+          src={imgAnimate}
+          alt="Animation preview"
+        />
+      </div>
+      <div className={classes["button-row"]}>
+        <div className={classes["button-col"]}>
+          <button className={classes["prev-btn"]} onClick={StepBackward}>
+            Previous
+          </button>
         </div>
-    );
-}
+        <div className={classes["button-col"]}>
+          <button onClick={StepForward} className={classes["next-btn"]}>
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Animate = (props) => {
-    const { StepForward, StepBackward } = props;
-
-    const instructions = {
-        Title: "Animate",
-        PreText: "Select an animation and watch your character come to life!",
-    }
-    return (
-        <Instructions instructions={instructions}>
-            <Animations />
-            <button onClick={StepForward}>Next</button>
-            <button onClick={StepBackward}>Back</button>
-        </Instructions>
-    );
-}
+  const instructions = {
+    Title: "Animate",
+    PreText: "Select an animation and watch your character come to life!",
+    Directions: [
+      <div className={classes["upload-content"]}>
+        <img
+          className={classes["upload-box-img"]}
+          src={imgSelectAnimation}
+          alt=""
+        />
+      </div>,
+    ],
+  };
+  const ActiveClassName = `${classes["steps-color"]} ${classes["active"]}`;
+  const InActiveClassName = `${classes["steps-color"]}`;
+  const PrevActiveClassName = `${classes["steps-color"]} ${classes["prev-tab"]}`;
+  return (
+    <Instructions
+      instructions={instructions}
+      CSSClassNames1={PrevActiveClassName}
+      CSSClassNames2={ActiveClassName}
+      CSSClassNames3={InActiveClassName}
+      CSSClassNames4={InActiveClassName}
+      CSSClassNames5={InActiveClassName}
+    >
+      <Animations
+        StepForward={props.StepForward}
+        StepBackward={props.StepBackward}
+      />
+    </Instructions>
+  );
+};
 
 export default Animate;

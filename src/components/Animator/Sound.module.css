@@ -4,7 +4,26 @@
   height: 100%;
   margin-bottom: 25px;
 }
-
+.directions-content {
+  padding-left: 12px;
+}
+.directions-content p {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #282c34;
+  margin: 0 0 15px;
+}
+.directions-content strong {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #000000;
+}
+.record-wrap {
+  text-align: center;
+  padding-top: 160px;
+}
 .button-row {
   display: flex;
   align-items: center;
@@ -82,5 +101,11 @@
   .inner-grid {
     flex: 100%;
     max-width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .record-wrap {
+    padding-top: 70px;
   }
 }

@@ -1,0 +1,128 @@
+.u-toon-box {
+  background: url("../../assets/back-img.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 100px 0;
+  height: 100%;
+  position: relative;
+}
+.u-toon-box .container {
+  max-width: 1370px;
+  padding: 0 15px;
+  margin: 0 auto;
+  height: 100%;
+}
+.u-toon-box-wrap {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+.u-toon-box-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+footer.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 12px 0;
+}
+.footer-inner-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.footer-about {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #0e2d52;
+  padding-right: 10px;
+}
+.feedback-row {
+  display: flex;
+  align-items: center;
+}
+.feed-text {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: #0e2d52;
+  padding-right: 8px;
+}
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+.footer-menu-link {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: right;
+  color: #0e2d52;
+  padding: 0 8px;
+}
+.footer-menu-link:last-child {
+  padding-right: 0;
+}
+.active-color {
+  background: #0e2d52;
+}
+.complete-color {
+  background: #88d35a;
+}
+.default-color {
+  background: #fed723;
+}
+@media (max-width: 991px) {
+  .utoon-col-left {
+    max-width: 50%;
+  }
+  .utoon-col-right {
+    max-width: 50%;
+  }
+  .utoon-col-left-inner {
+    padding: 15px 20px 60px;
+  }
+}
+@media (max-width: 767px) {
+  .u-toon-box-row {
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+  }
+  .utoon-col-left {
+    max-width: 100%;
+    padding: 25px 0 0;
+  }
+  .utoon-col-right {
+    max-width: 100%;
+    padding: 0;
+  }
+  .footer-row {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .footer-col-left {
+    width: 100%;
+  }
+  .footer-inner-row {
+    justify-content: center;
+  }
+  .footer-col-right {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+  }
+  .footer-menu-link:first-child {
+    padding-left: 0;
+  }
+  .utoon-col-left-inner {
+    min-height: auto;
+  }
+}
