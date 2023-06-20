@@ -30,13 +30,13 @@ const Instructions = (props) => {
                 <span className={classes["step-active-num"]}>1</span>/5
               </div>
             </div>
-            <div className={classes["step-count-colors"]}>
+            {/* <div className={classes["step-count-colors"]}>
               <div className={CSSClassNames1}></div>
               <div className={CSSClassNames2}></div>
               <div className={CSSClassNames3}></div>
               <div className={CSSClassNames4}></div>
               <div className={CSSClassNames5}></div>
-            </div>
+            </div> */}
             <div className={classes["upload-box-info"]}>
               <h2 className={classes["upload-title"]}>{Title}</h2>
               <p className={classes["upload-info"]}>{PreText}</p>
