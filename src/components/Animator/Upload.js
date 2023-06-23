@@ -3,20 +3,22 @@ import Instruction from "./Instructions";
 import classes from "./Upload.module.css";
 import imgBackground from "../../assets/Background-1.png";
 import imgFrame from "../../assets/Frame.png";
-import { Fragment } from "react";
+import React, { Fragment, useState } from "react";
+import { upload_image } from "../../Utility/Api";
 
 const Characters = (props) => {
-  const { StepForward } = props;
+  const { StepForward, onFileChange, preview } = props;
   return (
     <div>
       <div className={classes["pre-img-box"]}>
         <img
           className={classes["pre-img"]}
-          src={imgBackground}
+          src={preview? preview:imgBackground}
           alt="Animation preview"
         />
       </div>
-      <label className={classes["pre-upload-btn"]} for="file">
+      <label className={classes["pre-upload-btn"]} label="file">
+        <input type="file" name="file" accept=".jpg, .png, .heic" onChange={onFileChange} style={{display: 'none'}}/>
         <img src={imgFrame} alt="Frame" />
         upload creation
       </label>
@@ -51,7 +53,46 @@ const Upload = (props) => {
   };
   const ActiveClassName = `${classes["steps-color"]} ${classes["active"]}`;
   const InActiveClassName = `${classes["steps-color"]}`;
-  //console.log(ActiveClassName)
+
+  const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState(null);
+
+  const onFileChange = (event) => {
+    console.log(event.target.files[0]);
+    // Update the state
+    setImage(event.target.files[0]);
+    setPreview(URL.createObjectURL(event.target.files[0]));
+  };
+
+  const onFileUpload = () => {
+ 
+    // Create an object of formData
+    const data = {}
+
+    const reader = new FileReader();
+    reader.readAsDataURL(image);
+
+    reader.onload = () => {
+      console.log(reader.result);
+      data['name'] = image.name;
+      data['image_bytes'] = reader.result;
+      upload_image(data, (res) => {
+        console.log(res);
+      })
+    };
+
+
+
+    // after uploud
+    // props.StepForward();
+  };
+
+
+
+
+
+
+
   return (
     <Fragment>
       <Instruction
@@ -62,7 +103,7 @@ const Upload = (props) => {
         CSSClassNames4={InActiveClassName}
         CSSClassNames5={InActiveClassName}
       >
-        <Characters StepForward={props.StepForward} />
+        <Characters StepForward={onFileUpload} onFileChange={onFileChange} preview={preview} />
       </Instruction>
     </Fragment>
   );

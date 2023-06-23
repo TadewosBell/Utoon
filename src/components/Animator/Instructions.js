@@ -24,12 +24,6 @@ const Instructions = (props) => {
             <img src={imgLogo} alt="Logo" />
           </div>
           <div className={classes["step-counter"]}>
-            <div className={classes["step-count-row"]}>
-              <span className={classes["step-text"]}>Step</span>
-              <div className={classes["step-count"]}>
-                <span className={classes["step-active-num"]}>1</span>/5
-              </div>
-            </div>
             {/* <div className={classes["step-count-colors"]}>
               <div className={CSSClassNames1}></div>
               <div className={CSSClassNames2}></div>
