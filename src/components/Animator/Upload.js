@@ -84,7 +84,7 @@ const Upload = (props) => {
 
 
     // after uploud
-    // props.StepForward();
+    props.StepForward();
   };
 
 
