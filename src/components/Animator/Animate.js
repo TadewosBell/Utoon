@@ -2,15 +2,18 @@ import Instructions from "./Instructions";
 import classes from "./Animator.module.css";
 import imgAnimate from "../../assets/image-1.png";
 import imgSelectAnimation from "../../assets/image-3.png";
+import Description from "./Description";
+import { useSelector } from "react-redux";
 
 const Animations = (props) => {
+  const { imageUrl } = useSelector((state) => state.image);
   const { StepForward, StepBackward } = props;
   return (
     <div>
       <div className={classes["pre-img-box"]}>
         <img
           className={classes["pre-img"]}
-          src={imgAnimate}
+          src={imageUrl ? imageUrl : imgAnimate}
           alt="Animation preview"
         />
       </div>
@@ -35,13 +38,14 @@ const Animate = (props) => {
     Title: "Animate",
     PreText: "Select an animation and watch your character come to life!",
     Directions: [
-      <div className={classes["upload-content"]}>
-        <img
-          className={classes["upload-box-img"]}
-          src={imgSelectAnimation}
-          alt=""
-        />
-      </div>,
+      // <div className={classes["upload-content"]}>
+      //   <img
+      //     className={classes["upload-box-img"]}
+      //     src={imgSelectAnimation}
+      //     alt=""
+      //   />
+      // </div>,
+      <Description />,
     ],
   };
   const ActiveClassName = `${classes["steps-color"]} ${classes["active"]}`;

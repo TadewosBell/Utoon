@@ -76,7 +76,7 @@ function Animator() {
       />
       <div className={classes["container"]}>
         <div className={classes["u-toon-box-wrap"]}>
-          <div className={classes["u-toon-box-row"]}>
+          <div className={classes["u-toon-box-row"]} style={{ zIndex: "99" }}>
             {getSectionComponent(StepForward, StepBackward)}
           </div>
         </div>
