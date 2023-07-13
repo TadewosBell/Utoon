@@ -22,12 +22,12 @@ const Panels = () => {
                 <h3 className={classes["work-inner-title"]}>Animate</h3>
               </div>
             </div>
-            <div className={classes["home-block-col"]}>
+            {/* <div className={classes["home-block-col"]}>
               <div className={classes["block-inner"]}>
                 <img src={Give2Images} alt="Give" />
                 <h3 className={classes["work-inner-title"]}>Give</h3>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
