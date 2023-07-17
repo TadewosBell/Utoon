@@ -30,6 +30,8 @@ const Backgrounds = (props) => {
   const { imageUrl, backgroundUrl } = useSelector((state) => state.image);
   const { StepForward, StepBackward } = props;
 
+  
+
   return (
     <div>
       <div className={classes["pre-img-box"]}>

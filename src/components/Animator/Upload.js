@@ -73,9 +73,12 @@ const Upload = (props) => {
     reader.readAsDataURL(image);
 
     reader.onload = () => {
-      console.log(reader.result);
+      const base64Data = reader.result.split(',')[1]; // Extract the base64 data portion
+
+      console.log(base64Data);
+      
       data['name'] = image.name;
-      data['image_bytes'] = reader.result;
+      data['image_bytes'] = base64Data;
       upload_image(data, (res) => {
         console.log(res);
       })
