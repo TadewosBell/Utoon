@@ -4,7 +4,10 @@ import classes from "./Upload.module.css";
 import imgBackground from "../../assets/Background-1.png";
 import imgFrame from "../../assets/Frame.png";
 import React, { Fragment, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { upload_image } from "../../Utility/Api";
+import { displayinCard } from "../../redux/imageSlice";
+
 
 const Characters = (props) => {
   const { StepForward, onFileChange, preview } = props;
@@ -54,8 +57,10 @@ const Upload = (props) => {
   const ActiveClassName = `${classes["steps-color"]} ${classes["active"]}`;
   const InActiveClassName = `${classes["steps-color"]}`;
 
+
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
+  const dispatch = useDispatch();
 
   const onFileChange = (event) => {
     console.log(event.target.files[0]);
@@ -81,13 +86,16 @@ const Upload = (props) => {
       data['image_bytes'] = base64Data;
       upload_image(data, (res) => {
         console.log(res);
+        const animation_1 = res['animation_1']
+        dispatch(displayinCard(animation_1));
+        props.StepForward();
+
       })
     };
 
 
 
     // after uploud
-    props.StepForward();
   };
 
 
