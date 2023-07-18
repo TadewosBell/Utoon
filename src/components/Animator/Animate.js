@@ -1,11 +1,103 @@
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import Instructions from "./Instructions";
 import classes from "./Animator.module.css";
 import imgAnimate from "../../assets/image-1.png";
 import imgSelectAnimation from "../../assets/image-3.png";
-import Description from "./Description";
-import { useSelector } from "react-redux";
+import { displayinCard } from "../../redux/imageSlice";
+import { animate_character } from "../../Utility/Api";
 
-const Animations = (props) => {
+const AnimationOptions = {
+  'Dab': {
+    'image': require("../../assets/image1.gif"),
+    'animation_id': 'dab',
+    'retarget_id': 'fair1_ppf',
+  },
+  'Dance': {
+    'image': require("../../assets/image1.gif"),
+    'animation_id': 'jesse_dance',
+    'retarget_id': 'mixamo_fff',
+  },
+  'Jumping': {
+    'image': require("../../assets/image1.gif"),
+    'animation_id': 'jumping',
+    'retarget_id': 'fair1_ppf',
+  },
+  'Jumping Jacks': {
+    'image': require("../../assets/image1.gif"),
+    'animation_id': 'jumping_jacks',
+    'retarget_id': 'cmu1_pfp',
+  },
+  'Wave Hello': {
+    'image': require("../../assets/image1.gif"),
+    'animation_id': 'wave_hello',
+    'retarget_id': 'fair1_ppf',
+  },
+  'Zombie': {
+    'image': require("../../assets/image1.gif"),
+    'animation_id': 'zombie',
+    'retarget_id': 'fair1_ppf',
+  }
+}
+
+const Animations = () => {
+  const dispatch = useDispatch();
+  const { currentCharacterId } = useSelector((state) => state.characters);
+  const [animataing_in_progress, set_animating_in_progress] = useState(false);
+
+  const onAnimationSelected = (animation_id, retarget_id) => {
+    console.log(animation_id, currentCharacterId);
+
+    const data = {
+      'animation_id': animation_id,
+      'char_id': currentCharacterId,
+      'retarget_id': retarget_id,
+    };
+
+    // if(animataing_in_progress) {
+    //   return;
+    // }
+    set_animating_in_progress(true);
+
+    animate_character(data,(res) => {
+      console.log(res);
+      const new_animation_url = res['animation_url']
+      dispatch(displayinCard(new_animation_url))
+      set_animating_in_progress(false);
+
+    })
+
+  }
+  return (
+    <div class="h-[600px] border overflow-y-auto mx-[-30px]">
+      <div class="grid grid-cols-3 gap-3">
+        {/* map animations, three columns per row */}
+        {Object.keys(AnimationOptions).map((key) => {
+          return (
+            <div class="border-2 border-gray-300" >
+              <img
+               onClick={() => onAnimationSelected(AnimationOptions[key]['animation_id'], AnimationOptions[key]['retarget_id'])}
+                src={AnimationOptions[key]['image']}
+                alt=""
+                height={200}
+                width={200}
+                className="bg-auto bg-no-repeat bg-center"
+              />
+              <p
+               onClick={() => onAnimationSelected(AnimationOptions[key]['animation_id'])}
+              >{key}</p>
+            </div>
+          )
+        })}
+
+      </div>
+
+    </div>
+  );
+};
+
+const AnimationPreview = (props) => {
   const { imageUrl } = useSelector((state) => state.image);
   const { StepForward, StepBackward } = props;
   return (
@@ -45,7 +137,7 @@ const Animate = (props) => {
       //     alt=""
       //   />
       // </div>,
-      <Description />,
+      <Animations />,
     ],
   };
   const ActiveClassName = `${classes["steps-color"]} ${classes["active"]}`;
@@ -60,7 +152,7 @@ const Animate = (props) => {
       CSSClassNames4={InActiveClassName}
       CSSClassNames5={InActiveClassName}
     >
-      <Animations
+      <AnimationPreview
         StepForward={props.StepForward}
         StepBackward={props.StepBackward}
       />
