@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Instructions from "./Instructions";
 import classes from "./Animator.module.css";
-import imgAnimate from "../../assets/image-1.png";
+import { parseGIF, decompressFrames } from 'gifuct-js';
 import imgSelectAnimation from "../../assets/image-3.png";
 import { displayinCard } from "../../redux/imageSlice";
 import { animate_character } from "../../Utility/Api";
+import GifCanvas from "./Gif_Canvas";
 
 const AnimationOptions = {
   'Dab': {
@@ -17,6 +18,11 @@ const AnimationOptions = {
   'Dance': {
     'image': require("../../assets/image1.gif"),
     'animation_id': 'jesse_dance',
+    'retarget_id': 'mixamo_fff',
+  },
+  'Kpop_Dance': {
+    'image': require("../../assets/image1.gif"),
+    'animation_id': 'kpop_dance',
     'retarget_id': 'mixamo_fff',
   },
   'Jumping': {
@@ -84,6 +90,7 @@ const Animations = () => {
                 width={200}
                 className="bg-auto bg-no-repeat bg-center"
               />
+              
               <p
                onClick={() => onAnimationSelected(AnimationOptions[key]['animation_id'])}
               >{key}</p>
@@ -97,17 +104,25 @@ const Animations = () => {
   );
 };
 
+
+
+
+
 const AnimationPreview = (props) => {
   const { imageUrl } = useSelector((state) => state.image);
   const { StepForward, StepBackward } = props;
+
+
   return (
     <div>
       <div className={classes["pre-img-box"]}>
-        <img
+        {/* <img
           className={classes["pre-img"]}
           src={imageUrl ? imageUrl : imgAnimate}
           alt="Animation preview"
-        />
+        /> */}
+        {/* <canvas id="gifCanvas" width="400" height="400"></canvas> */}
+        <GifCanvas gifUrl={imageUrl} />
       </div>
       <div className={classes["button-row"]}>
         <div className={classes["button-col"]}>

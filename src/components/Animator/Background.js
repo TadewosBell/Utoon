@@ -4,58 +4,29 @@ import imgAnimate from "../../assets/Background-1.png";
 import imgSelectAnimation from "../../assets/image-3.png";
 import { useDispatch, useSelector } from "react-redux";
 import { displaybackground } from "../../redux/imageSlice";
-import React from "react";
 import { useEffect, useRef, useState } from "react";
-import { Stage, Layer, Image } from "react-konva";
-import Konva from "konva";
-import "gifler";
-
+import GifCanvas from "./Gif_Canvas";
+import html2canvas from "html2canvas";
+import GIF from "gif.js";
 
 const Backgrounds = (props) => {
   const combinedImageRef = useRef(null);
 
-  // gifler will be imported into the global window object
+  const handlerGenerateImage = async () => {
+    const canvas = await html2canvas(combinedImageRef.current);
 
-  const GIF = ({ src }) => {
-    const imageRef = useRef(null);
-    const canvas = React.useMemo(() => {
-      const node = document.createElement("canvas");
-      return node;
-    }, []);
-
-    const [currentFrame, setCurrentFrame] = useState(0);
-
-    React.useEffect(() => {
-      // save animation instance to stop it on unmount
-      let anim;
-      window.gifler(src).get((a) => {
-        anim = a;
-        anim.animateInCanvas(canvas);
-
-        const totalFrames = anim.getFrames().length;
-
-        const updateFrame = () => {
-          anim.onDrawFrame = (ctx, frame) => {
-            ctx.drawImage(frame.buffer, frame.x, frame.y);
-          };
-
-          // Increment the currentFrame and loop back to the first frame if needed
-          setCurrentFrame((prevFrame) => (prevFrame + 1) % totalFrames);
-          anim.animateToFrame(currentFrame);
-        };
-
-        const frameInterval = setInterval(updateFrame, 100); // Adjust the frame update speed here (in milliseconds)
-
-        return () => {
-          clearInterval(frameInterval);
-          anim.stop();
-        };
-      });
-    }, [src, canvas, currentFrame]);
-
-    return <Image image={canvas} ref={imageRef} />;
+    const gif = new GIF();
+    gif.addFrame(canvas, { delay: 200 });
+    gif.on("finished", (blob) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const gifDataUrl = reader.result;
+        console.log(gifDataUrl);
+      };
+      reader.readAsDataURL(blob);
+    });
+    gif.render();
   };
-  
 
   const { imageUrl, backgroundUrl } = useSelector((state) => state.image);
   const { StepForward, StepBackward } = props;
@@ -66,9 +37,12 @@ const Backgrounds = (props) => {
     <div>
       <div className={classes["pre-img-box"]}>
         <div className="relative" ref={combinedImageRef}>
-          {/* <Video src={imageUrl} /> */}
-          {/* https://utoon-animator.s3.amazonaws.com/Animations/IprKHEinda.gif */}
-          <GIF src="https://utoon-animator.s3.amazonaws.com/Animations/IprKHEinda.gif" />
+          {/* <img
+            className={classes["pre-img"]}
+            src={imageUrl}
+            alt="Animation preview"
+          /> */}
+          <GifCanvas gifUrl={imageUrl} />
           {backgroundUrl && (
             <div className="absolute inset-0">
               <div
@@ -88,7 +62,7 @@ const Backgrounds = (props) => {
         <div className={classes["button-col"]}>
           <button
             onClick={() => {
-              // handlerGenerateImage();
+              handlerGenerateImage();
               return StepForward;
             }}
             className={classes["next-btn"]}
@@ -135,6 +109,18 @@ const Background = (props) => {
               </div>
             );
           })}
+          {/* <div
+            class="border-2 h-[150px] border-gray-300"
+            onClick={() => dispatch(displaybackground(imgAnimate))}
+          >
+            <img
+              src={imgAnimate}
+              alt=""
+              height={200}
+              width={200}
+              className="bg-auto bg-no-repeat bg-center"
+            />
+          </div> */}
         </div>
       </div>,
     ],
