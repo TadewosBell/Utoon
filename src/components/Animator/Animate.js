@@ -5,7 +5,7 @@ import Instructions from "./Instructions";
 import classes from "./Animator.module.css";
 import { parseGIF, decompressFrames } from 'gifuct-js';
 import imgSelectAnimation from "../../assets/image-3.png";
-import { displayinCard } from "../../redux/imageSlice";
+import { setDrawingUrl, setCurrentAnimationUrl } from "../../redux/DrawingStore";
 import { animate_character } from "../../Utility/Api";
 import GifCanvas from "./Gif_Canvas";
 
@@ -49,27 +49,28 @@ const AnimationOptions = {
 
 const Animations = () => {
   const dispatch = useDispatch();
-  const { currentCharacterId } = useSelector((state) => state.characters);
+  const { currentCharacterId, current_animation_url } = useSelector((state) => state.characters);
+  const { drawingID } = useSelector((state) => state.image);
   const [animataing_in_progress, set_animating_in_progress] = useState(false);
 
-  const onAnimationSelected = (animation_id, retarget_id) => {
-    console.log(animation_id, currentCharacterId);
+  const onAnimationSelected = async (animation_id, retarget_id) => {
+    console.log(animation_id, drawingID);
 
     const data = {
       'animation_id': animation_id,
-      'char_id': currentCharacterId,
+      'char_id': drawingID,
       'retarget_id': retarget_id,
     };
 
-    // if(animataing_in_progress) {
-    //   return;
-    // }
+    if(animataing_in_progress) {
+      return;
+    }
     set_animating_in_progress(true);
 
-    animate_character(data,(res) => {
+    await animate_character(data,(res) => {
       console.log(res);
       const new_animation_url = res['animation_url']
-      dispatch(displayinCard(new_animation_url))
+      dispatch(setCurrentAnimationUrl(new_animation_url))
       set_animating_in_progress(false);
 
     })
@@ -109,20 +110,19 @@ const Animations = () => {
 
 
 const AnimationPreview = (props) => {
-  const { imageUrl } = useSelector((state) => state.image);
+  const { drawing_url, current_animation_url } = useSelector((state) => state.image);
   const { StepForward, StepBackward } = props;
-
 
   return (
     <div>
       <div className={classes["pre-img-box"]}>
-        {/* <img
+        <img
           className={classes["pre-img"]}
-          src={imageUrl ? imageUrl : imgAnimate}
+          src={current_animation_url}
           alt="Animation preview"
-        /> */}
+        />
         {/* <canvas id="gifCanvas" width="400" height="400"></canvas> */}
-        <GifCanvas gifUrl={imageUrl} />
+        {/* <GifCanvas gifUrl={"https://utoon-animator.s3.amazonaws.com/Animations/qhVKobxxKZ_dab.gif"} /> */}
       </div>
       <div className={classes["button-row"]}>
         <div className={classes["button-col"]}>

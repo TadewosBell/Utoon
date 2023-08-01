@@ -53,6 +53,7 @@ const GifCanvas = ({gifUrl}) => {
             canvasRef.current?.getContext('2d').putImageData(frameImageData, 0, 0);
             gifCtx.drawImage(canvasRef.current, positionX, positionY, dims.width * zoom, dims.height * zoom);
         }
+        
     };
 
     const renderFrame = () => {
@@ -109,58 +110,6 @@ const GifCanvas = ({gifUrl}) => {
       gifCtx = gifCanvasRef.current?.getContext('2d');
       console.log(canvasRef.current)
       if (!gifCtx || !canvasRef.current) return;
-  
-  
-      const manipulate = () => {
-        // Image manipulation based on selected options
-        if (!gifCtx) return;
-        const imageData = gifCtx.getImageData(
-          0,
-          0,
-          gifCanvasRef.current.width,
-          gifCanvasRef.current.height
-        );
-        const other = gifCtx.createImageData(
-          gifCanvasRef.current.width,
-          gifCanvasRef.current.height
-        );
-  
-  
-  
-        // Do pixelation
-        const pixelsX = 5 + Math.floor((pixelPercent / 100) * (canvasRef.current.width - 5));
-        const pixelsY = (pixelsX * canvasRef.current.height) / canvasRef.current.width;
-  
-        if (pixelPercent !== 100) {
-          gifCtx.mozImageSmoothingEnabled = false;
-          gifCtx.webkitImageSmoothingEnabled = false;
-          gifCtx.imageSmoothingEnabled = false;
-        }
-  
-        gifCtx.putImageData(imageData, 0, 0);
-        gifCtx.drawImage(
-          canvasRef.current,
-          0,
-          0,
-          canvasRef.current.width,
-          canvasRef.current.height,
-          0,
-          0,
-          pixelsX,
-          pixelsY
-        );
-        gifCtx.drawImage(
-          canvasRef.current,
-          0,
-          0,
-          pixelsX,
-          pixelsY,
-          0,
-          0,
-          canvasRef.current.width,
-          canvasRef.current.height
-        );
-      };
   
       const playpause = () => {
         playing = !playing;

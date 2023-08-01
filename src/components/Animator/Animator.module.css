@@ -1,8 +1,23 @@
 .pre-img {
-  width: 100%;
+  width: 500px;
   object-fit: cover;
-  height: 100%;
+  height: 500px;
   margin-bottom: 25px;
+}
+
+.animation {
+  width: 500px;
+  object-fit: cover;
+  height: 500px;
+  margin-bottom: 25px;
+}
+
+.pre-img-box {
+  width: 600px;
+  object-fit: cover;
+  height: 600px;
+  margin-bottom: 25px;
+  cursor: crosshair;
 }
 
 .button-row {

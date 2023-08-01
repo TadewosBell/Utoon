@@ -4,9 +4,11 @@ import classes from "./Upload.module.css";
 import imgBackground from "../../assets/Background-1.png";
 import imgFrame from "../../assets/Frame.png";
 import React, { Fragment, useState, useEffect } from "react";
+import imageCompression from "browser-image-compression";
+import heic2any from "heic2any";
 import { useSelector, useDispatch } from "react-redux";
-import { upload_image } from "../../Utility/Api";
-import { displayinCard } from "../../redux/imageSlice";
+import { upload_image, get_bounding_box } from "../../Utility/Api";
+import { setImageDimenstions, setCoordinates, setDrawingUrl, setCurrentDrawingID } from "../../redux/DrawingStore";
 import { setCurrentCharacterId, addCharacter, removeCharacter, saveToLocalStorage, loadFromLocalStorage } from "../../redux/charactersLibrary";
 
 
@@ -23,7 +25,7 @@ const Characters = (props) => {
         />
       </div>
       <label className={classes["pre-upload-btn"]} label="file">
-        <input type="file" name="file" accept=".jpg, .png, .heic" onChange={onFileChange} style={{display: 'none'}}/>
+        <input type="file" name="file" accept=".jpg, .png, .heic"  onChange={onFileChange} style={{display: 'none'}}/>
         <img src={imgFrame} alt="Frame" />
         upload creation
       </label>
@@ -90,19 +92,85 @@ const Upload = (props) => {
 
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [compressedImageUrl, setCompressedImageUrl] = useState(null);
   const dispatch = useDispatch();
 
-  const onFileChange = (event) => {
-    console.log(event.target.files[0]);
-    // Update the state
-    setImage(event.target.files[0]);
-    setPreview(URL.createObjectURL(event.target.files[0]));
+  const convertHeicformat = async (heicURL) => {
+    try {
+      const res = await fetch(heicURL);
+      const blob = await res.blob();
+      const conversionResult = await heic2any({
+        blob,
+        toType: "image/jpeg",
+        quality: 0.1,
+      });
+      const imgUrl = URL.createObjectURL(conversionResult);
+      let newFile = new File([conversionResult], "drawing.png", {
+        type: "image/png",
+        lastModified: new Date().getTime(),
+      });
+      
+      const tempImage = new Image();
+      if (imgUrl !== null && imgUrl !== undefined) tempImage.src = imgUrl;
+  
+      tempImage.onload = function (e) {
+        dispatch(setImageDimenstions({
+          width: tempImage.naturalWidth,
+          height: tempImage.naturalHeight,
+        }));
+      };
+      let preview = URL.createObjectURL(newFile);
+      setPreview(preview);
+      setImage(newFile);
+    } catch (err) {
+      console.log(err);
+    }
   };
+
+  const onFileChange = async (event) => {
+    console.log(event.target.files[0]);
+    const file = event.target.files[0];
+    if (file.type === "image/heic" || (file.name).toLowerCase().includes(".heic")) {
+      await convertHeicformat(URL.createObjectURL(file));
+    }
+    if(file.type === "image/png" || file.type === "image/jpeg" || (file.name).toLowerCase().includes(".png") || (file.name).toLowerCase().includes(".jpg")){
+      console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
+      const compressOptions = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 2000,
+        useWebWorker: true,
+      };
+      const compressedFile = await imageCompression(file, compressOptions);
+      console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`);
+      const compressedUrl = URL.createObjectURL(compressedFile);
+      setCompressedImageUrl(compressedUrl);
+      let newFile = new File([compressedFile], "drawing.png", {
+        type: "image/png",
+        lastModified: new Date().getTime(),
+      });
+      // Update the state
+      setImage(newFile);
+      let preview = URL.createObjectURL(file);
+      setPreview(preview);
+      const tempImage = new Image();
+      if (compressedUrl !== null && compressedUrl !== undefined) tempImage.src = compressedUrl;
+
+      tempImage.onload = function (e) {
+        dispatch(setImageDimenstions({
+          width: tempImage.naturalWidth,
+          height: tempImage.naturalHeight,
+        })
+        );
+      };
+    }
+  };
+
 
   const onFileUpload = () => {
  
     // Create an object of formData
     const data = {}
+    
 
     const reader = new FileReader();
     reader.readAsDataURL(image);
@@ -110,16 +178,18 @@ const Upload = (props) => {
     reader.onload = () => {
       const base64Data = reader.result.split(',')[1]; // Extract the base64 data portion
 
-      console.log(base64Data);
       
       data['name'] = image.name;
       data['image_bytes'] = base64Data;
-      upload_image(data, (res) => {
-        const animation_1 = res['animation_1']
-        const Char_id = res['Char_id']
-        dispatch(setCurrentCharacterId(Char_id));
-        dispatch(displayinCard(animation_1));
-        dispatch(addCharacter(Char_id));
+      get_bounding_box(data, (res) => {
+        const drawing_url = res['drawing_url']
+        const Char_id = res['char_id']
+
+        const bounding_box = res['bounding_box'];
+        console.log(bounding_box)
+        dispatch(setCurrentDrawingID(Char_id));
+        dispatch(setDrawingUrl(drawing_url));
+        dispatch(setCoordinates(bounding_box));
         props.StepForward();
 
       })
@@ -129,6 +199,7 @@ const Upload = (props) => {
 
 
     // after uploud
+    // props.StepForward();
   };
 
 
