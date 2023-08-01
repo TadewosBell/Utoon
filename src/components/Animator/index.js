@@ -1,6 +1,9 @@
 import { useState } from "react";
 import Stepper from "react-stepper-horizontal";
-import Upload from "./Upload";
+import Upload from "./UploadDrawing";
+import EditBoundingBox from "./EditBoundingBox";
+import EditMask from "./EditMask";
+import EditSkeleton from "./EditSkeleton";
 import Animate from "./Animate";
 import Background from "./Background";
 import Sound from "./Sound";
@@ -8,19 +11,14 @@ import Share from "./Share";
 import classes from "./index.module.css";
 import Footer from "./Footer";
 
-function Payment() {
-  return <h2>Payment information</h2>;
-}
-
-function Confirmation() {
-  return <h2>Booking is confirmed</h2>;
-}
-
 function Animator() {
   const [activeStep, setActiveStep] = useState(0);
 
   const steps = [
     { title: "Upload" },
+    { title: "Edit Bounding Box"},
+    { title: "Edit Mask" },
+    { title: "Edit Skeleton"},
     { title: "Animate" },
     { title: "Background" },
     { title: "Add Sound" },
@@ -33,15 +31,27 @@ function Animator() {
         return <Upload StepForward={StepForward} />;
       case 1:
         return (
-          <Animate StepForward={StepForward} StepBackward={StepBackward} />
+          <EditBoundingBox StepForward={StepForward} StepBackward={StepBackward} />
         );
       case 2:
         return (
-          <Background StepForward={StepForward} StepBackward={StepBackward} />
+          <EditMask StepForward={StepForward} StepBackward={StepBackward} />
         );
       case 3:
-        return <Sound StepForward={StepForward} StepBackward={StepBackward} />;
+        return (
+          <EditSkeleton StepForward={StepForward} StepBackward={StepBackward} />
+        );
       case 4:
+        return (
+          <Animate StepForward={StepForward} StepBackward={StepBackward} />
+        )
+      case 5:
+        return (
+          <Background StepForward={StepForward} StepBackward={StepBackward} />
+        );
+      case 6:
+        return <Sound StepForward={StepForward} StepBackward={StepBackward} />;
+      case 7:
         return <Share StepBackward={StepBackward} />;
       default:
         return null;

@@ -1,5 +1,7 @@
 .u-toon-box {
-  background: url("../../assets/back-img.png");
+  /* background: url("../../assets/back-img.png"); */
+  /* background color, soft gray */
+  background: #F9FBE7;
   background-repeat: no-repeat;
   background-size: cover;
   padding: 100px 0;

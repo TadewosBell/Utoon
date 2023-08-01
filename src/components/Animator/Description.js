@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { displayinCard } from "../../redux/imageSlice";
+import { setDrawingUrl } from "../../redux/DrawingStore";
 const image = require("../../assets/image1.gif");
 
 const Description = () => {
@@ -9,7 +9,7 @@ const Description = () => {
       <div class="grid grid-cols-3 gap-3">
         <div
           class="border-2 h-[150px] border-gray-300"
-          onClick={() => dispatch(displayinCard(image))}
+          onClick={() => dispatch(setDrawingUrl(image))}
         >
           <img
             src={image}
