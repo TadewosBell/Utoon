@@ -23,7 +23,7 @@ const AnimationOptions = {
   'Kpop_Dance': {
     'image': require("../../assets/image1.gif"),
     'animation_id': 'kpop_dance',
-    'retarget_id': 'mixamo_fff',
+    'retarget_id': 'mixamo_fff_2',
   },
   'Jumping': {
     'image': require("../../assets/image1.gif"),
@@ -40,11 +40,11 @@ const AnimationOptions = {
     'animation_id': 'wave_hello',
     'retarget_id': 'fair1_ppf',
   },
-  'Zombie': {
+  'Kpop_Dance 2': {
     'image': require("../../assets/image1.gif"),
-    'animation_id': 'zombie',
-    'retarget_id': 'fair1_ppf',
-  }
+    'animation_id': 'kpop_dance_2',
+    'retarget_id': 'mixamo_fff_2',
+  },
 }
 
 const Animations = () => {
@@ -62,9 +62,9 @@ const Animations = () => {
       'retarget_id': retarget_id,
     };
 
-    if(animataing_in_progress) {
-      return;
-    }
+    // if(animataing_in_progress) {
+    //   return;
+    // }
     set_animating_in_progress(true);
 
     await animate_character(data,(res) => {
@@ -73,6 +73,8 @@ const Animations = () => {
       dispatch(setCurrentAnimationUrl(new_animation_url))
       set_animating_in_progress(false);
 
+    }, () =>  {
+      set_animating_in_progress(false);
     })
 
   }
