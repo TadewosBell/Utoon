@@ -3,14 +3,15 @@ import React from "react";
 // import UndoIcon from "../../assets/customIcons/undo.svg";
 // import { Row, Col } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { setLines, setPenSize, setTool, setMaskBase64 } from "../../redux/MaskEditorStore";
+import {
+  setLines,
+  setPenSize,
+  setTool,
+  setMaskBase64,
+} from "../../redux/MaskEditorStore";
 
 const MaskingToolbar = () => {
-  const {
-    tool,
-    penSize,
-    lines,
-  } = useSelector((state) => state.MaskEditor);
+  const { tool, penSize, lines } = useSelector((state) => state.MaskEditor);
 
   const dispatch = useDispatch();
 
@@ -117,10 +118,7 @@ const MaskingToolbar = () => {
             Undo
           </button>
 
-          <button
-            className="md-button-reset p-0"
-            onClick={handleReset}
-          >
+          <button className="md-button-reset p-0" onClick={handleReset}>
             Reset mask
           </button>
         </div>
