@@ -5,7 +5,7 @@ import Button from "../UI/Button";
 
 const Footer = () => {
   return (
-    <footer className={classes["site-footer"]}>
+    <footer className={classes["site-footer"]} id="contact">
       <div className={classes["container"]}>
         <div className={classes["site-footer-row"]}>
           <div className={classes["site-footer-col"]}>
