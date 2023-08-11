@@ -45,6 +45,11 @@ const AnimationOptions = {
     'animation_id': 'kpop_dance_2',
     'retarget_id': 'mixamo_fff_2',
   },
+  'Ballet': {
+    'image': require("../../assets/image1.gif"),
+    'animation_id': 'ballete',
+    'retarget_id': 'mixamo_fff_3',
+  },
 }
 
 const Animations = () => {
