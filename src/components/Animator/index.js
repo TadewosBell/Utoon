@@ -21,7 +21,7 @@ function Animator() {
     { title: "Edit Skeleton"},
     { title: "Animate" },
     { title: "Background" },
-    { title: "Add Sound" },
+    // { title: "Add Sound" },
     { title: "Share" },
   ];
 
@@ -49,9 +49,9 @@ function Animator() {
         return (
           <Background StepForward={StepForward} StepBackward={StepBackward} />
         );
+      // case 6:
+      //   return <Sound StepForward={StepForward} StepBackward={StepBackward} />;
       case 6:
-        return <Sound StepForward={StepForward} StepBackward={StepBackward} />;
-      case 7:
         return <Share StepBackward={StepBackward} />;
       default:
         return null;

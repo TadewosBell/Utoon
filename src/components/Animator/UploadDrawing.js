@@ -11,7 +11,16 @@ import { upload_image, get_bounding_box } from "../../Utility/Api";
 import { setImageDimenstions, setCoordinates, setDrawingUrl, setCurrentDrawingID } from "../../redux/DrawingStore";
 import { setCurrentCharacterId, addCharacter, removeCharacter, saveToLocalStorage, loadFromLocalStorage } from "../../redux/charactersLibrary";
 
-
+const selectable_characters = [
+  {
+    id: 1,
+    name: "Bella"
+  },
+  {
+    id: 2,
+    name: "Donny"
+  },
+]
 
 const Characters = (props) => {
   const { StepForward, onFileChange, preview } = props;
@@ -48,15 +57,49 @@ const Characters = (props) => {
 // on the bottom there is a coursel of images of different characters
 
 const Upload = (props) => {
-  const [charachter, setCharacter] = useState(null);
+  const [character, setCharacter] = useState([]);
+  const [character_selected, setCharacterSelected] = useState(null);
+
 
   useEffect(() => {
-    fetch(
-      "https://pixabay.com/api/?key=38219264-01b184f5a26d1d3eb3f986ba8&q=background&image_type=photo"
-    )
-      .then((res) => res.json())
-      .then((data) => setCharacter(data));
+    // fetch characters from https://utoon-animator.s3.amazonaws.com/characters/{selectable_character.name}.png
+    let character_url_list = []
+    selectable_characters.forEach((selectable_character) => {
+      console.log(`https://utoon-animator.s3.amazonaws.com/Characters/${selectable_character.name}.png`)
+      character_url_list.push(`https://utoon-animator.s3.amazonaws.com/Characters/${selectable_character.name}.png`)
+    })
+    setCharacter(character_url_list)
   }, []);
+
+  const onCharacterClick = async (image_url) => {
+    console.log(image_url);
+    const arrayBuffer = await (await fetch(image_url)).arrayBuffer();
+    const base64Data = btoa(
+      new Uint8Array(arrayBuffer)
+        .reduce((data, byte) => data + String.fromCharCode(byte), '')
+    );
+    const newFile = new File([base64Data], "drawing.png", {
+      type: "image/png",
+      lastModified: new Date().getTime(),
+    });
+
+    // Update the state
+    setImage(newFile);
+
+    const tempImage = new Image();
+    if (image_url !== null && image_url !== undefined) tempImage.src = image_url;
+
+    tempImage.onload = function (e) {
+      dispatch(setImageDimenstions({
+        width: tempImage.naturalWidth,
+        height: tempImage.naturalHeight,
+      }));
+    };
+
+    setCharacterSelected(image_url);
+    setPreview(image_url);
+  }
+
   const instructions = {
     Title: "Upload a character/Pick one",
     PreText:
@@ -64,16 +107,18 @@ const Upload = (props) => {
     Directions: [
       "Draw your character on a white background, like a piece of paper or white board. Make sure the background is as clean and smooth as possible.",
       "Make sure to take the picture of your drawing in a well lit area, and hold the camera further away to minimize shadows.",
-      <div class="h-[600px] border overflow-y-auto mx-[-30px]">
+      <div key="direciton_div" class="h-[600px] border overflow-y-auto mx-[-30px]">
       <div class="grid grid-cols-3 gap-3">
-        {charachter?.hits?.map((item) => {
+        {character?.map((item) => {
           return (
             <div
               class="border-2 border-gray-300"
-              // onClick={() => dispatch(displaybackground(item.largeImageURL))}
+              onClick={() => onCharacterClick(item)}
+              key={item.id}
             >
               <img
-                src={item.largeImageURL}
+                key={item}
+                src={item}
                 alt=""
                 height={200}
                 width={200}
@@ -94,6 +139,7 @@ const Upload = (props) => {
   const [preview, setPreview] = useState(null);
   const [compressedImageUrl, setCompressedImageUrl] = useState(null);
   const dispatch = useDispatch();
+
 
   const convertHeicformat = async (heicURL) => {
     try {
@@ -166,35 +212,57 @@ const Upload = (props) => {
   };
 
 
-  const onFileUpload = () => {
+  const onFileUpload = async () => {
  
     // Create an object of formData
-    const data = {}
-    
-
-    const reader = new FileReader();
-    reader.readAsDataURL(image);
-
-    reader.onload = () => {
-      const base64Data = reader.result.split(',')[1]; // Extract the base64 data portion
-
-      
-      data['name'] = image.name;
-      data['image_bytes'] = base64Data;
-      get_bounding_box(data, (res) => {
+    if(character_selected){
+      // get image bytes from character_selected url 
+      const data = {}
+      console.log(character_selected)
+      const arrayBuffer = await (await fetch(character_selected)).arrayBuffer();
+      const base64Data = btoa(
+        new Uint8Array(arrayBuffer)
+          .reduce((data, byte) => data + String.fromCharCode(byte), '')
+      );
+      get_bounding_box({image_bytes: base64Data}, (res) => {
         const drawing_url = res['drawing_url']
         const Char_id = res['char_id']
-
         const bounding_box = res['bounding_box'];
         console.log(bounding_box)
         dispatch(setCurrentDrawingID(Char_id));
         dispatch(setDrawingUrl(drawing_url));
         dispatch(setCoordinates(bounding_box));
         props.StepForward();
-
       })
-      // props.StepForward();
-    };
+    }
+    else {
+      const data = {}
+    
+
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+  
+      reader.onload = () => {
+        const base64Data = reader.result.split(',')[1]; // Extract the base64 data portion
+  
+        
+        data['name'] = image.name;
+        data['image_bytes'] = base64Data;
+        get_bounding_box(data, (res) => {
+          const drawing_url = res['drawing_url']
+          const Char_id = res['char_id']
+  
+          const bounding_box = res['bounding_box'];
+          console.log(bounding_box)
+          dispatch(setCurrentDrawingID(Char_id));
+          dispatch(setDrawingUrl(drawing_url));
+          dispatch(setCoordinates(bounding_box));
+          props.StepForward();
+  
+        })
+        // props.StepForward();
+      };
+    }
 
 
 

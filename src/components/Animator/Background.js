@@ -1,16 +1,36 @@
 import classes from "./Animator.module.css";
 import Instructions from "./Instructions";
-import imgAnimate from "../../assets/Background-1.png";
-import imgSelectAnimation from "../../assets/image-3.png";
+import { setDrawingUrl, setCurrentAnimationUrl } from "../../redux/DrawingStore";
 import { useDispatch, useSelector } from "react-redux";
 import { displaybackground } from "../../redux/DrawingStore";
+import { final_render } from "../../Utility/Api";
 import { useEffect, useRef, useState } from "react";
 import GifCanvas from "./Gif_Canvas";
 import html2canvas from "html2canvas";
 import GIF from "gif.js";
 
+const selectable_backgrounds = [
+  {
+    id: 1,
+    name: "Forest"
+  },
+  {
+    id: 2,
+    name: "Castle"
+  },
+  {
+    id: 3,
+    name: "House"
+  },
+  {
+    id: 4,
+    name: "Stage"
+  }
+]
+
 const Backgrounds = (props) => {
   const combinedImageRef = useRef(null);
+  const dispatch = useDispatch();
 
   const handlerGenerateImage = async () => {
     const canvas = await html2canvas(combinedImageRef.current);
@@ -28,15 +48,15 @@ const Backgrounds = (props) => {
     gif.render();
   };
 
-  const { current_animation_url, drawingUrl, backgroundUrl } = useSelector((state) => state.image);
+  const { current_animation_url, drawingID, backgroundUrl,  } = useSelector((state) => state.image);
   const { StepForward, StepBackward } = props;
 
   // create ref for the animation preview
   const animationPreviewRef = useRef(null);
 
-  useEffect(() => {
-    dragElement(document.getElementById("animationPreview"));
-  }, [animationPreviewRef]);
+  // useEffect(() => {
+  //   dragElement(document.getElementById("animationPreview"));
+  // }, [animationPreviewRef]);
 
   const dragElement = (elmnt) => {
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -94,33 +114,46 @@ const Backgrounds = (props) => {
     }
   }
 
+  const generate_with_background = async () => {
+    // call final render api with 
+    // if background_url is null then do not send it, show error
+    if(!backgroundUrl) {
+      alert("Please select a background")
+      return;
+    };
+    const post_req = {
+      gif_url: current_animation_url,
+      char_id: drawingID,
+      background_url: backgroundUrl,
+    }
+
+    await final_render(post_req,(res) => {
+      console.log(res);
+      const new_animation_url = res['animation_url']
+      dispatch(setCurrentAnimationUrl(new_animation_url))
+      // set_animating_in_progress(false);
+      StepForward();
+    }, () =>  {
+      // set_animating_in_progress(false);
+    })
+  }
   return (
     <div>
       <div className={classes["pre-img-box"]}>
-        <div className="" ref={combinedImageRef}>
-        {backgroundUrl && (
+        <div className="relative" ref={combinedImageRef}>
+          <img
+            className={classes["pre-img"]}
+            src={current_animation_url}
+            alt="Animation preview"
+          />
+          {backgroundUrl && (
+            <div className="absolute inset-0">
               <div
-                id="background"
                 className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundImage: `url(${backgroundUrl})`, "width": "600px", "height": "600px", position: "static", "z-index": -1 }}
-              >
-              </div>
+                style={{ backgroundImage: `url(${backgroundUrl})`, zIndex: -1 }}
+              ></div>
+            </div>
           )}
-        <img
-                  ref={animationPreviewRef}
-                  id="animationPreview"
-                  className={classes["animation"]}
-                  src={current_animation_url}
-                  alt="Animation preview"
-                  style={{
-                    "position": "absolute",
-                    "z-index": -1,
-                    "width": "555px",
-                    top: "320px",
-                    left: "1145px",
-                  }}
-                  
-                />
         </div>
       </div>
       <div className={classes["button-row"]}>
@@ -131,10 +164,7 @@ const Backgrounds = (props) => {
         </div>
         <div className={classes["button-col"]}>
           <button
-            onClick={() => {
-              handlerGenerateImage();
-              return StepForward;
-            }}
+            onClick={generate_with_background}
             className={classes["next-btn"]}
           >
             Next
@@ -146,14 +176,17 @@ const Backgrounds = (props) => {
 };
 
 const Background = (props) => {
-  const [background, setBackground] = useState(null);
+  const [backgrounds, setBackgrounds] = useState(null);
 
   useEffect(() => {
-    fetch(
-      "https://pixabay.com/api/?key=38219264-01b184f5a26d1d3eb3f986ba8&q=background&image_type=photo"
-    )
-      .then((res) => res.json())
-      .then((data) => setBackground(data));
+    // fetch background from https://utoon-animator.s3.amazonaws.com/Background/{selectable_character.name}.png
+    let background_url_list = []
+    selectable_backgrounds.forEach((selectable_background) => {
+      console.log(`https://utoon-animator.s3.amazonaws.com/Backgrounds/${selectable_background.name}.png`)
+      background_url_list.push(`https://utoon-animator.s3.amazonaws.com/Backgrounds/${selectable_background.name}.png`)
+    })
+    setBackgrounds(background_url_list);
+    console.log(backgrounds)
   }, []);
 
   const dispatch = useDispatch();
@@ -163,14 +196,14 @@ const Background = (props) => {
     Directions: [
       <div class="h-[600px] border overflow-y-auto mx-[-30px]">
         <div class="grid grid-cols-3 gap-3">
-          {background?.hits?.map((item) => {
+          {backgrounds?.map((item) => {
             return (
               <div
                 class="border-2 border-gray-300"
-                onClick={() => dispatch(displaybackground(item.largeImageURL))}
+                onClick={() => dispatch(displaybackground(item))}
               >
                 <img
-                  src={item.largeImageURL}
+                  src={item}
                   alt=""
                   height={200}
                   width={200}

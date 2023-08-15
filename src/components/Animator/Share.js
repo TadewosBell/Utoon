@@ -1,15 +1,18 @@
 import classes from "./Share.module.css";
+import { useDispatch, useSelector } from "react-redux";
 import Instructions from "./Instructions";
-import imgAnimate from "../../assets/Background-1.png";
+
 
 const Shares = (props) => {
   const { StepForward, StepBackward } = props;
+  const dispatch = useDispatch();
+  const { current_animation_url, drawingID, backgroundUrl,  } = useSelector((state) => state.image);
   return (
     <div>
       <div className={classes["pre-img-box"]}>
         <img
           className={classes["pre-img"]}
-          src={imgAnimate}
+          src={current_animation_url}
           alt="Animation preview"
         />
       </div>
