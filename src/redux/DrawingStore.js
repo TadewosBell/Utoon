@@ -7,6 +7,7 @@ export const DrawingStore = createSlice({
     drawing_url: "",
     backgroundUrl: null,
     current_animation_url: null,
+    with_background_url: null,
     coordinates: null,
     boundingBox: { x: 200, width: 100, y: 200, height: 100, id: "1" },
     imageDimenstions: { width: 10, height: 10 },
@@ -24,6 +25,9 @@ export const DrawingStore = createSlice({
     },
     setCurrentAnimationUrl: (state, action) => {
       state.current_animation_url = action.payload;
+    },
+    setWithBackgroundUrl: (state, action) => {
+      state.with_background_url = action.payload;
     },
     displaybackground: (state, action) => {
       state.backgroundUrl = action.payload;
@@ -57,6 +61,7 @@ export const {
   setCurrentDrawingID, 
   setDrawingUrl, 
   displaybackground, 
+  setWithBackgroundUrl,
   setBoundingBox, 
   setCoordinates, 
   setImageDimenstions,

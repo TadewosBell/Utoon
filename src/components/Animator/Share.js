@@ -6,13 +6,13 @@ import Instructions from "./Instructions";
 const Shares = (props) => {
   const { StepForward, StepBackward } = props;
   const dispatch = useDispatch();
-  const { current_animation_url, drawingID, backgroundUrl,  } = useSelector((state) => state.image);
+  const { with_background_url, drawingID, backgroundUrl,  } = useSelector((state) => state.image);
   return (
     <div>
       <div className={classes["pre-img-box"]}>
         <img
           className={classes["pre-img"]}
-          src={current_animation_url}
+          src={with_background_url}
           alt="Animation preview"
         />
       </div>

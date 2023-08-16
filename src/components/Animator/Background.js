@@ -1,6 +1,6 @@
 import classes from "./Animator.module.css";
 import Instructions from "./Instructions";
-import { setDrawingUrl, setCurrentAnimationUrl } from "../../redux/DrawingStore";
+import { setDrawingUrl, setWithBackgroundUrl } from "../../redux/DrawingStore";
 import { useDispatch, useSelector } from "react-redux";
 import { displaybackground } from "../../redux/DrawingStore";
 import { final_render } from "../../Utility/Api";
@@ -130,7 +130,7 @@ const Backgrounds = (props) => {
     await final_render(post_req,(res) => {
       console.log(res);
       const new_animation_url = res['animation_url']
-      dispatch(setCurrentAnimationUrl(new_animation_url))
+      dispatch(setWithBackgroundUrl(new_animation_url))
       // set_animating_in_progress(false);
       StepForward();
     }, () =>  {

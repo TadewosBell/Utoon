@@ -14,12 +14,36 @@ import { setCurrentCharacterId, addCharacter, removeCharacter, saveToLocalStorag
 const selectable_characters = [
   {
     id: 1,
-    name: "Bella"
+    name: "Bella.png"
   },
   {
     id: 2,
-    name: "Donny"
+    name: "Donny.png"
   },
+  {
+    id: 3,
+    name: "Berry.jpg"
+  },
+  {
+    id: 4,
+    name: "Emily.png"
+  },
+  {
+    id: 5,
+    name: "George.jpg"
+  },
+  {
+    id: 6,
+    name: "Ginger.jpg"
+  },
+  {
+    id: 7,
+    name: "Panda.jpg"
+  },
+  {
+    id: 8,
+    name: "Tommy.png"
+  }
 ]
 
 const Characters = (props) => {
@@ -66,39 +90,31 @@ const Upload = (props) => {
     let character_url_list = []
     selectable_characters.forEach((selectable_character) => {
       console.log(`https://utoon-animator.s3.amazonaws.com/Characters/${selectable_character.name}.png`)
-      character_url_list.push(`https://utoon-animator.s3.amazonaws.com/Characters/${selectable_character.name}.png`)
+      // character_url_list.push(`https://utoon-animator.s3.amazonaws.com/Characters/${selectable_character.name}.png`)
+      character_url_list.push(selectable_character.name);
     })
     setCharacter(character_url_list)
   }, []);
 
-  const onCharacterClick = async (image_url) => {
-    console.log(image_url);
-    const arrayBuffer = await (await fetch(image_url)).arrayBuffer();
-    const base64Data = btoa(
-      new Uint8Array(arrayBuffer)
-        .reduce((data, byte) => data + String.fromCharCode(byte), '')
-    );
-    const newFile = new File([base64Data], "drawing.png", {
-      type: "image/png",
-      lastModified: new Date().getTime(),
-    });
-
-    // Update the state
-    setImage(newFile);
-
+  const onCharacterClick = async (character_name) => {
+    console.log(character_name);
+    setCharacterSelected(character_name);
+    setPreview(`https://utoon-animator.s3.amazonaws.com/Characters/${character_name}`);
+    // get image dimensions from url
     const tempImage = new Image();
-    if (image_url !== null && image_url !== undefined) tempImage.src = image_url;
-
+    tempImage.src = `https://utoon-animator.s3.amazonaws.com/Characters/${character_name}`;
     tempImage.onload = function (e) {
       dispatch(setImageDimenstions({
         width: tempImage.naturalWidth,
         height: tempImage.naturalHeight,
-      }));
+      })
+      );
     };
-
-    setCharacterSelected(image_url);
-    setPreview(image_url);
+    tempImage.onerror = function (e) {
+      console.log(e)
+    }
   }
+
 
   const instructions = {
     Title: "Upload a character/Pick one",
@@ -118,7 +134,7 @@ const Upload = (props) => {
             >
               <img
                 key={item}
-                src={item}
+                src={`https://utoon-animator.s3.amazonaws.com/Characters/${item}`}
                 alt=""
                 height={200}
                 width={200}
@@ -176,6 +192,7 @@ const Upload = (props) => {
   const onFileChange = async (event) => {
     console.log(event.target.files[0]);
     const file = event.target.files[0];
+    setCharacterSelected(null);
     if (file.type === "image/heic" || (file.name).toLowerCase().includes(".heic")) {
       await convertHeicformat(URL.createObjectURL(file));
     }
@@ -213,18 +230,20 @@ const Upload = (props) => {
 
 
   const onFileUpload = async () => {
+
+    // if image or character selected is null, show alert and return
+    if(!image && !character_selected){
+      alert("Please select a drawing to upload or a character");
+      return;
+    }
  
     // Create an object of formData
     if(character_selected){
       // get image bytes from character_selected url 
       const data = {}
+      data['character_selected'] = character_selected;
       console.log(character_selected)
-      const arrayBuffer = await (await fetch(character_selected)).arrayBuffer();
-      const base64Data = btoa(
-        new Uint8Array(arrayBuffer)
-          .reduce((data, byte) => data + String.fromCharCode(byte), '')
-      );
-      get_bounding_box({image_bytes: base64Data}, (res) => {
+      get_bounding_box(data, (res) => {
         const drawing_url = res['drawing_url']
         const Char_id = res['char_id']
         const bounding_box = res['bounding_box'];
