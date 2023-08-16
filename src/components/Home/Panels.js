@@ -28,6 +28,7 @@ const Panels = () => {
               alt=""
             />
             <h3 className={classes["work-inner-title"]}>Give</h3>
+
           </div>
         </div>
       </div>

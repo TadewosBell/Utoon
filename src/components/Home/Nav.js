@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import classes from "./Nav.module.css";
 import Logoimage from "../../assets/Logo.png";
 import Button from "../UI/Button";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);

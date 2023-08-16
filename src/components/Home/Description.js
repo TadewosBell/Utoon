@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./Description.module.css";
 import Button from "../UI/Button";
+import { Link } from "react-router-dom";
 
 const Description = () => {
   return (
@@ -15,7 +16,7 @@ const Description = () => {
             </p>
             <div className={classes["center-box-btn"]}>
               {/* <a href="#" className={classes["create-card"]}>
-                Create Card
+                Create
               </a> */}
               <a
                 href="#"
@@ -23,6 +24,11 @@ const Description = () => {
               >
                 Create a Card
               </a>
+              <Link to="/Animator">
+                <Button classes={classes["create-card"]} type="submit">
+                  Create
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

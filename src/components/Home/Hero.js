@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./Hero.module.css";
 import BannerLeftImage from "../../assets/banner-left.png";
 import Button from "../UI/Button";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (

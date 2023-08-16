@@ -1,9 +1,13 @@
 .work-sec .container {
   max-width: 1732px;
+  /* put div in element */
+  margin-left: auto;
+  margin-right: auto;
+
 }
 
 .work-sec {
-  background: #88d35a;
+  /* background: #88d35a; */
   padding-top: 85px;
   padding-bottom: 130px;
 }

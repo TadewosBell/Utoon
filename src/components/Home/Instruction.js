@@ -6,6 +6,7 @@ import WhaleAnimateImage from "../../assets/whale animate 1.png";
 import VoiceOver1Image from "../../assets/voiceover 1.png";
 import Send1Image from "../../assets/send 1.png";
 import Button from "../UI/Button";
+import { Link } from "react-router-dom";
 
 const instructionSteps = [
   {
@@ -78,6 +79,11 @@ const Instruction = () => {
           >
             Create a Card
           </a>
+          <Link to="/Animator">
+          <Button classes={classes["work-memory-btn"]} type="submit">
+            Create
+          </Button>
+          </Link>
         </div>
       </div>
     </div>
