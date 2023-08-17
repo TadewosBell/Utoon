@@ -1,20 +1,21 @@
 import "./App.css";
 import { Fragment } from "react";
-import Description from "./components/Home/Description";
-import Instruction from "./components/Home/Instruction";
-import Footer from "./components/Home/Footer";
+import HomePage from "./components/Home/Index";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+} from "react-router-dom";
+import Animator from "./components/Animator";
 
 function App() {
   return (
-    <Fragment>
-      <Nav />
-      <Hero />
-      <section className="home-center-box">
-        <Description />
-        <Instruction />
-      </section>
-      <Footer />
-    </Fragment>
+    <Router>
+      <Routes>
+        <Route path='/' element={<HomePage/>} />
+        <Route path='/Animator' element={<Animator/>} />
+      </Routes>
+    </Router>
   );
 }
 

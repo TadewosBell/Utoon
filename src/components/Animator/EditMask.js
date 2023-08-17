@@ -113,12 +113,17 @@ const EditMask = (props) => {
         instructions={instructions}
       >
         <div ref={canvasWindow} className={classes["pre-img-box"]}>
-            <MaskStage
-              scale={imgScale}
-              canvasWidth={cropped_image_dimensions.width}
-              canvasHeight={cropped_image_dimensions.height}
-              ref={layerRef}
-            />
+          <div className={classes["canvas-wrapper"]}>
+            
+            <div className={classes["mask-tool-rapper"]}>
+              <MaskStage
+                scale={imgScale}
+                canvasWidth={cropped_image_dimensions.width}
+                canvasHeight={cropped_image_dimensions.height}
+                ref={layerRef}
+              />
+            </div>
+          </div>
             <MaskingToolbar />
         </div>
         <div className={classes["button-row"]}>

@@ -13,14 +13,13 @@ const Hero = () => {
             Make your drawings come to life!
           </h1>
           <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-xl lg:text-[2rem] dark:text-[#333333]">
-            Animate your favorite drawings and create a virtual card that move
-            hearts.
           </p>
-          <a
+          <Link
+            to="/Animator"
             href="#"
             class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-black rounded-lg bg-primary-700 hover:text-[#EC7179] focus:ring-4 focus:ring-#[FFD2D7] dark:focus:ring-[#FFD2D7] text-lg"
           >
-            Get started
+            Animate
             <svg
               class="w-5 h-5 ml-2 -mr-1"
               fill="currentColor"
@@ -33,13 +32,7 @@ const Hero = () => {
                 clip-rule="evenodd"
               ></path>
             </svg>
-          </a>
-          <a
-            href="#"
-            class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg dark:hover:text-[#1f1f1f] text-lg dark:border-gray-700 dark:hover:bg-[#EC7179]"
-          >
-            Learn how this works
-          </a>
+          </Link>
         </div>
         <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
           <img src={BannerLeftImage} alt="mockup" />

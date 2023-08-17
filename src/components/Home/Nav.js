@@ -46,12 +46,13 @@ const Nav = () => {
             </ul>
           </div>
           <div className="flex md:order-3">
-            <a
+            <Link
+              to="/Animator"
               href="#"
               class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-[#27282A] dark:border-gray-700  dark:text-white dark:bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500  dark:focus:ring-[#1f1f1f]"
             >
               Get Started
-            </a>
+            </Link>
           </div>
           <button
             type="button"

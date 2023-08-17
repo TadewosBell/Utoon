@@ -43,7 +43,7 @@ export const MaskPlaceHolder = forwardRef(
     const { lines } = useSelector((state) => state.MaskEditor);
 
     return (
-      <div className="ml-auto mr-auto">
+      <div>
         <Stage
           width={canvasWidth * scale}
           height={canvasHeight * scale}

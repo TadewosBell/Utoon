@@ -67,6 +67,28 @@
   cursor: pointer;
 }
 
+.mask-tool-rapper {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.canvas-wrapper {
+  position: relative;
+  display: flex;
+  width: 528px;
+  height: 528px;
+  border-radius: 16px;
+  background: #fff;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 0 16px rgba(0,0,0,.35);
+  margin-bottom: auto!important;
+}
+
 .upload-box-img {
   width: 100%;
 }
