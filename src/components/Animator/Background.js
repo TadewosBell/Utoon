@@ -11,6 +11,14 @@ import GIF from "gif.js";
 
 const selectable_backgrounds = [
   {
+    id: 5,
+    name: "green"
+  },
+  {
+    id: 6,
+    name: "white"
+  },
+  {
     id: 1,
     name: "Forest"
   },
@@ -25,7 +33,7 @@ const selectable_backgrounds = [
   {
     id: 4,
     name: "Stage"
-  }
+  },
 ]
 
 const Backgrounds = (props) => {

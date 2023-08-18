@@ -72,13 +72,13 @@ const Animations = () => {
     // }
     set_animating_in_progress(true);
 
-    await animate_character(data,(res) => {
+    await animate_character(data, (res) => {
       console.log(res);
       const new_animation_url = res['animation_url']
       dispatch(setCurrentAnimationUrl(new_animation_url))
       set_animating_in_progress(false);
 
-    }, () =>  {
+    }, () => {
       set_animating_in_progress(false);
     })
 
@@ -91,16 +91,16 @@ const Animations = () => {
           return (
             <div class="border-2 border-gray-300" >
               <img
-               onClick={() => onAnimationSelected(AnimationOptions[key]['animation_id'], AnimationOptions[key]['retarget_id'])}
+                onClick={() => onAnimationSelected(AnimationOptions[key]['animation_id'], AnimationOptions[key]['retarget_id'])}
                 src={AnimationOptions[key]['image']}
                 alt=""
                 height={200}
                 width={200}
                 className="bg-auto bg-no-repeat bg-center"
               />
-              
+
               <p
-               onClick={() => onAnimationSelected(AnimationOptions[key]['animation_id'])}
+                onClick={() => onAnimationSelected(AnimationOptions[key]['animation_id'])}
               >{key}</p>
             </div>
           )
@@ -123,11 +123,15 @@ const AnimationPreview = (props) => {
   return (
     <div>
       <div className={classes["pre-img-box"]}>
-        <img
-          className={classes["pre-img"]}
-          src={current_animation_url}
-          alt="Animation preview"
-        />
+        <div className={classes["canvas-wrapper"]}>
+          <div className={classes["mask-tool-rapper"]}>
+            <img
+              className={classes["pre-img"]}
+              src={current_animation_url}
+              alt="Animation preview"
+            />
+          </div>
+        </div>
         {/* <canvas id="gifCanvas" width="400" height="400"></canvas> */}
         {/* <GifCanvas gifUrl={"https://utoon-animator.s3.amazonaws.com/Animations/qhVKobxxKZ_dab.gif"} /> */}
       </div>
