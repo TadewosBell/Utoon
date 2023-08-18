@@ -111,6 +111,7 @@ const Upload = (props) => {
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [compressedImageUrl, setCompressedImageUrl] = useState(null);
+  const [dragging, setDragging] = useState(false);
   const dispatch = useDispatch();
 
   const convertHeicformat = async (heicURL) => {
@@ -147,9 +148,29 @@ const Upload = (props) => {
     }
   };
 
-  const onFileChange = async (event) => {
-    console.log(event.target.files[0]);
-    const file = event.target.files[0];
+  const onDragOver = (event) => {
+    event.preventDefault();
+    setDragging(true);
+  };
+
+  const onDragLeave = () => {
+    setDragging(false);
+  };
+
+  const onDrop = async (event) => {
+    event.preventDefault();
+    setDragging(false);
+
+    const droppedFiles = event.dataTransfer.files;
+
+    if (droppedFiles && droppedFiles.length > 0) {
+      const file = droppedFiles[0];
+      await handleFile(file);
+    }
+  };
+
+  const handleFile = async (file) => {
+    console.log(file);
     if (
       file.type === "image/heic" ||
       file.name.toLowerCase().includes(".heic")
@@ -209,34 +230,7 @@ const Upload = (props) => {
       },
     });
 
-    const data = {};
-
-    const reader = new FileReader();
-    reader.readAsDataURL(image);
-
-    reader.onload = () => {
-      const base64Data = reader.result.split(",")[1]; // Extract the base64 data portion
-
-      data["name"] = image.name;
-      data["image_bytes"] = base64Data;
-      get_bounding_box(data, (res) => {
-        const drawing_url = res["drawing_url"];
-        const Char_id = res["char_id"];
-
-        const bounding_box = res["bounding_box"];
-        console.log(bounding_box);
-        dispatch(setCurrentDrawingID(Char_id));
-        dispatch(setDrawingUrl(drawing_url));
-        dispatch(setCoordinates(bounding_box));
-        Swal.close();
-
-        props.StepForward();
-      });
-      // props.StepForward();
-    };
-
-    // after uploud
-    // props.StepForward();
+    handleFile(image); // Pass the image directly to handleFile
   };
 
   return (
@@ -250,7 +244,14 @@ const Upload = (props) => {
         CSSClassNames5={InActiveClassName}
       >
         <div>
-          <div className={classes["pre-img-box"]}>
+          <div
+            className={`${classes["pre-img-box"]} ${
+              dragging ? classes["dragging"] : ""
+            }`}
+            onDragOver={onDragOver}
+            onDragLeave={onDragLeave}
+            onDrop={onDrop}
+          >
             <img
               className={classes["pre-img"]}
               src={preview ? preview : imgBackground}
@@ -262,7 +263,7 @@ const Upload = (props) => {
               type="file"
               name="file"
               accept=".jpg, .png, .heic"
-              onChange={onFileChange}
+              onChange={handleFile}
               style={{ display: "none" }}
             />
             <img src={imgFrame} alt="Frame" />
@@ -270,9 +271,7 @@ const Upload = (props) => {
           </label>
           <input type="file" name="file" id="file" /> <br />
           <div className={classes["button-row"]}>
-            <div className={classes["button-col"]}>
-              {/* <button className={classes["prev-btn"]}>Previous</button> */}
-            </div>
+            <div className={classes["button-col"]}></div>
             <div className={classes["button-col"]}>
               <button onClick={onFileUpload} className={classes["next-btn"]}>
                 Next

@@ -123,6 +123,42 @@ const MaskingToolbar = () => {
           </button>
         </div>
       </div>
+      <div class="w-80 rounded-lg bg-[#F6F4EB] p-6 shadow-lg">
+        <div class="flex items-center justify-between">
+          <div class="flex-col text-center">
+            <div>
+              <button class="fas fa-pen text-[#749BC2]"></button>
+            </div>
+            <div>
+              <label for="">Paint</label>
+            </div>
+          </div>
+          <div class="flex-col text-center">
+            <div>
+              <button class="fas fa-eraser text-red-500"></button>
+            </div>
+            <div>
+              <label for="">Eraser</label>
+            </div>
+          </div>
+          <div class="flex-col text-center">
+            <div>
+              <button class="fas fa-undo text-yellow-500"></button>
+            </div>
+            <div>
+              <label for="">Undo</label>
+            </div>
+          </div>
+          <div class="flex-col text-center">
+            <div>
+              <button class="fas fa-refresh text-red-600"></button>
+            </div>
+            <div>
+              <label for="">Reset</label>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
