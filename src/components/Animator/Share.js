@@ -7,6 +7,29 @@ const Shares = (props) => {
   const { StepForward, StepBackward } = props;
   const dispatch = useDispatch();
   const { with_background_url, drawingID, backgroundUrl,  } = useSelector((state) => state.image);
+
+  const downloadGif = async () => {
+    // download gif from with_background_url
+    fetch(with_background_url, {
+      method: "GET",
+      headers: {}
+    })
+      .then(response => {
+        response.arrayBuffer().then(function(buffer) {
+          const url = window.URL.createObjectURL(new Blob([buffer]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", "Animation.gif"); //or any other extension
+          document.body.appendChild(link);
+          link.click();
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+
   return (
     <div>
       <div className={classes["pre-img-box"]}>
@@ -23,8 +46,8 @@ const Shares = (props) => {
           </button>
         </div>
         <div className={classes["button-col"]}>
-          <button onClick={StepForward} className={classes["next-btn"]}>
-            Share
+          <button onClick={downloadGif} className={classes["next-btn"]}>
+            Download
           </button>
         </div>
       </div>
