@@ -83,8 +83,8 @@ const EditSkeleton = (props) => {
         instructions={instructions}
       >
         <div ref={canvasWindow} className={classes["pre-img-box"]}>
-          <div className={classes["canvas-wrapper"]}>
-            <div className={classes["mask-tool-rapper"]}>
+          {/* <div className={classes["canvas-wrapper"]}>
+            <div className={classes["mask-tool-rapper"]}> */}
               {
                 skeleton && (
                   <JointEditor
@@ -98,8 +98,8 @@ const EditSkeleton = (props) => {
                 )
               }
             </div>
-          </div>
-        </div>
+          {/* </div>
+        </div> */}
         <div className={classes["button-row"]}>
           <div className={classes["button-col"]}>
             <button className={classes["prev-btn"]} onClick={StepBackward}>
