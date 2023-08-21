@@ -114,6 +114,16 @@ const EditBoundingBox = (props) => {
       char_id: drawingID,
     };
 
+    Swal.fire({
+      title: "Uploading...",
+      html: "Please wait...",
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
     set_bounding_box(data, (data) => {
       console.log(data);
       const cropped_image_url = data.cropped_image_url;

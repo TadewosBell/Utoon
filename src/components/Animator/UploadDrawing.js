@@ -306,6 +306,8 @@ const Upload = (props) => {
         dispatch(setCurrentDrawingID(Char_id));
         dispatch(setDrawingUrl(drawing_url));
         dispatch(setCoordinates(bounding_box));
+        // close Swal
+        Swal.close();
         props.StepForward();
       })
     }
@@ -331,6 +333,9 @@ const Upload = (props) => {
           dispatch(setCurrentDrawingID(Char_id));
           dispatch(setDrawingUrl(drawing_url));
           dispatch(setCoordinates(bounding_box));
+          // close Swal
+          Swal.close();
+
           props.StepForward();
   
         })
