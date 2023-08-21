@@ -3,14 +3,15 @@ import React from "react";
 // import UndoIcon from "../../assets/customIcons/undo.svg";
 // import { Row, Col } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { setLines, setPenSize, setTool, setMaskBase64 } from "../../redux/MaskEditorStore";
+import {
+  setLines,
+  setPenSize,
+  setTool,
+  setMaskBase64,
+} from "../../redux/MaskEditorStore";
 
 const MaskingToolbar = () => {
-  const {
-    tool,
-    penSize,
-    lines,
-  } = useSelector((state) => state.MaskEditor);
+  const { tool, penSize, lines } = useSelector((state) => state.MaskEditor);
 
   const dispatch = useDispatch();
 
@@ -117,12 +118,45 @@ const MaskingToolbar = () => {
             Undo
           </button>
 
-          <button
-            className="md-button-reset p-0"
-            onClick={handleReset}
-          >
+          <button className="md-button-reset p-0" onClick={handleReset}>
             Reset mask
           </button>
+        </div>
+      </div>
+      <div class="w-80 rounded-lg bg-[#F6F4EB] p-6 shadow-lg">
+        <div class="flex items-center justify-between">
+          <div class="flex-col text-center">
+            <div>
+              <button class="fas fa-pen text-[#749BC2]"></button>
+            </div>
+            <div>
+              <label for="">Paint</label>
+            </div>
+          </div>
+          <div class="flex-col text-center">
+            <div>
+              <button class="fas fa-eraser text-red-500"></button>
+            </div>
+            <div>
+              <label for="">Eraser</label>
+            </div>
+          </div>
+          <div class="flex-col text-center">
+            <div>
+              <button class="fas fa-undo text-yellow-500"></button>
+            </div>
+            <div>
+              <label for="">Undo</label>
+            </div>
+          </div>
+          <div class="flex-col text-center">
+            <div>
+              <button class="fas fa-refresh text-red-600"></button>
+            </div>
+            <div>
+              <label for="">Reset</label>
+            </div>
+          </div>
         </div>
       </div>
     </div>
