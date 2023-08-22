@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
+import Swal from "sweetalert2";
 import Instructions from "./Instructions";
 import classes from "./Animator.module.css";
 import { parseGIF, decompressFrames } from 'gifuct-js';
@@ -62,22 +62,49 @@ const Animations = () => {
       'retarget_id': retarget_id,
     };
 
-    // if(animataing_in_progress) {
-    //   return;
-    // }
+    if(animataing_in_progress) {
+      return;
+    }
+    Swal.fire({
+      title: "Loading Animation...",
+      html: "Please wait...",
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
     set_animating_in_progress(true);
 
     await animate_character(data, (res) => {
       console.log(res);
       const new_animation_url = res['animation_url']
       dispatch(setCurrentAnimationUrl(new_animation_url))
+      Swal.close();
       set_animating_in_progress(false);
 
     }, () => {
+      Swal.close();
       set_animating_in_progress(false);
     })
 
   }
+
+  // if set_animating_in_progress is true, then show loading animation
+  useState(() => {
+    if (animataing_in_progress) {
+      Swal.fire({
+        title: "Loading Animation...",
+        html: "Please wait...",
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
+    } else {
+    }
+  }, [animataing_in_progress])
   return (
     <div class="h-[600px] border overflow-y-auto mx-[-30px]">
       <div class="grid grid-cols-3 gap-3">

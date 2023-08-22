@@ -40,12 +40,12 @@ const Instruction = () => {
     <div className={classes["work-sec"]} id="howthisworks">
       <div className={classes["container"]}>
         <div className={classes["work-inner-title"]}>
-          <h2 className={`${classes["work-title"]} w-[110%] text-center`}>
+          <h2 className={`${classes["work-title"]} w-[100%] text-center`}>
             How It works
           </h2>
         </div>
         <div
-          className={`${classes["work-row"]} flex lg:px-20 w-[110%] md:items-center`}
+          className={`${classes["work-row"]} flex lg:px-20 w-[100%] md:items-center`}
         >
           {instructionSteps.map((step) => {
             return (

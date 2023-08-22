@@ -2,12 +2,15 @@
 import Instruction from "./Instructions";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 import { setCoordinates, setBoundingBox, setMaskUrl, setCroppedImageUrl } from "../../redux/DrawingStore";
 
 import { set_bounding_box } from "../../Utility/Api";
 
 import classes from "./Animator.module.css";
 import BoundingBoxStage from "../Canvas/BoundingBoxStage";
+
+const bounding_box_image = require("../../assets/Tutorial/Bounding_Box.JPG")
 
 const calculateRatio = (
     canvasWidth,
@@ -109,13 +112,23 @@ const EditBoundingBox = (props) => {
             char_id: drawingID,
         }
 
+        Swal.fire({
+          title: "Outlining Character...",
+          html: "Please wait...",
+          allowEscapeKey: false,
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+
         set_bounding_box(data, (data) => {
             console.log(data);
             const cropped_image_url = data.cropped_image_url;
             const mask_url = data.mask_url;
             dispatch(setCroppedImageUrl(cropped_image_url));
             dispatch(setMaskUrl(mask_url));
-
+            Swal.close();
             if(data.status === 'success') StepForward();
         });
         // StepForward();
@@ -124,13 +137,14 @@ const EditBoundingBox = (props) => {
   const instructions = {
     Title: "Edit Bounding Box",
     PreText:
-      "Upload drawing of ONE humanlike character. Make sure to not make the arms and legs overlap in the drawing.",
+      "Use the bounding box to select the area of the image that you want to animate.",
     Directions: [
-      "Draw your character on a white background, like a piece of paper or white board. Make sure the background is as clean and smooth as possible.",
-      "Make sure to take the picture of your drawing in a well lit area, and hold the camera further away to minimize shadows.",
+      "Select your drawing from the bottom carousel.",
       <div class="h-[600px] border overflow-y-auto mx-[-30px]">
+        <img src={bounding_box_image} alt="" className={classes["tutorial_image"]} />
     </div>,
     ],
+
   };
 
   return (

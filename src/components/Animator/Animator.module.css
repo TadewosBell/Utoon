@@ -12,6 +12,12 @@
   margin-bottom: 25px;
 }
 
+.tutorial_image {
+  width: 80%;
+  object-fit: cover;
+  margin-bottom: 25px;
+}
+
 .pre-img-box {
   width: 600px;
   object-fit: cover;

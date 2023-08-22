@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { displaybackground } from "../../redux/DrawingStore";
 import { final_render } from "../../Utility/Api";
 import { useEffect, useRef, useState } from "react";
-import GifCanvas from "./Gif_Canvas";
-import html2canvas from "html2canvas";
-import GIF from "gif.js";
+import Swal from "sweetalert2";
 
 const selectable_backgrounds = [
   {
@@ -40,21 +38,7 @@ const Backgrounds = (props) => {
   const combinedImageRef = useRef(null);
   const dispatch = useDispatch();
 
-  const handlerGenerateImage = async () => {
-    const canvas = await html2canvas(combinedImageRef.current);
 
-    const gif = new GIF();
-    gif.addFrame(canvas, { delay: 200 });
-    gif.on("finished", (blob) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const gifDataUrl = reader.result;
-        console.log(gifDataUrl);
-      };
-      reader.readAsDataURL(blob);
-    });
-    gif.render();
-  };
 
   const { current_animation_url, drawingID, backgroundUrl,  } = useSelector((state) => state.image);
   const { StepForward, StepBackward } = props;
@@ -123,6 +107,15 @@ const Backgrounds = (props) => {
   }
 
   const generate_with_background = async () => {
+    Swal.fire({
+      title: "Adding Background",
+      html: "Please wait...",
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
     // call final render api with 
     // if background_url is null then do not send it, show error
     if(!backgroundUrl) {
@@ -140,6 +133,7 @@ const Backgrounds = (props) => {
       const new_animation_url = res['animation_url']
       dispatch(setWithBackgroundUrl(new_animation_url))
       // set_animating_in_progress(false);
+      Swal.close();
       StepForward();
     }, () =>  {
       // set_animating_in_progress(false);

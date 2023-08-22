@@ -30,6 +30,8 @@
 .work-col {
   width: 20%;
   padding: 0 10px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .work-title-box {
   font-weight: 700;

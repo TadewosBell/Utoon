@@ -21,7 +21,7 @@ section.home-block-section {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  margin: 0 -15px;
+  margin: 0 auto;
 }
 .home-block-col {
   width: 50%;

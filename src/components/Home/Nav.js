@@ -13,7 +13,7 @@ const Nav = () => {
 
   return (
     <>
-      <nav className="bg-white dark:bg-[#ffecaf] fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+      <nav className="bg-white dark:bg-[#ffecaf] fixed w-[100%] z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <img src={Logoimage} alt="Logo" />
 
@@ -51,7 +51,7 @@ const Nav = () => {
               href="#"
               class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-[#27282A] dark:border-gray-700  dark:text-white dark:bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500  dark:focus:ring-[#1f1f1f]"
             >
-              Get Started
+              Try it!
             </Link>
           </div>
           <button

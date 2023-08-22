@@ -2,6 +2,7 @@
 import Instruction from "./Instructions";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 import { setCoordinates, setBoundingBox, setCurrentAnimationUrl, setSkeleton } from "../../redux/DrawingStore";
 import { setMaskBase64 } from "../../redux/MaskEditorStore";
 import { intial_animation, set_mask, set_skeleton } from "../../Utility/Api";
@@ -11,6 +12,8 @@ import classes from "./Animator.module.css";
 import JointEditor from "../Canvas/JointEditor";
 // component with one one side showing directions and the other side showing an image of the character
 // on the bottom there is a coursel of images of different characters
+
+const skeleton_image = require("../../assets/Tutorial/Skeleton.JPG")
 
 const EditSkeleton = (props) => {
 
@@ -41,6 +44,16 @@ const EditSkeleton = (props) => {
       skeleton: skeleton
     }
 
+    Swal.fire({
+      title: "Loading Animation...",
+      html: "Please wait...",
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
     await set_skeleton(set_skeleton_req, (res) => {
       console.log("set_skeleton", res)
     })
@@ -60,7 +73,7 @@ const EditSkeleton = (props) => {
 
 
     console.log("Next Step await worked?")
-
+    Swal.close();
     StepForward();
 
   };
@@ -68,11 +81,11 @@ const EditSkeleton = (props) => {
   const instructions = {
     Title: "Edit Skeleton",
     PreText:
-      "Upload drawing of ONE humanlike character. Make sure to not make the arms and legs overlap in the drawing.",
+      "Edit skeleton to match the pose of the character.",
     Directions: [
-      "Draw your character on a white background, like a piece of paper or white board. Make sure the background is as clean and smooth as possible.",
-      "Make sure to take the picture of your drawing in a well lit area, and hold the camera further away to minimize shadows.",
+      "Click and move the joints to match the character's pose.",
       <div class="h-[600px] border overflow-y-auto mx-[-30px]">
+        <img src={skeleton_image} alt="" className={classes["tutorial_image"]}  />
       </div>,
     ],
   };

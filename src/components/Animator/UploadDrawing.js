@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { upload_image, get_bounding_box } from "../../Utility/Api";
 import { setImageDimenstions, setCoordinates, setDrawingUrl, setCurrentDrawingID } from "../../redux/DrawingStore";
 import { setCurrentCharacterId, addCharacter, removeCharacter, saveToLocalStorage, loadFromLocalStorage } from "../../redux/charactersLibrary";
+import Swal from "sweetalert2";
 
 const selectable_characters = [
   {
@@ -236,6 +237,16 @@ const Upload = (props) => {
       alert("Please select a drawing to upload or a character");
       return;
     }
+
+    Swal.fire({
+      title: "Uploading...",
+      html: "Please wait...",
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
  
     // Create an object of formData
     if(character_selected){
@@ -251,6 +262,7 @@ const Upload = (props) => {
         dispatch(setCurrentDrawingID(Char_id));
         dispatch(setDrawingUrl(drawing_url));
         dispatch(setCoordinates(bounding_box));
+        Swal.close();
         props.StepForward();
       })
     }
@@ -276,6 +288,7 @@ const Upload = (props) => {
           dispatch(setCurrentDrawingID(Char_id));
           dispatch(setDrawingUrl(drawing_url));
           dispatch(setCoordinates(bounding_box));
+          Swal.close();
           props.StepForward();
   
         })

@@ -4,6 +4,13 @@ import BannerLeftImage from "../../assets/banner-left.png";
 import Button from "../UI/Button";
 import { Link } from "react-router-dom";
 
+const fourSquares = [
+  require("../../assets/Animations/astro_dab.gif"),
+  require("../../assets/Animations/astro_jesse_dance.gif"),
+  require("../../assets/Animations/astro_kpop_dance.gif"),
+  require("../../assets/Animations/astro_jumping_jacks.gif")
+]
+
 const Hero = () => {
   return (
     <section class="bg-white dark:bg-[#FFD2D7] mt-[80px] border">
@@ -35,7 +42,12 @@ const Hero = () => {
           </Link>
         </div>
         <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
-          <img src={BannerLeftImage} alt="mockup" />
+        <div className={classes["four_squares"]}>
+          <div className={classes["i1"]}><img src={fourSquares[0]}/></div>
+          <div className={classes["i2"]}><img src={fourSquares[1]}/></div>
+          <div className={classes["i3"]}><img src={fourSquares[2]}/></div>
+          <div className={classes["i4"]}><img src={fourSquares[3]}/></div>
+        </div>
         </div>
       </div>
     </section>

@@ -1,6 +1,7 @@
 //import classes from "./Animator.module.css";
 import Instruction from "./Instructions";
 import React, { Fragment, useEffect, useRef, useState } from "react";
+import Swal from "sweetalert2";
 import { useSelector, useDispatch } from "react-redux";
 import { setCoordinates, setBoundingBox, setCroppedImageDimensions, setSkeleton } from "../../redux/DrawingStore";
 import { setMaskBase64 } from "../../redux/MaskEditorStore";
@@ -12,6 +13,8 @@ import classes from "./Animator.module.css";
 import MaskingToolbar from "../Canvas/MaskingToolbar";
 // component with one one side showing directions and the other side showing an image of the character
 // on the bottom there is a coursel of images of different characters
+
+const masking_tutorial = require("../../assets/Tutorial/Masking.JPG")
 
 const EditMask = (props) => {
 
@@ -54,6 +57,15 @@ const EditMask = (props) => {
         cropped_image_dimensions.height
       );
       setMaskBase64(newDataUri); // base64
+      Swal.fire({
+        title: "Getting Skeleton...",
+        html: "Please wait...",
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
 
       const response = await fetch(newDataUri || uri);
       const blob = await response.blob();
@@ -90,7 +102,7 @@ const EditMask = (props) => {
       })
 
       console.log("Next Step await worked?")
-
+      Swal.close();
       StepForward();
 
     };
@@ -98,11 +110,12 @@ const EditMask = (props) => {
   const instructions = {
     Title: "Select Character",
     PreText:
-      "Upload drawing of ONE humanlike character. Make sure to not make the arms and legs overlap in the drawing.",
+      "Select the body of the character you want to animate.",
     Directions: [
-      "Draw your character on a white background, like a piece of paper or white board. Make sure the background is as clean and smooth as possible.",
-      "Make sure to take the picture of your drawing in a well lit area, and hold the camera further away to minimize shadows.",
+      "Use Pen to select the body of the character you want to animate.",
+      "Use eraser to remove any unwanted selections.",
       <div class="h-[600px] border overflow-y-auto mx-[-30px]">
+        <img src={masking_tutorial} alt="" className={classes["tutorial_image"]} />
     </div>,
     ],
   };
