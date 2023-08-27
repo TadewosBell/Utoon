@@ -136,6 +136,7 @@ const Backgrounds = (props) => {
       Swal.close();
       StepForward();
     }, () =>  {
+      Swal.close();
       // set_animating_in_progress(false);
     })
   }

@@ -27,8 +27,16 @@ section.home-block-section {
   width: 50%;
   padding: 0 15px;
   text-align: center;
+} 
+.panel-img {
+    border-radius: 15px;
+    margin: 0 auto;
 }
 
+ .block-inner {
+    margin: 0 auto;
+    padding: 20px;
+ }
 .work-inner-title {
   font-weight: 600;
   font-size: 40px;

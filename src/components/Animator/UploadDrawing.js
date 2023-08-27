@@ -26,6 +26,10 @@ const selectable_characters = [
     name: "Berry.jpg"
   },
   {
+    id: 9,
+    name: "Piggy.png"
+  },
+  {
     id: 4,
     name: "Emily.png"
   },
@@ -44,7 +48,7 @@ const selectable_characters = [
   {
     id: 8,
     name: "Tommy.png"
-  }
+  },
 ]
 
 const Characters = (props) => {

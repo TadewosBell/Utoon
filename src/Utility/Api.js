@@ -1,5 +1,7 @@
 
-const apiUrl = 'http://127.0.0.1:80'
+const apiUrl = 'https://animator-swsknjcjbq-uc.a.run.app/'
+// check if app is development or production
+// const apiUrl = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:80' : 'https://animator-swsknjcjbq-uc.a.run.app'
 
 export const intial_animation = async (data, callBack, finalCallBack = null) => {
     try {

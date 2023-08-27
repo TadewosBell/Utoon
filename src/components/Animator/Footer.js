@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer className={classes["footer"]}>
-      <div className={classes["footer-row"]}>
+      {/* <div className={classes["footer-row"]}>
         <div className={classes["footer-col-left"]}>
           <div className={classes["footer-inner-row"]}>
             <span className={classes["footer-about"]}>About This Demo</span>
@@ -31,7 +31,7 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-      </div>
+      </div> */}
     </footer>
   );
 };

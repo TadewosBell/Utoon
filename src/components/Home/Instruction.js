@@ -72,7 +72,7 @@ const Instruction = () => {
         <div className={`${classes["work-create-btn"]} w-[110%] text-center`}>
           <Link to="/Animator">
           <Button classes={classes["work-memory-btn"]} type="submit">
-            Create
+            Animate
           </Button>
           </Link>
         </div>

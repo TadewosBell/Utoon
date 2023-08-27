@@ -20,31 +20,31 @@ const AnimationOptions = {
     'animation_id': 'jesse_dance',
     'retarget_id': 'mixamo_fff',
   },
-  'Kpop_Dance': {
+  'Dance 2': {
     'image': require("../../assets/Animations/astro_kpop_dance.gif"),
     'animation_id': 'kpop_dance',
     'retarget_id': 'mixamo_fff_2',
   },
-  'Jumping': {
-    'image': require("../../assets/Animations/astro_jumping.gif"),
-    'animation_id': 'jumping',
-    'retarget_id': 'fair1_ppf',
+  'Dance 3': {
+    'image': require("../../assets/Animations/astro_kpop_dance_2.gif"),
+    'animation_id': 'kpop_dance_2',
+    'retarget_id': 'mixamo_fff_2',
   },
+  // 'Jumping': {
+  //   'image': require("../../assets/Animations/astro_jumping.gif"),
+  //   'animation_id': 'jumping',
+  //   'retarget_id': 'fair1_ppf',
+  // },
   'Jumping Jacks': {
     'image': require("../../assets/Animations/astro_jumping_jacks.gif"),
     'animation_id': 'jumping_jacks',
     'retarget_id': 'cmu1_pfp',
   },
-  'Wave Hello': {
-    'image': require("../../assets/Animations/astro_wave_hello.gif"),
-    'animation_id': 'wave_hello',
-    'retarget_id': 'fair1_ppf',
-  },
-  'Kpop_Dance 2': {
-    'image': require("../../assets/Animations/astro_kpop_dance_2.gif"),
-    'animation_id': 'kpop_dance_2',
-    'retarget_id': 'mixamo_fff_2',
-  },
+  // 'Wave Hello': {
+  //   'image': require("../../assets/Animations/astro_wave_hello.gif"),
+  //   'animation_id': 'wave_hello',
+  //   'retarget_id': 'fair1_ppf',
+  // },
 }
 
 const Animations = () => {

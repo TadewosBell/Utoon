@@ -10,14 +10,12 @@ const Description = () => {
         <div className={classes["home-center-wrapper"]}>
           <div className={classes["center-wrap-box"]}>
             <p className={`${classes["center-content"]} text-black`}>
-              U-Toon lets you bring drawing to life so you can create virtual
-              cards that will last a life time. Simply Insert your child’s
-              drawing, customize your card and send it to your loved ones.
+              Watch you characters come to life and dance! 
             </p>
             <div className={classes["center-box-btn"]}>
               <Link to="/Animator">
                 <Button classes={classes["create-card"]} type="submit">
-                  Create
+                  Try it!
                 </Button>
               </Link>
             </div>
