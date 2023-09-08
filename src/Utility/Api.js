@@ -1,9 +1,27 @@
 
-const apiUrl = 'https://animator-swsknjcjbq-uc.a.run.app/'
+// const apiUrl = 'https://animator-swsknjcjbq-uc.a.run.app/'
 // check if app is development or production
-// const apiUrl = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:80' : 'https://animator-swsknjcjbq-uc.a.run.app'
+const apiUrl = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:80' : 'https://animator-swsknjcjbq-uc.a.run.app'
 
-export const intial_animation = async (data, callBack, finalCallBack = null) => {
+export const wake_up_backend = async (data, callBack, finalCallBack = null) => {
+    try {
+        const response = await fetch(`${apiUrl}`, 
+        {
+            method: 'GET'
+        });
+        callBack(response);
+    
+        } catch (error) {
+        console.error(error);
+    } finally {
+        if(finalCallBack !== null){
+            finalCallBack()
+        }
+    }
+}
+
+
+export const intial_animation = async (data, callBack, errorCallBack, finalCallBack = null) => {
     try {
         const response = await fetch(`${apiUrl}/intial_animation`, 
         {
@@ -19,6 +37,7 @@ export const intial_animation = async (data, callBack, finalCallBack = null) => 
     
         } catch (error) {
         console.error(error);
+        errorCallBack()
     } finally {
         if(finalCallBack !== null){
             finalCallBack()

@@ -4,6 +4,7 @@ import React from "react";
 // import { Row, Col } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { setLines, setPenSize, setTool, setMaskBase64 } from "../../redux/MaskEditorStore";
+import { BsPenFill, BsEraserFill } from "react-icons/bs";
 
 const MaskingToolbar = () => {
   const {
@@ -30,16 +31,28 @@ const MaskingToolbar = () => {
   };
 
   return (
-    <div className="mx-0 tools-wrapper">
+    <div className=""
+    style={{
+      marginTop: '10px',
+      marginBottom: '10px',
+      // border radius 5px
+      borderRadius: '10px',
+      backgroundColor: 'white',
+      maxWidth: '400px',
+    }}
+    >
       <div>
         <div>
           <button
-            // className={classnames("sm-button-icon mr-2", {
-            //   "bg-primary text-white": tool === "pen",
-            // })}
+
             onClick={() => dispatch(setTool("pen"))}
           >
-            Pen
+            <BsPenFill size={25} style={{
+              marginRight: '10px',
+              marginTop: '10px',
+              backgroundColor: 'white',
+              borderRadius: '5px',
+            }} />
           </button>
           <button
             // className={classnames("sm-button-icon mr-2", {
@@ -47,7 +60,12 @@ const MaskingToolbar = () => {
             // })}
             onClick={() => dispatch(setTool("eraser"))}
           >
-            Eraser
+            <BsEraserFill size={25} style={{
+              marginLeft: '10px',
+              marginTop: '10px',
+              backgroundColor: 'white',
+              borderRadius: '5px',
+            }} />
           </button>
           <div className="pens-wrapper">
             <form className="pens">
@@ -59,7 +77,7 @@ const MaskingToolbar = () => {
                   checked={penSize === 3}
                   onChange={() => dispatch(setPenSize(3))}
                 />
-                <span></span>
+                Size 1
               </label>
               <label className="label1">
                 <input
@@ -69,7 +87,7 @@ const MaskingToolbar = () => {
                   checked={penSize === 5}
                   onChange={() => dispatch(setPenSize(5))}
                 />
-                <span></span>
+                Size 2
               </label>
               <label className="label2">
                 <input
@@ -79,7 +97,7 @@ const MaskingToolbar = () => {
                   checked={penSize === 15}
                   onChange={() => dispatch(setPenSize(15))}
                 />
-                <span></span>
+                Size 3
               </label>
               <label className="label3">
                 <input
@@ -89,7 +107,7 @@ const MaskingToolbar = () => {
                   checked={penSize === 26}
                   onChange={() => dispatch(setPenSize(26))}
                 />
-                <span></span>
+                Size 4
               </label>
               <label className="label4">
                 <input
@@ -99,7 +117,7 @@ const MaskingToolbar = () => {
                   checked={penSize === 35}
                   onChange={() => dispatch(setPenSize(35))}
                 />
-                <span></span>
+                Size 5
               </label>
             </form>
           </div>

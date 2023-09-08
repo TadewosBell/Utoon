@@ -35,18 +35,10 @@ const selectable_characters = [
   },
   {
     id: 5,
-    name: "George.jpg"
-  },
-  {
-    id: 6,
     name: "Ginger.jpg"
   },
   {
-    id: 7,
-    name: "Panda.jpg"
-  },
-  {
-    id: 8,
+    id: 6,
     name: "Tommy.png"
   },
 ]
@@ -244,7 +236,7 @@ const Upload = (props) => {
 
     Swal.fire({
       title: "Uploading...",
-      html: "Please wait...",
+      html: "The server is starting up. This may take around 1-2 minutes.",
       allowEscapeKey: false,
       allowOutsideClick: false,
       didOpen: () => {

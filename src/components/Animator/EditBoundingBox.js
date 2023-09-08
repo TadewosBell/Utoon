@@ -3,7 +3,7 @@ import Instruction from "./Instructions";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
-import { setCoordinates, setBoundingBox, setMaskUrl, setCroppedImageUrl } from "../../redux/DrawingStore";
+import { setCoordinates, setBoundingBox, setMaskUrl, setCroppedImageUrl, resetState } from "../../redux/DrawingStore";
 
 import { set_bounding_box } from "../../Utility/Api";
 
@@ -134,6 +134,12 @@ const EditBoundingBox = (props) => {
         // StepForward();
     };
 
+  const previousPressed = () => {
+    dispatch(resetState());
+    StepBackward();
+  };
+
+
   const instructions = {
     Title: "Edit Bounding Box",
     PreText:
@@ -146,6 +152,8 @@ const EditBoundingBox = (props) => {
     ],
 
   };
+
+
 
   return (
     <Fragment>
@@ -162,7 +170,7 @@ const EditBoundingBox = (props) => {
         </div>
         <div className={classes["button-row"]}>
             <div className={classes["button-col"]}>
-            <button className={classes["prev-btn"]} onClick={StepBackward}>
+            <button className={classes["prev-btn"]} onClick={previousPressed}>
                 Previous
             </button>
             </div>

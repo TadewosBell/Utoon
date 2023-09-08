@@ -23,7 +23,7 @@ const EditSkeleton = (props) => {
   const dispatch = useDispatch();
   const layerRef = useRef(null);
   const [imgScale, setImgScale] = useState(0);
-
+  const [triedTwice, setTriedTwice] = useState(false);
   useEffect(() => {
     const ratio = calculateRatio(
       canvasWindow.current.offsetWidth - 45, // Toolbar Offset
@@ -68,13 +68,19 @@ const EditSkeleton = (props) => {
       dispatch(setCurrentAnimationUrl(animation_1));
       dispatch(addCharacter(Char_id));
       console.log("intial_animation", res)
+      StepForward();
 
+    }, () => {
+      console.log("intial_animation failed")
+      // retry animation
+      if(!triedTwice){
+        setTriedTwice(true);
+        NextStep();
+      }
     })
 
 
-    console.log("Next Step await worked?")
     Swal.close();
-    StepForward();
 
   };
 

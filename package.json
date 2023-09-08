@@ -17,11 +17,13 @@
     "konva": "^9.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.10.1",
     "react-konva": "^18.2.10",
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.11.2",
     "react-scripts": "5.0.1",
     "react-stepper-horizontal": "^1.0.11",
+    "sweetalert2": "^11.7.27",
     "use-image": "^1.1.1",
     "web-vitals": "^2.1.4"
   },

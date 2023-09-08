@@ -16,7 +16,7 @@ const Hero = () => {
     <section class="bg-white dark:bg-[#FFD2D7] mt-[80px] border">
       <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
         <div class="mr-auto place-self-center lg:col-span-7">
-          <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-transparent text-8xl bg-clip-text bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500">
+          <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-transparent text-6xl bg-clip-text bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500">
             Make your drawings come to life!
           </h1>
           <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-xl lg:text-[2rem] dark:text-[#333333]">

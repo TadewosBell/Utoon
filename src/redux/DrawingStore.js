@@ -53,6 +53,22 @@ export const DrawingStore = createSlice({
     setSkeleton: (state, action) => {
       console.log("skeleton", action.payload)
       state.skeleton = action.payload;
+    },
+    resetState: (state, action) => {
+      state = {
+        drawingID: null,
+        drawing_url: "",
+        backgroundUrl: null,
+        current_animation_url: null,
+        with_background_url: null,
+        coordinates: null,
+        boundingBox: { x: 200, width: 100, y: 200, height: 100, id: "1" },
+        imageDimenstions: { width: 10, height: 10 },
+        mask_url: null,
+        cropped_image_url: null,
+        cropped_image_dimensions: { width: 10, height: 10 },
+        skeleton: null,
+      };
     }
   },
 });
@@ -69,6 +85,7 @@ export const {
   setCroppedImageUrl,
   setCroppedImageDimensions,
   setSkeleton,
-  setCurrentAnimationUrl
+  setCurrentAnimationUrl,
+  resetState
 } = DrawingStore.actions;
 export default DrawingStore.reducer;

@@ -14,7 +14,7 @@ import MaskingToolbar from "../Canvas/MaskingToolbar";
 // component with one one side showing directions and the other side showing an image of the character
 // on the bottom there is a coursel of images of different characters
 
-const masking_tutorial = require("../../assets/Tutorial/Masking.JPG")
+const masking_tutorial = require("../../assets/Tutorial/Mask_Tutorial.gif")
 
 const EditMask = (props) => {
 
@@ -126,6 +126,8 @@ const EditMask = (props) => {
         instructions={instructions}
       >
         <div ref={canvasWindow} className={classes["pre-img-box"]}>
+        <MaskingToolbar />
+
           <div className={classes["canvas-wrapper"]}>
             
             <div className={classes["mask-tool-rapper"]}>
@@ -137,7 +139,6 @@ const EditMask = (props) => {
               />
             </div>
           </div>
-            <MaskingToolbar />
         </div>
         <div className={classes["button-row"]}>
             <div className={classes["button-col"]}>

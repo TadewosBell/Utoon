@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import classes from "./Nav.module.css";
 import Logoimage from "../../assets/Logo.png";
 import Button from "../UI/Button";
+
 import { Link } from "react-router-dom";
 
 const Nav = () => {
@@ -13,7 +14,7 @@ const Nav = () => {
 
   return (
     <>
-      <nav className="bg-white dark:bg-[#ffecaf] fixed w-[100%] z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+      <nav className="nav-bar bg-white dark:bg-[#ffecaf] fixed w-[100%] z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <img src={Logoimage} alt="Logo" />
 
