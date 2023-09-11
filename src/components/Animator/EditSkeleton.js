@@ -18,7 +18,7 @@ const skeleton_image = require("../../assets/Tutorial/Skeleton.JPG")
 const EditSkeleton = (props) => {
 
   const canvasWindow = useRef(null);
-  const { StepForward, StepBackward } = props;
+  const { StepForward, StepBackward, Game } = props;
   const { drawingID, cropped_image_url, cropped_image_dimensions, mask_url, skeleton } = useSelector((state) => state.image);
   const dispatch = useDispatch();
   const layerRef = useRef(null);
@@ -33,12 +33,16 @@ const EditSkeleton = (props) => {
     );
     setImgScale(ratio);
 
-
-
   }, [canvasWindow]);
 
 
   const NextStep = async () => {
+    console.log("Game: ", Game )
+    if(Game) {
+      StepForward();
+      return;
+    }
+
     const set_skeleton_req = {
       char_id: drawingID,
       skeleton: skeleton
@@ -75,7 +79,10 @@ const EditSkeleton = (props) => {
       // retry animation
       if(!triedTwice){
         setTriedTwice(true);
+        // delay untill setTriedTwice is set to true
+        setTimeout(() => {
         NextStep();
+        }, 1000);
       }
     })
 

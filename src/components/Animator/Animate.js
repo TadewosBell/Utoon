@@ -20,20 +20,45 @@ const AnimationOptions = {
     'animation_id': 'jesse_dance',
     'retarget_id': 'mixamo_fff',
   },
-  'Dance 2': {
+  'Macarena Dance': {
+    'image': require("../../assets/Animations/astro_Macarena.gif"),
+    'animation_id': 'Macarena',
+    'retarget_id': 'fair1_ppf_2',
+  },
+  'Chicken Dance': {
+    'image': require("../../assets/Animations/astro_Chicken_Dance.gif"),
+    'animation_id': 'Chicken_Dance',
+    'retarget_id': 'fair1_ppf_2',
+  },
+  'YMCA': {
+    'image': require("../../assets/Animations/astro_YMCA.gif"),
+    'animation_id': 'YMCA',
+    'retarget_id': 'fair1_ppf_2',
+  },
+  'Flow Dance': {
     'image': require("../../assets/Animations/astro_kpop_dance.gif"),
     'animation_id': 'kpop_dance',
     'retarget_id': 'mixamo_fff_2',
   },
-  // 'Walk': {
-  //   'image': require("../../assets/Animations/astro_jumping.gif"),
-  //   'animation_id': 'Walk',
-  //   'retarget_id': 'mixamo_fff_3',
-  // },
+  'Walk': {
+    'image': require("../../assets/Animations/astro_walk.gif"),
+    'animation_id': 'Walk',
+    'retarget_id': 'mixamo_fff_3',
+  },
+  'Running': {
+    'image': require("../../assets/Animations/astro_running.gif"),
+    'animation_id': 'Running',
+    'retarget_id': 'fair1_ppf_2',
+  },
   'Jumping Jacks': {
     'image': require("../../assets/Animations/astro_jumping_jacks.gif"),
     'animation_id': 'jumping_jacks',
     'retarget_id': 'cmu1_pfp',
+  },
+  'Jump': {
+    'image': require("../../assets/Animations/astro_jump.gif"),
+    'animation_id': 'Jump',
+    'retarget_id': 'fair1_ppf_2',
   },
 }
 
@@ -42,7 +67,7 @@ const Animations = () => {
   const { currentCharacterId, current_animation_url } = useSelector((state) => state.characters);
   const { drawingID } = useSelector((state) => state.image);
   const [animataing_in_progress, set_animating_in_progress] = useState(false);
-
+  const [triedTwice, setTriedTwice] = useState(false);
   const onAnimationSelected = async (animation_id, retarget_id) => {
     console.log(animation_id, drawingID);
 
@@ -73,6 +98,14 @@ const Animations = () => {
       Swal.close();
       set_animating_in_progress(false);
 
+    },() => {
+      if(!triedTwice){
+        setTriedTwice(true);
+        // delay untill setTriedTwice is set to true
+        setTimeout(() => {
+        onAnimationSelected(animation_id, retarget_id);
+        }, 500);
+      }
     }, () => {
       Swal.close();
       set_animating_in_progress(false);
@@ -172,6 +205,7 @@ const Animate = (props) => {
   const instructions = {
     Title: "Animate",
     PreText: "Select an animation and watch your character come to life!",
+    Direction_Alt_Title: "Select an animation",
     Directions: [
       // <div className={classes["upload-content"]}>
       //   <img

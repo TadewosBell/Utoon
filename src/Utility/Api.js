@@ -45,7 +45,7 @@ export const intial_animation = async (data, callBack, errorCallBack, finalCallB
     }
 }
 
-export const animate_character = async (data, callBack, finalCallBack = null) => {
+export const animate_character = async (data, callBack, errorCallBack, finalCallBack = null) => {
     try {
         const response = await fetch(`${apiUrl}/animate_character`, 
         {
@@ -61,6 +61,7 @@ export const animate_character = async (data, callBack, finalCallBack = null) =>
     
         } catch (error) {
         console.error(error);
+        errorCallBack();
     } finally {
         if(finalCallBack !== null){
             finalCallBack()
@@ -205,3 +206,24 @@ export const final_render = async (data, callBack, finalCallBack = null) => {
         }
     }
 }
+
+export const generateSpritesheets = async (data) => {
+    try {
+        const response = await fetch(`${apiUrl}/generate_spritesheets`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        throw new Error(`API Error: ${error.message}`);
+    }
+};

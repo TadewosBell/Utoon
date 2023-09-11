@@ -7,6 +7,7 @@ import {
   Routes,
 } from "react-router-dom";
 import Animator from "./components/Animator";
+import GameSetup from "./components/Game";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path='/' element={<HomePage/>} />
         <Route path='/Animator' element={<Animator/>} />
+        <Route path='/GameSetup' element={<GameSetup/>} />
       </Routes>
     </Router>
   );

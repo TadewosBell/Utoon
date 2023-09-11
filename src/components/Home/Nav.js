@@ -46,7 +46,7 @@ const Nav = () => {
               </li>
             </ul>
           </div>
-          <div className="flex md:order-3">
+          {/* <div className="flex md:order-3">
             <Link
               to="/Animator"
               href="#"
@@ -54,7 +54,7 @@ const Nav = () => {
             >
               Try it!
             </Link>
-          </div>
+          </div> */}
           <button
             type="button"
             onClick={toggleSidebar}

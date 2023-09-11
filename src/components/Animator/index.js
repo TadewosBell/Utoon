@@ -6,7 +6,6 @@ import EditMask from "./EditMask";
 import EditSkeleton from "./EditSkeleton";
 import Animate from "./Animate";
 import Background from "./Background";
-import Sound from "./Sound";
 import Share from "./Share";
 import classes from "./index.module.css";
 import Footer from "./Footer";
@@ -95,7 +94,7 @@ function Animator() {
           </div>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
