@@ -3,9 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 export const GameAssets = createSlice({
     name: "GameAssets",
     initialState: {
-        running_spritesheet_url: "https://s3.amazonaws.com/utoon-animator/Animations/SpriteSheets/ZQMveebZkb_Running_sprite_sheet.png",
+        running_spritesheet_url:null,  //"https://s3.amazonaws.com/utoon-animator/Animations/SpriteSheets/ZQMveebZkb_Running_sprite_sheet.png",
         jump_spritesheet_url: null,
-        idle_spritesheet_url: "https://s3.amazonaws.com/utoon-animator/Animations/SpriteSheets/ZQMveebZkb_Idle_sprite_sheet.png"
+        idle_spritesheet_url:null, //"https://s3.amazonaws.com/utoon-animator/Animations/SpriteSheets/ZQMveebZkb_Idle_sprite_sheet.png",
     },
     reducers: {
         setRunningSpritesheetUrl: (state, action) => {
@@ -17,6 +17,7 @@ export const GameAssets = createSlice({
         setIdleSpritesheetUrl: (state, action) => {
             state.idle_spritesheet_url = action.payload;
         },
+
     },
 });
 

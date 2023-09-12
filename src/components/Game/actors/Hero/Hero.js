@@ -1,4 +1,6 @@
 import * as ex from "excalibur";
+import React, { useEffect, useState } from 'react';
+
 import { ANCHOR_CENTER, LEFT, SCALE_2x, RIGHT } from "../../constants";
 import animations, {animationMap} from "./animations.js";
 import { Sounds } from "../../resources";
@@ -24,7 +26,7 @@ const LADDER_ANIM_SPEED = 220;
 const LADDER_TOTAL_MS = LADDER_ANIM_SPEED * 2;
 
 export class Hero extends ex.Actor {
-    constructor(x, y) {
+    constructor(x, y, customAnimationMap=null) {
         super({
             x: x,
             y: y,
@@ -35,7 +37,18 @@ export class Hero extends ex.Actor {
             collisionType: ex.CollisionType.Active,
             color: ex.Color.Green,
         })
-        this.graphics.use(animations.idleRight);
+
+        this.animations = {...animations};
+        this.animationMap = {...animationMap};
+
+        // replace default animationMap with only values provided in customAnimationMap
+        if(customAnimationMap) {
+            for (const key in customAnimationMap) {
+                this.animationMap[key] = customAnimationMap[key];
+            }
+        }
+
+        this.graphics.use(this.animations.idleRight);
         this.onGround = false;
         this.directionQueue = new DirectionQueue();
         this.spriteDirection = RIGHT;
@@ -122,7 +135,7 @@ export class Hero extends ex.Actor {
         let index = this.spriteDirection === LEFT ? 0 : 1;
 
         if(!this.onGround) {
-            this.graphics.use(animationMap["JUMP"][index]);
+            this.graphics.use(this.animationMap["JUMP"][index]);
             return;
         }
 
@@ -131,19 +144,19 @@ export class Hero extends ex.Actor {
             return;
         }
 
-        this.graphics.use(animationMap["IDLE"][index]);
+        this.graphics.use(this.animationMap["IDLE"][index]);
     }
 
     getRunningAnim(index) {
         if (this.runningAnimationFramesMs < RUN_TOTAL_MS * 0.25) {
-          return animationMap["astro_run"][index];
+          return this.animationMap["astro_run"][index];
         }
         if (this.runningAnimationFramesMs < RUN_TOTAL_MS * 0.5) {
-          return animationMap["astro_run"][index];
+          return this.animationMap["astro_run"][index];
         }
         if (this.runningAnimationFramesMs < RUN_TOTAL_MS * 0.75) {
-          return animationMap["astro_run"][index];
+          return this.animationMap["astro_run"][index];
         }
-        return animationMap["astro_run"][index];
+        return this.animationMap["astro_run"][index];
     }
 }
