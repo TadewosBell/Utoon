@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { loader } from "./resources.js";
 import game from './main.js';
 
+
 const Game = (props) => {
     useEffect(() => {
         // Set background color

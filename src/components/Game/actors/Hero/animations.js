@@ -1,6 +1,6 @@
 import * as ex from "excalibur";
 import { Images } from "../../resources.js";
-
+console.log("Images", Images)
 const heroSpriteSheet = ex.SpriteSheet.fromImageSource({
   image: Images.heroSheetImage,
   grid: {
@@ -11,6 +11,7 @@ const heroSpriteSheet = ex.SpriteSheet.fromImageSource({
   },
 });
 
+
 const astro_run_sheet = ex.SpriteSheet.fromImageSource({
   image: Images.astroRunningSheet,
   grid: {
@@ -20,7 +21,6 @@ const astro_run_sheet = ex.SpriteSheet.fromImageSource({
     spriteHeight: 65,
   }
 });
-
 const astro_Idle_sheet = ex.SpriteSheet.fromImageSource({
   image: Images.astroIdleSheet,
   grid: {
@@ -30,6 +30,8 @@ const astro_Idle_sheet = ex.SpriteSheet.fromImageSource({
     spriteHeight: 65,
   }
 });
+
+
 
 const astro_ymca_sheet = ex.SpriteSheet.fromImageSource({
   image: Images.astroYMCASheet,

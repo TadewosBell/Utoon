@@ -207,7 +207,7 @@ export const final_render = async (data, callBack, finalCallBack = null) => {
     }
 }
 
-export const generateSpritesheets = async (data) => {
+export const generate_spritesheets = async (data) => {
     try {
         const response = await fetch(`${apiUrl}/generate_spritesheets`, {
             method: 'POST',

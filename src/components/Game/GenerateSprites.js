@@ -1,50 +1,76 @@
 import { useDispatch, useSelector } from "react-redux";
+// import react router
+import { useNavigate } from "react-router-dom";
 import './GenerateSprite.css'
 import ProgressBar from "@ramonak/react-progress-bar";
-import { GenerationQueue } from './GenerationQueue'; 
+import { GenerationQueue } from './classes/GenerationQueue'; 
 import React, { useState, useEffect } from 'react';
 
-const CustomModal = ({ steps, charId }) => {
-  const [progress, setProgress] = useState(1);
-  const [currentStep, setCurrentStep] = useState(0);
-  const [isDone, setIsDone] = useState(false);
+import { setRunningSpritesheetUrl, setJumpSpritesheetUrl, setIdleSpritesheetUrl } from "../../redux/GameStore";
 
-  useEffect(() => {
-    const queue = new GenerationQueue(charId);
+const CustomModal = ({ steps, history }) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [progress, setProgress] = useState(0);
+    const [currentStep, setCurrentStep] = useState(0);
+    const [isDone, setIsDone] = useState(false);
+    const { with_background_url, drawingID, backgroundUrl,  } = useSelector((state) => state.image);
+    const [queue, setQueue] = useState(null);
+    const promisedSetState = (newState) => new Promise(resolve => setQueue(newState));
 
     const incrementProgress = async () => {
-      if (currentStep < steps.length) {
-        // Start the appropriate generation function based on the current step
-        switch (currentStep) {
-          case 0:
-            await queue.generateRunningSprite();
-            break;
-          case 1:
-            await queue.generateJumpingSprite();
-            break;
-          case 2:
-            await queue.generateIdleSprite();
-            break;
-          // Add more cases for additional steps/animations if needed
+        console.log("incrementProgress");
 
-          default:
-            break;
-        }
+        if (currentStep < steps.length) {
+            // Start the appropriate generation function based on the current step
+            switch (currentStep) {
+            case 0:
+                const running_spritesheet_url = await queue.generateSprite("Running");
+                dispatch(setRunningSpritesheetUrl(running_spritesheet_url));
+                break;
+            case 1:
+                const jump_spritesheet_url =  await queue.generateSprite("Jump");
+                break;
+            case 2:
+                const idle_spritesheet_url =  await queue.generateSprite("Idle");
+                dispatch(setIdleSpritesheetUrl(idle_spritesheet_url));
+                break;
+            // Add more cases for additional steps/animations if needed
 
-        setProgress(((currentStep + 1) / steps.length) * 100);
-        setCurrentStep(currentStep + 1);
-      } else {
-        // All steps are completed
-        if (!isDone) {
-          setTimeout(() => {
-            setIsDone(true);
-          }, 1000);
+            default:
+                break;
+            }
+            const progress = ((currentStep + 1) / steps.length) * 100
+            // round to 0 decimal places
+            setProgress(Math.round(progress));
+            setCurrentStep(currentStep + 1);
+        } else {
+            // All steps are completed
+            if (!isDone) {
+                // route to /Game
+                setIsDone(true);
+                navigate('/Game');
+            
+                
+            }
         }
-      }
     };
 
-    incrementProgress();
-  }, [currentStep, steps, charId, isDone]);
+    const start_sprite_generation = async () => {
+        
+        await incrementProgress();
+
+    };
+
+    useEffect(() => {
+        if(queue)start_sprite_generation();
+    }, [queue]);
+
+
+    useEffect(() => {
+        const queue = new GenerationQueue(drawingID);
+        setQueue(queue);
+    }, [currentStep, steps, drawingID, isDone]);
 
   return (
     <div className="modal">
@@ -70,7 +96,6 @@ const GenerateSprites = (props) => {
     const steps = [
         'Generating running animation',
         'Generating Jumping animation',
-        'Generating background',
         'Finalizing game',
     ];
   return (

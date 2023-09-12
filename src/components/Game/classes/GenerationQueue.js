@@ -8,11 +8,6 @@ export class GenerationQueue {
 
         };
     }
-
-    get spritesheet_urls() {
-        return this.spritesheet_urls ?? null;
-    }
-
     async generateSprite(animation) {
         const data = {
             char_id: this.char_id,
@@ -21,8 +16,9 @@ export class GenerationQueue {
         };
 
         try {
-            const response = await generateSpritesheets(data);
-            console.log(`generate_spritesheets (${animation}):`, response);
+            const response = await generate_spritesheets(data);
+            const spritesheet_url = response['spritesheet_url'];
+            return spritesheet_url;
         } catch (error) {
             console.error(`Error generating spritesheets (${animation}):`, error);
         }

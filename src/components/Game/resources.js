@@ -1,4 +1,5 @@
 import * as ex from "excalibur";
+import Store from "../../redux/store";
 
 const Images = {
   heroSheetImage: new ex.ImageSource("/sprites/mm-48-drew-blue-sheet.png"),
@@ -19,6 +20,18 @@ const Images = {
   painFlashImage: new ex.ImageSource("/sprites/mm-pain-flash.png"),
   mmExplosionSpriteSheet: new ex.ImageSource("/sprites/mm-die-explosion.png"),
 };
+
+const customGameAssets = Store.getState();
+
+const { running_spritesheet_url } = customGameAssets.game;
+
+console.log("customGameAssets", customGameAssets);
+
+// if running_spritesheet_url is not null set astroRunningSheet to running_spritesheet_url
+if(running_spritesheet_url){
+  console.log("running_spritesheet_url", running_spritesheet_url)
+  Images.astroRunningSheet = new ex.ImageSource(running_spritesheet_url);
+}
 
 const Sounds = {
   LANDING: new ex.Sound("/sounds/mm-floor-landing.wav"),

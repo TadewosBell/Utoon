@@ -3,11 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import Instructions from "./Instructions";
 import classes from "./Animator.module.css";
-import { parseGIF, decompressFrames } from 'gifuct-js';
-import imgSelectAnimation from "../../assets/image-3.png";
-import { setDrawingUrl, setCurrentAnimationUrl } from "../../redux/DrawingStore";
+import { setCurrentAnimationUrl } from "../../redux/DrawingStore";
 import { animate_character } from "../../Utility/Api";
-import GifCanvas from "./Gif_Canvas";
 
 const AnimationOptions = {
   'Dab': {
