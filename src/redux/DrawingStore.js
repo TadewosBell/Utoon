@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const DrawingStore = createSlice({
   name: "image",
   initialState: {
-    drawingID: null,
+    drawingID: "NTYfcyoeyY",
     drawing_url: "",
     backgroundUrl: null,
     current_animation_url: null,

@@ -29,7 +29,8 @@ const CustomModal = ({ steps, history }) => {
                 dispatch(setRunningSpritesheetUrl(running_spritesheet_url));
                 break;
             case 1:
-                const jump_spritesheet_url =  await queue.generateSprite("Jump");
+                const jump_spritesheet_url =  await queue.generateSprite("Game_Jump");
+                dispatch(setJumpSpritesheetUrl(jump_spritesheet_url));
                 break;
             case 2:
                 const idle_spritesheet_url =  await queue.generateSprite("Idle");

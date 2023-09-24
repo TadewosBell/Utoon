@@ -57,6 +57,11 @@ const AnimationOptions = {
     'animation_id': 'Jump',
     'retarget_id': 'fair1_ppf_2',
   },
+  'Game_Jump': {
+    'image': require("../../assets/Animations/astro_jump.gif"),
+    'animation_id': 'Game_Jump',
+    'retarget_id': 'fair1_ppf_2',
+  },
 }
 
 const Animations = () => {
