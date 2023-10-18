@@ -36,4 +36,5 @@ export const Objs = {
   NEW_SHOTMAN: "NEW_SHOTMAN",
   PIPI: "PIPI",
   HARD_HAT: "HARD_HAT",
+  ALIEN: "ALIEN",
 };

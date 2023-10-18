@@ -7,7 +7,7 @@ const Images = {
   astroRunningSheet: new ex.ImageSource("/sprites/astro_running.png"),
   astroYMCASheet: new ex.ImageSource("/sprites/astro_YMCA.png"),
   astroIdleSheet: new ex.ImageSource("/sprites/astro_Idle.png"),
-  map1Image: new ex.ImageSource("/maps/DrewMan_stage/map1.png"),
+  map1Image: new ex.ImageSource("/maps/DrewMan_stage/FirstLevel.png"),
   map2Image: new ex.ImageSource("/maps/DrewMan_stage/map2.png"),
   map3Image: new ex.ImageSource("/maps/DrewMan_stage/map3.png"),
 
@@ -20,18 +20,6 @@ const Images = {
   painFlashImage: new ex.ImageSource("/sprites/mm-pain-flash.png"),
   mmExplosionSpriteSheet: new ex.ImageSource("/sprites/mm-die-explosion.png"),
 };
-
-// const customGameAssets = Store.getState();
-
-// const { running_spritesheet_url } = customGameAssets.game;
-
-// console.log("customGameAssets", customGameAssets);
-
-// // if running_spritesheet_url is not null set astroRunningSheet to running_spritesheet_url
-// if(running_spritesheet_url){
-//   console.log("running_spritesheet_url", running_spritesheet_url)
-//   Images.astroRunningSheet = new ex.ImageSource(running_spritesheet_url);
-// }
 
 const Sounds = {
   LANDING: new ex.Sound("/sounds/mm-floor-landing.wav"),

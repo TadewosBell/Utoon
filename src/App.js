@@ -8,6 +8,8 @@ import {
 } from "react-router-dom";
 import Animator from "./components/Animator";
 import GameSetup from "./components/Game";
+import GameSelection from "./components/Game/GameSelection";
+import CharacterSelection from "./components/Game/CharacterSelection";
 import Game from "./components/Game/Game";
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
         <Route path='/' element={<HomePage/>} />
         <Route path='/Animator' element={<Animator/>} />
         <Route path='/GameSetup' element={<GameSetup/>} />
+        {/* <Route path='/GameSelection' element={<GameSelection/>} /> */}
+        {/* <Route path='/CharacterSelection' element={<CharacterSelection/>} /> */}
         <Route path='/Game' element={<Game/>} />
       </Routes>
     </Router>

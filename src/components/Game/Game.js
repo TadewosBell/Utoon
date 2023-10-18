@@ -27,80 +27,14 @@ const Game = () => {
         hasMounted.current = true;
         let isGameRunning = false;
         setIsGameRunning(true);
-        start_game(running_spritesheet_url, idle_spritesheet_url, jump_spritesheet_url);
-        // const customResources = {}
-        // const customAnimationsMap = {}
-        // let isGameRunning = false;
-        // const SCALE = 2;
-        // const game = new ex.Engine({
-        //     width: 700 * SCALE,
-        //     height: 300 * SCALE,
-        //     fixedUpdateFps: 60,
-        //     antialiasing: false, // Pixel art graphics
-        //     configurePerformanceCanvas2DFallback: {
-        //         allow: false
-        //     }
-        // });
-
-        // // Set global gravity
-        // ex.Physics.acc = new ex.Vector(0, 1500);
-
-        // const stage = new Martian_Stage();
-
-        // stage.rooms.forEach((room) => {
-        //     game.add(room);
-        // });
-
-
-        // if (running_spritesheet_url) {
-        //     customResources.astroRunningSheet = new ex.ImageSource(running_spritesheet_url);
-
-        //     customResources.astroRunningSheet.load().then(() => {
-        //         const astro_run_sheet = ex.SpriteSheet.fromImageSource({
-        //             image: customResources.astroRunningSheet,
-        //             grid: {
-        //                 columns: 20,
-        //                 rows: 1,
-        //                 spriteWidth: 1500 / 20,
-        //                 spriteHeight: 65,
-        //             }
-        //         });
-        //         const astro_run_right = ex.Animation.fromSpriteSheet(astro_run_sheet, ex.range(0, 20), 25);
-        //         const astro_run_left = ex.Animation.fromSpriteSheet(astro_run_sheet, ex.range(0, 20), 25);
-        //         astro_run_left.flipHorizontal = true;
-        //         customAnimationsMap.astro_run = [astro_run_left, astro_run_right]
-        //         const hero = new Hero(200, 200, customAnimationsMap);
-
-        //         // game.add(hero);
-        //         // Check if hero already exists in the scene
-        //         const existingHero = game.currentScene.actors.find(actor => actor === hero);
-
-        //         // If existingHero is not undefined, it means the hero already exists in the scene
-        //         if (existingHero) {
-        //         // You can perform actions or log a message here
-        //         console.log('Hero already exists in the scene.');
-        //         } else {
-        //         // Add the hero to the scene
-        //         game.add(hero);
-        //         }
-
-        //         game.on("initialize", () => {
-        //             game.currentScene.camera.strategy.lockToActor(hero);
-        //         });
-
-        //         if (!isGameRunning) {
-        //             game.start(loader, gameContainerRef.current);
-        //             isGameRunning = true;
-        //         }
-        //     });
-        // }
+        if(idle_spritesheet_url && jump_spritesheet_url) start_game(running_spritesheet_url, idle_spritesheet_url, jump_spritesheet_url);
 
         return () => {
             if (isGameRunning) {
                 // game.stop();
             }
         };
-    }, []);
+    }, [idle_spritesheet_url, running_spritesheet_url, jump_spritesheet_url]);
 
     return (
         <div>
