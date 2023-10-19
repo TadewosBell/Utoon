@@ -1,5 +1,4 @@
 import * as ex from "excalibur";
-import Store from "../../redux/store";
 
 const Images = {
   heroSheetImage: new ex.ImageSource("/sprites/mm-48-drew-blue-sheet.png"),

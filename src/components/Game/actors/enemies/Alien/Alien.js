@@ -1,8 +1,9 @@
 import * as ex from "excalibur";
 import { Images } from "../../../resources.js";
-import { LEFT } from "../../../constants.js";
+import { LEFT, RIGHT } from "../../../constants.js";
 import { ANCHOR_CENTER, TAG_HERO_BULLET } from "../../../constants.js";
 import { DrawShapeHelper } from "../../../classes/DrawShapeHelper.js";
+import alienAnimationsMap from "./AlienAnimation.js";
 import anims, { animationMap } from '../../Hero/animations';
 
 const RUN_ANIM_SPEED = 140;
@@ -60,6 +61,10 @@ export class Alien extends ex.Actor {
 
     this.graphics.use(idleHidingAnim);
     this.dir = dir;
+    this.spriteDirection = RIGHT;
+
+    this.animationMap = alienAnimationsMap;
+
 
     this.on("initialize", () => {
       void this.behavior();
@@ -83,10 +88,18 @@ export class Alien extends ex.Actor {
     new DrawShapeHelper(this);
 
   }
+  onPreUpdate(engine, delta) {
+    // Show correct frame for Mega Man's state
+    this.onPreUpdateAnimationLoop(delta);
+  }
+
+  // async loadAnimation () {
+  //   this.animationMap = await loadAlienAnimations();
+  // }
 
   onPreUpdateAnimationLoop(_delta) {
     // console log current x, y position
-    console.log(this.pos.x/32, this.pos.y/32);
+    // console.log(this.pos.x/32, this.pos.y/32);
 
     // Start with LEFT or RIGHT
     let index = this.spriteDirection === LEFT ? 0 : 1;
@@ -100,11 +113,10 @@ export class Alien extends ex.Actor {
       // kill hero if he falls off the map
       this.takeDamage(100);
     }
-
-    if (this.painState) {
-      this.graphics.use(animationMap["PAIN"][index]);
-      return;
-    }
+    // if (this.painState) {
+    //   this.graphics.use(animationMap["PAIN"][index]);
+    //   return;
+    // }
     if (this.climbTopState) {
       this.graphics.use(anims.climbTop);
       return;
@@ -113,12 +125,12 @@ export class Alien extends ex.Actor {
       this.graphics.use(this.getLadderAnim());
       return;
     }
-    if (!this.onGround) {
-      this.graphics.use(this.animationMap["JUMP"][index]);
-      return;
-    }
     if (this.vel.x !== 0) {
       this.graphics.use(this.getRunningAnim(index));
+      return;
+    }
+    if (!this.onGround) {
+      this.graphics.use(this.animationMap["JUMP"][index]);
       return;
     }
     if (this.preStepMsLeft > 0) {
@@ -126,6 +138,19 @@ export class Alien extends ex.Actor {
       return;
     }
     this.graphics.use(this.animationMap["IDLE"][index]);
+  }
+
+  getRunningAnim(index) {
+    if (this.runningAnimationFramesMs < RUN_TOTAL_MS * 0.25) {
+        return this.animationMap["RUN"][index];
+      }
+      if (this.runningAnimationFramesMs < RUN_TOTAL_MS * 0.5) {
+        return this.animationMap["RUN"][index];
+      }
+      if (this.runningAnimationFramesMs < RUN_TOTAL_MS * 0.75) {
+        return this.animationMap["RUN"][index];
+      }
+      return this.animationMap["RUN"][index];
   }
 
 
@@ -139,6 +164,7 @@ export class Alien extends ex.Actor {
                             .moveBy(400 * this.dir, 0, 100)
                             .moveBy(-400 * this.dir, 0, 100));
         }
+
   }
 
   getRunningAnim(index) {
@@ -161,4 +187,12 @@ export class Alien extends ex.Actor {
     //other.kill();
     // TODO - taking damage stuff
   }
+    // Change animation based on velocity 
+    onPostUpdate() {
+      if (this.vel.x < 0) {
+        this.spriteDirection = LEFT;
+      } else if (this.vel.x > 0) {
+        this.spriteDirection = RIGHT;
+      }
+    }
 }
