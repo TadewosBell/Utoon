@@ -130,6 +130,10 @@ export class Hero extends ex.Actor {
     if (evt.other.hasTag(TAG_LADDER_DETECT_TOP)) {
       this.isOverlappingLadderTop = false;
     }
+    if(evt.other.damagesHeroOnContact){
+      if(!ex.Side.Left || !ex.Side.Right)return 
+      this.takeDamage(evt.other.damagesHeroWithNumber);
+    }
   }
 
   onPostCollision(evt) {

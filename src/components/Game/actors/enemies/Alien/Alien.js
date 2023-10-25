@@ -62,7 +62,8 @@ export class Alien extends ex.Actor {
     this.graphics.use(idleHidingAnim);
     this.dir = dir;
     this.spriteDirection = RIGHT;
-
+    this.damagesHeroOnContact = true;
+    this.damagesHeroWithNumber = 5;
     this.animationMap = alienAnimationsMap;
 
 
@@ -82,6 +83,9 @@ export class Alien extends ex.Actor {
         }
       });
     });
+
+    // Handle being stomped by the player
+    this.on('postcollision', (evt) => this.onPostCollision(evt));
   }
 
   onInitialize(_engine) {
@@ -108,11 +112,6 @@ export class Alien extends ex.Actor {
       index += 2;
     }
 
-    if(this.pos.y/32 > 25){
-      console.log(("Hero fell off the map"))
-      // kill hero if he falls off the map
-      this.takeDamage(100);
-    }
     // if (this.painState) {
     //   this.graphics.use(animationMap["PAIN"][index]);
     //   return;
@@ -138,6 +137,12 @@ export class Alien extends ex.Actor {
       return;
     }
     this.graphics.use(this.animationMap["IDLE"][index]);
+    if(this.pos.y/32 > 25){
+      console.log(("Alien fell off the map"))
+      // kill hero if he falls off the map
+      this.kill();
+      return;
+    }
   }
 
   getRunningAnim(index) {
@@ -152,6 +157,21 @@ export class Alien extends ex.Actor {
       }
       return this.animationMap["RUN"][index];
   }
+
+  onPostCollision(evt) {
+    console.log(evt)
+    if (evt.other && evt.side === ex.Side.Top) {
+        // Clear patrolling
+        this.actions.clearActions();
+        // Remove ability to collide
+        this.body.collisionType = ex.CollisionType.PreventCollision;
+
+        // Launch into air with rotation
+        this.vel = new ex.Vector(0, -300);
+        this.acc = ex.Physics.acc;
+        this.angularVelocity = 2;
+    }
+}
 
 
   async behavior() {
@@ -181,11 +201,8 @@ export class Alien extends ex.Actor {
   }
 
   handleCollisionWithMegaManBullet(other) {
-    //this.kill();
     other.deflect();
 
-    //other.kill();
-    // TODO - taking damage stuff
   }
     // Change animation based on velocity 
     onPostUpdate() {

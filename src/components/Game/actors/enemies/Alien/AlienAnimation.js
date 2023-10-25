@@ -1,9 +1,15 @@
 import * as ex from "excalibur";
 
+const alienSpriteSheetUrls = {
+    "running_spritesheet_url": "https://s3.amazonaws.com/utoon-animator/Animations/SpriteSheets/GTXFZpZzfh_Running_sprite_sheet.png",
+    "idle_spritesheet_url": "https://s3.amazonaws.com/utoon-animator/Animations/SpriteSheets/GTXFZpZzfh_Idle_sprite_sheet.png",
+    "jump_spritesheet_url": "https://s3.amazonaws.com/utoon-animator/Animations/SpriteSheets/GTXFZpZzfh_Game_Jump_sprite_sheet.png"
+}
+
 const images = {
-    idleSheet: new ex.ImageSource("https://s3.amazonaws.com/utoon-animator/Animations/SpriteSheets/gstrMloHND_Idle_sprite_sheet.png"),
-    jumpSheet: new ex.ImageSource("https://s3.amazonaws.com/utoon-animator/Animations/SpriteSheets/gstrMloHND_Game_Jump_sprite_sheet.png"),
-    runSheet: new ex.ImageSource("https://s3.amazonaws.com/utoon-animator/Animations/SpriteSheets/gstrMloHND_Running_sprite_sheet.png"),
+    idleSheet: new ex.ImageSource(alienSpriteSheetUrls.idle_spritesheet_url),
+    jumpSheet: new ex.ImageSource(alienSpriteSheetUrls.jump_spritesheet_url),
+    runSheet: new ex.ImageSource(alienSpriteSheetUrls.running_spritesheet_url),
 }
 
 // async function loadAlienAnimations () {
