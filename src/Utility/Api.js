@@ -227,3 +227,24 @@ export const generate_spritesheets = async (data) => {
         throw new Error(`API Error: ${error.message}`);
     }
 };
+
+export const get_gif_spritesheet = async (data) => {
+    try {
+        const response = await fetch(`${apiUrl}/get_gif_spritesheet`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        throw new Error(`API Error: ${error.message}`);
+    }
+};    

@@ -3,10 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 export const DrawingStore = createSlice({
   name: "image",
   initialState: {
-    drawingID: "NTYfcyoeyY",
+    drawingID: "",
     drawing_url: "",
     backgroundUrl: null,
     current_animation_url: null,
+    selected_animation: null,
     with_background_url: null,
     coordinates: null,
     boundingBox: { x: 200, width: 100, y: 200, height: 100, id: "1" },
@@ -25,6 +26,9 @@ export const DrawingStore = createSlice({
     },
     setCurrentAnimationUrl: (state, action) => {
       state.current_animation_url = action.payload;
+    },
+    setSelectedAnimation: (state, action) => {
+      state.selected_animation = action.payload;
     },
     setWithBackgroundUrl: (state, action) => {
       state.with_background_url = action.payload;
@@ -86,6 +90,7 @@ export const {
   setCroppedImageDimensions,
   setSkeleton,
   setCurrentAnimationUrl,
+  setSelectedAnimation,
   resetState
 } = DrawingStore.actions;
 export default DrawingStore.reducer;

@@ -30,6 +30,14 @@ const Nav = () => {
               </li>
               <li>
                 <a
+                  href="/GenerateSprite"
+                  className="text-gray-900 hover:text-blue-700 text-xl dark:text-[#1f1f1f] dark:hover:text-[#F36C57]"
+                >
+                  GenerateSprite
+                </a>
+              </li>
+              <li>
+                <a
                   href="#howthisworks"
                   className="text-gray-900 hover:text-blue-700 text-xl dark:text-[#1f1f1f] dark:hover:text-[#F36C57]"
                 >
@@ -97,10 +105,10 @@ const Nav = () => {
                 </li>
                 <li>
                   <a
-                    href="#"
-                    className="block py-2 pl-3 pr-4 text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-500"
+                    href="/GenerateSprite"
+                    className="text-gray-900 hover:text-blue-700 text-xl dark:text-[#1f1f1f] dark:hover:text-[#F36C57]"
                   >
-                    Services
+                    GenerateSprite
                   </a>
                 </li>
                 <li>
