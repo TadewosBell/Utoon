@@ -7,6 +7,11 @@ import {
   Routes,
 } from "react-router-dom";
 import Animator from "./components/Animator";
+import GameSetup from "./components/Game";
+import GenerarateSprite from "./components/GenerateSprite"
+import GameSelection from "./components/Game/GameSelection";
+import CharacterSelection from "./components/Game/CharacterSelection";
+import Game from "./components/Game/Game";
 
 function App() {
   return (
@@ -14,6 +19,11 @@ function App() {
       <Routes>
         <Route path='/' element={<HomePage/>} />
         <Route path='/Animator' element={<Animator/>} />
+        <Route path='/GameSetup' element={<GameSetup/>} />
+        {/* <Route path='/GameSelection' element={<GameSelection/>} /> */}
+        {/* <Route path='/CharacterSelection' element={<CharacterSelection/>} /> */}
+        <Route path='/Game' element={<Game/>} />
+        <Route path='/GenerateSprite' element={<GenerarateSprite/>} />
       </Routes>
     </Router>
   );

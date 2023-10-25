@@ -4,6 +4,50 @@
   margin: 0 auto;
 }
 
+.four_squares {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    width: 90%;
+    height: 500px;
+    /* background: darkcyan; */
+}
+
+
+.i1{
+    width: 100%;
+    height: 100%;
+    border: 1px solid green;
+    grid-column: 1/2;
+    background-color: yellow;
+}
+
+.i2 {
+    width: 100%;
+    height: 100%;
+    border: 1px solid green;
+    grid-column: 2/3;
+    background-color: green;
+}
+
+.i3 {
+    width: 100%;
+    height: 100%;
+    border: 1px solid green;
+    grid-column: 1/2;
+    grid-row: 2/3;
+    background-color: blue;
+}
+
+.i4 {
+    width: 100%;
+    height: 100%;
+    border: 1px solid green;
+    grid-column: 2/3;
+    grid-row: 2/3;
+    background-color: purple;
+}
+
 .banner-title {
   font-weight: 700;
   font-size: 40px;

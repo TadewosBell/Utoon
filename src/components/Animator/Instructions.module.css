@@ -23,9 +23,8 @@
   min-height: 614px;
 }
 .utoon-col-left {
-  max-width: 506px;
   width: 100%;
-  padding: 0 10px;
+  margin: 0 200px 0 0;
 }
 
 .utoon-logo {
@@ -115,14 +114,17 @@
 .utoon-col-right {
   max-width: 649px;
   width: 100%;
-  padding: 0 10px
+  padding: 0 10px;
 }
 
-
-
-@media (max-width: 500px) {
+@media (max-width: 991px) {
   .upload-title {
     font-size: 22px;
     line-height: 30px;
+  }
+
+  .utoon-col-right{
+    /* center element on page */
+    margin-right: auto;
   }
 }
