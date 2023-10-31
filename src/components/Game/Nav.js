@@ -33,7 +33,7 @@ const Nav = () => {
                   href="/GenerateSprite"
                   className="text-gray-900 hover:text-blue-700 text-xl dark:text-[#1f1f1f] dark:hover:text-[#F36C57]"
                 >
-                  GenerateSprite
+                  Generate Sprite
                 </a>
               </li>
               <li>
@@ -106,9 +106,9 @@ const Nav = () => {
                 <li>
                   <a
                     href="/GenerateSprite"
-                    className="text-gray-900 hover:text-blue-700 text-xl dark:text-[#1f1f1f] dark:hover:text-[#F36C57]"
+                    className="block py-2 pl-3 pr-4 text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-500"
                   >
-                    GenerateSprite
+                    Generate Sprite
                   </a>
                 </li>
                 <li>

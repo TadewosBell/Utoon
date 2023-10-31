@@ -182,7 +182,7 @@ const AnimationPreview = (props) => {
         console.log(animation_id, drawingID);
 
         const data = {
-          'animation_id': animation_id,
+          'animation': animation_id,
           'char_id': drawingID,
           'gif_url': current_animation_url,
         };
