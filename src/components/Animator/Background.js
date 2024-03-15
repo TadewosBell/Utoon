@@ -1,17 +1,15 @@
 import classes from "./Animator.module.css";
 import Instructions from "./Instructions";
-import { setDrawingUrl, setWithBackgroundUrl } from "../../redux/DrawingStore";
+import { setWithBackgroundUrl } from "../../redux/DrawingStore";
 import { useDispatch, useSelector } from "react-redux";
 import { displaybackground } from "../../redux/DrawingStore";
-import { final_render } from "../../Utility/Api";
+import { final_render, upload_background } from "../../Utility/Api";
+import imageCompression from "browser-image-compression";
+import heic2any from "heic2any";
 import { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 
 const selectable_backgrounds = [
-  {
-    id: 5,
-    name: "green"
-  },
   {
     id: 6,
     name: "white"
@@ -40,11 +38,58 @@ const Backgrounds = (props) => {
 
 
 
-  const { current_animation_url, drawingID, backgroundUrl,  } = useSelector((state) => state.image);
-  const { StepForward, StepBackward } = props;
+  const { current_animation_url, drawingID, backgroundUrl, } = useSelector((state) => state.image);
+  const { StepForward, StepBackward, uploadedBackground, image } = props;
 
   // create ref for the animation preview
-  const animationPreviewRef = useRef(null);
+  // const animationPreviewRef = useRef(null);
+  const [uploadSuccessful, setUploadSuccessful] = useState(false);
+  const onFileUpload = async () => {
+    // Check if image or character is selected, if not show alert and return
+    if (!image) {
+      alert("Please select a drawing to upload or a character");
+      return;
+    }
+  
+    // Show uploading alert
+    Swal.fire({
+      title: "Uploading Background...",
+      html: "",
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+  
+    // Wrap FileReader logic in a promise to wait for its completion
+    const uploadPromise = new Promise((resolve, reject) => {
+      if (image) {
+        const data = {};
+        const reader = new FileReader();
+        reader.readAsDataURL(image);
+  
+        reader.onload = () => {
+          const base64Data = reader.result.split(',')[1]; // Extract base64 data portion
+          data['name'] = image.name;
+          data['image_bytes'] = base64Data;
+          upload_background(data, (res) => {
+            const url = res['background_url'];
+            dispatch(displaybackground(url));
+            setUploadSuccessful(true);
+            Swal.close();
+            resolve(); // Resolve the promise here
+          }, (error) => {
+            Swal.close();
+            reject(error); // Reject the promise on error
+          });
+        };
+      }
+    });
+  
+    // Return the promise so `generate_with_background` can await it
+    return uploadPromise;
+  };
 
   // useEffect(() => {
   //   dragElement(document.getElementById("animationPreview"));
@@ -57,9 +102,9 @@ const Backgrounds = (props) => {
       document.getElementById(elmnt?.id + "header").onmousedown = dragMouseDown;
     } else {
       /* otherwise, move the DIV from anywhere inside the DIV:*/
-      if(elmnt)elmnt.onmousedown = dragMouseDown;
+      if (elmnt) elmnt.onmousedown = dragMouseDown;
     }
-  
+
     function dragMouseDown(e) {
       e = e || window.event;
       e.preventDefault();
@@ -70,7 +115,7 @@ const Backgrounds = (props) => {
       // call a function whenever the cursor moves:
       document.onmousemove = elementDrag;
     }
-  
+
     function elementDrag(e) {
       e = e || window.event;
       e.preventDefault();
@@ -98,7 +143,7 @@ const Backgrounds = (props) => {
       elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
       console.log(elmnt.style.top, elmnt.style.left)
     }
-  
+
     function closeDragElement() {
       /* stop moving when mouse button is released:*/
       document.onmouseup = null;
@@ -107,8 +152,31 @@ const Backgrounds = (props) => {
   }
 
   const generate_with_background = async () => {
+    // call final render api with 
+    // if background_url is null then do not send it, show error
+    if (!backgroundUrl && !uploadedBackground) {
+      alert("Please select a background");
+      return;
+    };
+  
+    if (uploadedBackground) {
+      try {
+        await onFileUpload(); // Await the completion of file upload
+      } catch (error) {
+        console.log("ISSUE WITH UPLOAD", error);
+        return; // Exit if there's an upload error
+      }
+    }
+  
+    // Proceed with final render call
+    const post_req = {
+      gif_url: current_animation_url,
+      char_id: drawingID,
+      background_url: backgroundUrl,
+    };
+  
     Swal.fire({
-      title: "Adding Background",
+      title: "Rendering Final Animation",
       html: "Please wait...",
       allowEscapeKey: false,
       allowOutsideClick: false,
@@ -116,26 +184,16 @@ const Backgrounds = (props) => {
         Swal.showLoading();
       },
     });
-    // call final render api with 
-    // if background_url is null then do not send it, show error
-    if(!backgroundUrl) {
-      alert("Please select a background")
-      return;
-    };
-    const post_req = {
-      gif_url: current_animation_url,
-      char_id: drawingID,
-      background_url: backgroundUrl,
-    }
+    console.log(backgroundUrl)
 
-    await final_render(post_req,(res) => {
+    await final_render(post_req, (res) => {
       console.log(res);
       const new_animation_url = res['animation_url']
       dispatch(setWithBackgroundUrl(new_animation_url))
       // set_animating_in_progress(false);
       Swal.close();
       StepForward();
-    }, () =>  {
+    }, () => {
       Swal.close();
       // set_animating_in_progress(false);
     })
@@ -180,6 +238,7 @@ const Backgrounds = (props) => {
 
 const Background = (props) => {
   const [backgrounds, setBackgrounds] = useState(null);
+  const [uploadedBackground, setUploadedBackground] = useState(null);
 
   useEffect(() => {
     // fetch background from https://utoon-animator.s3.amazonaws.com/Background/{selectable_character.name}.png
@@ -189,8 +248,75 @@ const Background = (props) => {
       background_url_list.push(`https://utoon-animator.s3.amazonaws.com/Backgrounds/${selectable_background.name}.png`)
     })
     setBackgrounds(background_url_list);
-    console.log(backgrounds)
   }, []);
+
+  const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [compressedImageUrl, setCompressedImageUrl] = useState(null);
+  
+  const convertHeicformat = async (heicURL) => {
+    try {
+      const res = await fetch(heicURL);
+      const blob = await res.blob();
+      const conversionResult = await heic2any({
+        blob,
+        toType: "image/jpeg",
+        quality: 0.1,
+      });
+      const imgUrl = URL.createObjectURL(conversionResult);
+      let newFile = new File([conversionResult], "drawing.png", {
+        type: "image/png",
+        lastModified: new Date().getTime(),
+      });
+      
+      const tempImage = new Image();
+      if (imgUrl !== null && imgUrl !== undefined) tempImage.src = imgUrl;
+  
+      tempImage.onload = function (e) {
+      };
+      let preview = URL.createObjectURL(newFile);
+      setPreview(preview);
+      setImage(newFile);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onFileChange = async (event) => {
+    console.log(event.target.files[0]);
+    const file = event.target.files[0];
+    if (file.type === "image/heic" || (file.name).toLowerCase().includes(".heic")) {
+      await convertHeicformat(URL.createObjectURL(file));
+    }
+    if(file.type === "image/png" || file.type === "image/jpeg" || (file.name).toLowerCase().includes(".png") || (file.name).toLowerCase().includes(".jpg")){
+      console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
+      const compressOptions = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 2000,
+        useWebWorker: true,
+      };
+      const compressedFile = await imageCompression(file, compressOptions);
+      console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`);
+      const compressedUrl = URL.createObjectURL(compressedFile);
+      setCompressedImageUrl(compressedUrl);
+      let newFile = new File([compressedFile], "drawing.png", {
+        type: "image/png",
+        lastModified: new Date().getTime(),
+      });
+      // Update the state
+      setImage(newFile);
+      let preview = URL.createObjectURL(file);
+      setPreview(preview);
+      console.log("PREIVEW: ", preview)
+      dispatch(displaybackground(preview));
+      const tempImage = new Image();
+      setUploadedBackground(true)
+      if (compressedUrl !== null && compressedUrl !== undefined) tempImage.src = compressedUrl;
+
+      tempImage.onload = function (e) {
+      };
+    }
+  };
 
   const dispatch = useDispatch();
   const instructions = {
@@ -199,6 +325,15 @@ const Background = (props) => {
     Directions: [
       <div class="h-[600px] border overflow-y-auto mx-[-30px]">
         <div class="grid grid-cols-3 gap-3">
+          <div
+            class="border-2 border-gray-300"
+          >
+            <label className={classes["pre-upload-btn"]} label="file">
+              <input type="file" name="file" accept=".jpg, .png, .heic"  onChange={onFileChange} style={{display: 'none'}}/>
+              <img src="https://utoon-animator.s3.amazonaws.com/Backgrounds/Plus.png" alt="Frame" />
+              upload background
+            </label>
+          </div>
           {backgrounds?.map((item) => {
             return (
               <div
@@ -248,6 +383,9 @@ const Background = (props) => {
         <Backgrounds
           StepForward={props.StepForward}
           StepBackward={props.StepBackward}
+          uploadedBackground={uploadedBackground}
+          image={image}
+          preview={preview}
         />
       </Instructions>
     </>

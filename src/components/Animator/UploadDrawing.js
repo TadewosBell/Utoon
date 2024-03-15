@@ -6,10 +6,9 @@ import imgFrame from "../../assets/Frame.png";
 import React, { Fragment, useState, useEffect } from "react";
 import imageCompression from "browser-image-compression";
 import heic2any from "heic2any";
-import { useSelector, useDispatch } from "react-redux";
-import { upload_image, get_bounding_box } from "../../Utility/Api";
+import { useDispatch } from "react-redux";
+import { get_bounding_box } from "../../Utility/Api";
 import { setImageDimenstions, setCoordinates, setDrawingUrl, setCurrentDrawingID } from "../../redux/DrawingStore";
-import { setCurrentCharacterId, addCharacter, removeCharacter, saveToLocalStorage, loadFromLocalStorage } from "../../redux/charactersLibrary";
 import Swal from "sweetalert2";
 
 const selectable_characters = [

@@ -62,6 +62,9 @@ export class Hero extends ex.Actor {
         }
     }
 
+    console.log(animationMap["PAIN"])
+
+
     this.graphics.use(this.animationMap["IDLE"][1]);
     this.graphics.use(anims.idleRight);
 
@@ -172,7 +175,7 @@ export class Hero extends ex.Actor {
   onPreUpdatePhysics(engine, delta) {
     const keyboard = engine.input.keyboard;
     const keys = ex.Input.Keys;
-    const JUMP_KEY = keys.Z;
+    const JUMP_KEY = keys.space || keys.Up;
 
     //Always listen for Horizontal input regardless of being locked
     [
@@ -357,9 +360,9 @@ export class Hero extends ex.Actor {
     }
 
     // Demo pain setter
-    if (engine.input.keyboard.wasPressed(ex.Input.Keys.Space)) {
-      this.takeDamage(22);
-    }
+    // if (engine.input.keyboard.wasPressed(ex.Input.Keys.Space)) {
+    //   this.takeDamage(22);
+    // }
   }
 
   checkForShootInput(engine) {
@@ -431,7 +434,7 @@ export class Hero extends ex.Actor {
 
   onPreUpdateAnimationLoop(_delta) {
     // console log current x, y position
-    console.log(this.pos.x/32, this.pos.y/32);
+    // console.log(this.pos.x/32, this.pos.y/32);
 
     // Start with LEFT or RIGHT
     let index = this.spriteDirection === LEFT ? 0 : 1;
@@ -447,7 +450,7 @@ export class Hero extends ex.Actor {
     }
 
     if (this.painState) {
-      this.graphics.use(animationMap["PAIN"][index]);
+      this.graphics.use(this.animationMap["PAIN"][index]);
       return;
     }
     if (this.climbTopState) {

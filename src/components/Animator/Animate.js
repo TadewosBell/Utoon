@@ -56,12 +56,30 @@ const AnimationOptions = {
     'image': require("../../assets/Animations/astro_jump.gif"),
     'animation_id': 'Jump',
     'retarget_id': 'fair1_ppf_2',
-  },
+  }
+}
+
+const devAnimations = {
   'Game_Jump': {
     'image': require("../../assets/Animations/astro_jump.gif"),
     'animation_id': 'Game_Jump',
     'retarget_id': 'fair1_ppf_2',
   },
+  'Pain': {
+    'image': require("../../assets/Animations/astro_jump.gif"),
+    'animation_id': 'Pain',
+    'retarget_id': 'fair1_ppf_2',
+  },
+  'Swing': {
+    'image': require("../../assets/Animations/astro_jump.gif"),
+    'animation_id': 'Swing',
+    'retarget_id': 'fair1_ppf_2',
+  }
+}
+
+// if node env is development, then add devAnimations to AnimationOptions
+if (process.env.NODE_ENV === 'development') {
+  Object.assign(AnimationOptions, devAnimations);
 }
 
 const Animations = () => {

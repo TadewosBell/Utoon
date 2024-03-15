@@ -170,6 +170,11 @@ const room1 = new Room({
       x: 70,
       y: 10,
     },
+    {
+      type: Objs.ALIEN,
+      x: 5,
+      y: 10,
+    },
   ],
 });
 

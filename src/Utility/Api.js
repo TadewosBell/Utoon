@@ -92,6 +92,29 @@ export const get_bounding_box = async (data, callBack, finalCallBack = null) => 
     }
 }
 
+export const upload_background = async (data, callBack, finalCallBack = null) => {
+    try {
+        const response = await fetch(`${apiUrl}/upload_background`, 
+        {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        const json = await response.json();
+        callBack(json);
+    
+        } catch (error) {
+        console.error(error);
+    } finally {
+        if(finalCallBack !== null){
+            finalCallBack()
+        }
+    }
+}
+
 export const set_bounding_box = async (data, callBack, finalCallBack = null) => {
     try {
         const response = await fetch(`${apiUrl}/set_bounding_box`, 
@@ -247,4 +270,25 @@ export const get_gif_spritesheet = async (data) => {
     } catch (error) {
         throw new Error(`API Error: ${error.message}`);
     }
-};    
+};
+
+export const subscribe_waitlist = async (data) => {
+    try {
+        const response = await fetch(`${apiUrl}/subscribe_waitlist`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        throw new Error(`API Error: ${error.message}`);
+    }
+}

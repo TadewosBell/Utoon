@@ -1,4 +1,5 @@
 import React from "react";
+import { subscribe_waitlist } from "../../Utility/Api";
 import classes from "./Hero.module.css";
 import BannerLeftImage from "../../assets/banner-left.png";
 import Button from "../UI/Button";
@@ -13,6 +14,14 @@ const fourSquares = [
 ]
 
 const Hero = () => {
+
+  const [email, setEmail] = React.useState("");
+  const [success, setSuccess] = React.useState(false)
+
+  const subscribe_to_waitlist =  async () => {
+    window.open(
+      "https://a.co/d/clzul2Y", "_blank");
+  }
   return (
     <section class="bg-white dark:bg-[#FFD2D7] mt-[80px] border">
       <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
@@ -22,6 +31,15 @@ const Hero = () => {
           </h1>
           <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-xl lg:text-[2rem] dark:text-[#333333]">
           </p>
+          <div className={classes["site-footer-right"]}>
+            <div className={classes["footer-newsletter-row"]}>
+              <button className={classes["footer-submit-button"]}
+              onClick={subscribe_to_waitlist}
+              >
+                Get the coloring book
+              </button>
+            </div>
+          </div>
           <Link
             to="/Animator"
             href="#"
@@ -42,7 +60,7 @@ const Hero = () => {
             </svg>
 
           </Link>
-          {/* <Link
+          <Link
             to="/GameSetup"
             href="#"
             class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-black rounded-lg bg-primary-700 hover:text-[#EC7179] focus:ring-4 focus:ring-#[FFD2D7] dark:focus:ring-[#FFD2D7] text-lg"
@@ -50,8 +68,9 @@ const Hero = () => {
             Game
             <BsController size={25} class="w-6 h-6 ml-2 -mr-1" />
 
-          </Link> */}
+          </Link>
         </div>
+        
         <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
         <div className={classes["four_squares"]}>
           <div className={classes["i1"]}><img src={fourSquares[0]}/></div>

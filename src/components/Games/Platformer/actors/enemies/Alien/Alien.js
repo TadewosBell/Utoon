@@ -39,12 +39,6 @@ const standingAnim = ex.Animation.fromSpriteSheet(spriteSheet, [2], 200);
 // const walkingAnim = ex.Animation.fromSpriteSheet(spriteSheet, [3, 4], 200);
 // const walkingAnimPain = ex.Animation.fromSpriteSheet(spriteSheet, [8, 9], 200);
 
-const collisionBox = ex.Shape.Box(
-  14,
-  14,
-  ANCHOR_CENTER,
-  new ex.Vector(0, 8) //pixels
-);
 
 export class Alien extends ex.Actor {
   constructor(x, y, dir) {
@@ -53,9 +47,14 @@ export class Alien extends ex.Actor {
       y: y,
       width: 32,
       height: 32,
-      collider: collisionBox,
+      collider: ex.Shape.Box(
+        14,
+        14,
+        ANCHOR_CENTER,
+        new ex.Vector(0, 8) //pixels
+      ),
       scale: new ex.Vector(2, 2),
-      color: ex.Color.Green,
+      // color: ex.Color.Green,
       collisionType: ex.CollisionType.Active,
     });
 
@@ -89,7 +88,7 @@ export class Alien extends ex.Actor {
   }
 
   onInitialize(_engine) {
-    new DrawShapeHelper(this);
+    // new DrawShapeHelper(this);
 
   }
   onPreUpdate(engine, delta) {
@@ -138,7 +137,6 @@ export class Alien extends ex.Actor {
     }
     this.graphics.use(this.animationMap["IDLE"][index]);
     if(this.pos.y/32 > 25){
-      console.log(("Alien fell off the map"))
       // kill hero if he falls off the map
       this.kill();
       return;
@@ -159,7 +157,6 @@ export class Alien extends ex.Actor {
   }
 
   onPostCollision(evt) {
-    console.log(evt)
     if (evt.other && evt.side === ex.Side.Top) {
         // Clear patrolling
         this.actions.clearActions();

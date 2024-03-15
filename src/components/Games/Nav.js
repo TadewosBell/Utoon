@@ -22,7 +22,7 @@ const Nav = () => {
             <ul className="flex space-x-8">
               <li>
                 <a
-                  href="#"
+                  href="/"
                   className="text-gray-900 hover:text-blue-700 text-xl dark:text-[#1f1f1f] dark:hover:text-[#F36C57]"
                 >
                   Home
@@ -34,14 +34,6 @@ const Nav = () => {
                   className="text-gray-900 hover:text-blue-700 text-xl dark:text-[#1f1f1f] dark:hover:text-[#F36C57]"
                 >
                   Generate Sprite
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#howthisworks"
-                  className="text-gray-900 hover:text-blue-700 text-xl dark:text-[#1f1f1f] dark:hover:text-[#F36C57]"
-                >
-                  How This Works
                 </a>
               </li>
             </ul>
@@ -109,14 +101,6 @@ const Nav = () => {
                     className="block py-2 pl-3 pr-4 text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-500"
                   >
                     Generate Sprite
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="block py-2 pl-3 pr-4 text-gray-900 hover:text-blue-700 dark:text-white dark:hover:text-blue-500"
-                  >
-                    Contact
                   </a>
                 </li>
               </ul>
