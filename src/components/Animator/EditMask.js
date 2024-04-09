@@ -129,7 +129,7 @@ const EditMask = (props) => {
 
       console.log("Next Step await worked?")
       Swal.close();
-      StepForward();
+      NextStep();
 
     };
 
