@@ -6,7 +6,7 @@ import ProgressBar from "@ramonak/react-progress-bar";
 import { GenerationQueue } from './classes/GenerationQueue'; 
 import React, { useState, useEffect } from 'react';
 
-import { setRunningSpritesheetUrl, setJumpSpritesheetUrl, setIdleSpritesheetUrl } from "../../redux/GameStore";
+import { setRunningSpritesheetUrl, setJumpSpritesheetUrl, setIdleSpritesheetUrl, setPainSpritesheetUrl } from "../../redux/GameStore";
 
 const CustomModal = ({ steps, history }) => {
     const dispatch = useDispatch();
@@ -16,11 +16,8 @@ const CustomModal = ({ steps, history }) => {
     const [isDone, setIsDone] = useState(false);
     const { with_background_url, drawingID, backgroundUrl,  } = useSelector((state) => state.image);
     const [queue, setQueue] = useState(null);
-    const promisedSetState = (newState) => new Promise(resolve => setQueue(newState));
 
     const incrementProgress = async () => {
-        console.log("incrementProgress");
-
         if (currentStep < steps.length) {
             // Start the appropriate generation function based on the current step
             switch (currentStep) {
@@ -37,7 +34,10 @@ const CustomModal = ({ steps, history }) => {
                 dispatch(setIdleSpritesheetUrl(idle_spritesheet_url));
                 break;
             // Add more cases for additional steps/animations if needed
-
+            case 3:
+                const pain_spritesheet_url =  await queue.generateSprite("Pain");
+                dispatch(setPainSpritesheetUrl(pain_spritesheet_url));
+                break;
             default:
                 break;
             }
@@ -50,11 +50,14 @@ const CustomModal = ({ steps, history }) => {
             if (!isDone) {
                 // route to /Game
                 setIsDone(true);
-                navigate('/Game');
+                // route should be GameSelection with query param of drawingID
+                let url = `GameSelection?drawingID=${drawingID}`;
+                navigate(`/${url}`);
             
                 
             }
         }
+        console.log("incrementProgress");
     };
 
     const start_sprite_generation = async () => {
@@ -97,6 +100,7 @@ const GenerateSprites = (props) => {
     const steps = [
         'Generating running animation',
         'Generating Jumping animation',
+        'Generating Idle animation',
         'Finalizing game',
     ];
   return (

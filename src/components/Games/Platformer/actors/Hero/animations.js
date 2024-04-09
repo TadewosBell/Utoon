@@ -149,7 +149,7 @@ export const animationMap = {
   RUN1: [run1, runR1, runS1, runRS1],
   RUN2: [run2, runR2, runS2, runRS2],
   RUN3: [run3, runR3, runS3, runRS3],
-  PAIN: [pain, painRight, pain, painRight],
+  // PAIN: [pain, painRight, pain, painRight],
   LADDER: [ladder, ladderR, ladderShoot, ladderShootR],
   astro_run: [astro_run_left, astro_run_right],
 };

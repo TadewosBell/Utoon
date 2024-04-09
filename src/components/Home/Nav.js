@@ -44,14 +44,6 @@ const Nav = () => {
                   Generate Sprite
                 </a>
               </li>
-              <li>
-                <a
-                  href="#contact"
-                  className="text-gray-900 hover:text-blue-700 text-xl dark:text-[#1f1f1f] dark:hover:text-[#F36C57]"
-                >
-                  Contact
-                </a>
-              </li>
             </ul>
           </div>
           {/* <div className="flex md:order-3">

@@ -55,7 +55,6 @@ export const DrawingStore = createSlice({
       state.cropped_image_dimensions = action.payload;
     },
     setSkeleton: (state, action) => {
-      console.log("skeleton", action.payload)
       state.skeleton = action.payload;
     },
     resetState: (state, action) => {

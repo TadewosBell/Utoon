@@ -1,7 +1,7 @@
 import * as ex from "excalibur";
 import React, {useEffect, useState} from 'react';
 import { Hero } from "./actors/Hero/Hero.js";
-import { Martian_Stage } from "./Stages/Matian_Stage.js";
+import { Martian_Stage } from "./Stages/Martian_Stage.js";
 import { MM_CameraStrategy } from "./classes/CameraStrategy.js";
 import {
     CUSTOM_EVENT_CAMERA_Y_CHANGE,
@@ -13,7 +13,7 @@ import { Lifebar } from "./hud/Lifebar.js";
 import { HeroHp } from "./classes/HeroHp.js";
 
 //delclare async function intialize_game (running_spritesheet_url, idle_spritesheet_url)
-export const initialize_game = async ( running_spritesheet_url, idle_spritesheet_url, jump_spritesheet_url) =>
+export const initialize_game = async (urls) =>
 {
     const customResources = {}
     const customAnimationsMap = {}
@@ -39,9 +39,10 @@ export const initialize_game = async ( running_spritesheet_url, idle_spritesheet
         game.add(room);
     });
 
-    customResources.astroRunningSheet = new ex.ImageSource(running_spritesheet_url);
-    customResources.astroIdleSheet = new ex.ImageSource(idle_spritesheet_url);
-    customResources.astroJumpSheet = new ex.ImageSource(jump_spritesheet_url);
+    customResources.astroRunningSheet = new ex.ImageSource(urls.running_spritesheet_url);
+    customResources.astroIdleSheet = new ex.ImageSource(urls.idle_spritesheet_url);
+    customResources.astroJumpSheet = new ex.ImageSource(urls.jump_spritesheet_url);
+    customResources.pain = new ex.ImageSource(urls.pain_spritesheet_url);
     await customResources.astroIdleSheet.load();
     if (customResources.astroIdleSheet.isLoaded()) {
 
@@ -97,6 +98,24 @@ export const initialize_game = async ( running_spritesheet_url, idle_spritesheet
         customAnimationsMap.JUMP = [jump_left, jump_right]
     }
 
+    await customResources.pain.load();
+    if (customResources.pain.isLoaded()) {
+        const pain_sheet = ex.SpriteSheet.fromImageSource({
+            image: customResources.pain,
+            grid: {
+                columns: 20,
+                rows: 1,
+                spriteWidth: 75,
+                spriteHeight: 65,
+            }
+        });
+        const pain_right = ex.Animation.fromSpriteSheet(pain_sheet, ex.range(0, 4), 150);
+        const pain_left = ex.Animation.fromSpriteSheet(pain_sheet, ex.range(0, 4), 150);
+        pain_left.flipHorizontal = true;
+        customAnimationsMap.PAIN = [pain_left, pain_right, pain_left, pain_right]
+        console.log("Loaded pain animations")
+    }
+
     const hero = new Hero(45 * SCALED_CELL, 2 * SCALED_CELL, customAnimationsMap);
     game.add(hero);
     const cameraStrategy = new MM_CameraStrategy(hero);
@@ -105,6 +124,7 @@ export const initialize_game = async ( running_spritesheet_url, idle_spritesheet
     
     const lifebar = new Lifebar();
     game.add(lifebar);
+    
     
     game.on("initialize", () => {
       game.currentScene.camera.addStrategy(cameraStrategy);

@@ -45,8 +45,8 @@ export class Room extends ex.Actor {
               engine.add(roomChange);
             }
       
-            const x = this.pos.x + obj.x * SCALED_CELL;
-            const y = this.pos.y + obj.y * SCALED_CELL;
+            let x = this.pos.x + obj.x * SCALED_CELL;
+            let y = this.pos.y + obj.y * SCALED_CELL;
       
             // Handle object spawn cases
             if (obj.type === Objs.LADDER) {
@@ -70,9 +70,10 @@ export class Room extends ex.Actor {
             }
 
             if(obj.type === Objs.ALIEN) {
-              const alien = new Alien(x, y, 1);
+              let alien = new Alien(x, y, 1);
               engine.add(alien);
             }
+            console.log("objects: ", obj.type, obj.x, obj.y)
 
           });
     }
