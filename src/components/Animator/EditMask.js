@@ -60,8 +60,8 @@ const EditMask = (props) => {
       );
       setMaskBase64(newDataUri); // base64
       Swal.fire({
-        title: "Getting Skeleton...",
-        html: "Please wait...",
+        title: "Animating Character",
+        imageUrl: require("../../assets/Animations/astro_YMCA.gif"),
         allowEscapeKey: false,
         allowOutsideClick: false,
         didOpen: () => {
@@ -114,7 +114,7 @@ const EditMask = (props) => {
         dispatch(setCurrentAnimationUrl(animation_1));
         dispatch(addCharacter(Char_id));
         console.log("intial_animation", res)
-  
+        StepForward();
       }, () => {
         console.log("intial_animation failed")
         // retry animation
@@ -129,7 +129,6 @@ const EditMask = (props) => {
 
       console.log("Next Step await worked?")
       Swal.close();
-      NextStep();
 
     };
 

@@ -40,17 +40,17 @@ function Animator() {
       //   return (
       //     <EditSkeleton StepForward={StepForward} StepBackward={StepBackward} />
       //   );
-      case 4:
+      case 3:
         return (
           <Animate StepForward={StepForward} StepBackward={StepBackward} />
         )
-      case 5:
+      case 4:
         return (
           <Background StepForward={StepForward} StepBackward={StepBackward} />
         );
       // case 6:
       //   return <Sound StepForward={StepForward} StepBackward={StepBackward} />;
-      case 6:
+      case 5:
         return <Share StepBackward={StepBackward} />;
       default:
         return null;
