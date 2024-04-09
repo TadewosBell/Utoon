@@ -65,7 +65,7 @@ const EditSkeleton = (props) => {
     const intial_animation_req = {
       char_id: drawingID,
     };
-
+    console.log("INITIAL ANIMATION REQ REACHED: ", intial_animation_req)
     await intial_animation(intial_animation_req, (res) => {
       const animation_1 = res['animation_url']
       const Char_id = res['char_id']
