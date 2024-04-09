@@ -22,10 +22,6 @@ const selectable_characters = [
     name: "Donny.png"
   },
   {
-    id: 3,
-    name: "Berry.jpg"
-  },
-  {
     id: 9,
     name: "Piggy.png"
   },

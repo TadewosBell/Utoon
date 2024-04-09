@@ -17,7 +17,7 @@ function Animator() {
     { title: "Upload" },
     { title: "Bounding Box"},
     { title: "Mask" },
-    { title: "Skeleton"},
+    // { title: "Skeleton"},
     { title: "Animate" },
     { title: "Background" },
     // { title: "Add Sound" },
@@ -36,10 +36,10 @@ function Animator() {
         return (
           <EditMask StepForward={StepForward} StepBackward={StepBackward} />
         );
-      case 3:
-        return (
-          <EditSkeleton StepForward={StepForward} StepBackward={StepBackward} />
-        );
+      // case 3:
+      //   return (
+      //     <EditSkeleton StepForward={StepForward} StepBackward={StepBackward} />
+      //   );
       case 4:
         return (
           <Animate StepForward={StepForward} StepBackward={StepBackward} />

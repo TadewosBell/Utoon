@@ -3,9 +3,10 @@ import Instruction from "./Instructions";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
 import { useSelector, useDispatch } from "react-redux";
-import { setCoordinates, setBoundingBox, setCroppedImageDimensions, setSkeleton } from "../../redux/DrawingStore";
+import { setCoordinates, setBoundingBox, setCroppedImageDimensions, setSkeleton, setCurrentAnimationUrl } from "../../redux/DrawingStore";
 import { setMaskBase64 } from "../../redux/MaskEditorStore";
-import { get_skeleton, set_mask } from "../../Utility/Api";
+import { intial_animation, get_skeleton, set_mask } from "../../Utility/Api";
+import { addCharacter } from "../../redux/charactersLibrary";
 import { calculateRatio, resizedataURL, mapJointsToPose } from "../../Utility/Helper";
 import MaskStage from "../Canvas/MaskStage";
 
@@ -24,6 +25,7 @@ const EditMask = (props) => {
     const dispatch = useDispatch();
     const layerRef = useRef(null);
     const [imgScale, setImgScale] = useState(0);
+    const [triedTwice, setTriedTwice] = useState(false);
 
     useEffect(() => {
       // get cropped image dimensions from image
@@ -99,6 +101,30 @@ const EditMask = (props) => {
       await get_skeleton(get_skeleton_req, (res) => {
         let skeleton = res.skeleton;
         dispatch(setSkeleton(skeleton));
+      })
+
+      const intial_animation_req = {
+        char_id: drawingID,
+      };
+
+      console.log("INITIAL ANIMATION REQ REACHED: ", intial_animation_req)
+      await intial_animation(intial_animation_req, (res) => {
+        const animation_1 = res['animation_url']
+        const Char_id = res['char_id']
+        dispatch(setCurrentAnimationUrl(animation_1));
+        dispatch(addCharacter(Char_id));
+        console.log("intial_animation", res)
+  
+      }, () => {
+        console.log("intial_animation failed")
+        // retry animation
+        if(!triedTwice){
+          setTriedTwice(true);
+          // delay untill setTriedTwice is set to true
+          setTimeout(() => {
+          NextStep();
+          }, 1000);
+        }
       })
 
       console.log("Next Step await worked?")
