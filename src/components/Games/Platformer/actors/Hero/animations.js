@@ -1,6 +1,5 @@
 import * as ex from "excalibur";
 import { Images } from "../../resources.js";
-console.log("Images", Images)
 const heroSpriteSheet = ex.SpriteSheet.fromImageSource({
   image: Images.heroSheetImage,
   grid: {

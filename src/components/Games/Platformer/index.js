@@ -21,7 +21,6 @@ const Game = () => {
         return drawingID;
     }
     const generateUrls = (drawingID) => {
-        console.log("generateAllSpritesheetUrls", drawingID);
         const running_spritesheet_url = `https://s3.amazonaws.com/utoon-animator/Animations/SpriteSheets/${drawingID}_Running_sprite_sheet.png`;
         const idle_spritesheet_url = `https://s3.amazonaws.com/utoon-animator/Animations/SpriteSheets/${drawingID}_Idle_sprite_sheet.png`;
         const jump_spritesheet_url = `https://s3.amazonaws.com/utoon-animator/Animations/SpriteSheets/${drawingID}_Game_Jump_sprite_sheet.png`;
@@ -58,7 +57,6 @@ const Game = () => {
 
     useEffect(() => {
         if (urlsGenerated) {
-            console.log("Game useEffect", urlsGenerated);
             const drawingID = GetDrawingIdQueryParam();
             const urls = generateUrls(drawingID);
     

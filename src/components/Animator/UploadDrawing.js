@@ -115,7 +115,6 @@ const Upload = (props) => {
     // fetch characters from https://utoon-animator.s3.amazonaws.com/characters/{selectable_character.name}.png
     let character_url_list = []
     selectable_characters.forEach((selectable_character) => {
-      console.log(`https://utoon-animator.s3.amazonaws.com/Characters/${selectable_character.name}.png`)
       // character_url_list.push(`https://utoon-animator.s3.amazonaws.com/Characters/${selectable_character.name}.png`)
       character_url_list.push(selectable_character.name);
     })
@@ -123,7 +122,6 @@ const Upload = (props) => {
   }, []);
 
   const onCharacterClick = async (character_name) => {
-    console.log(character_name);
     setCharacterSelected(character_name);
     setPreview(`https://utoon-animator.s3.amazonaws.com/Characters/${character_name}`);
     // get image dimensions from url
@@ -229,14 +227,12 @@ const Upload = (props) => {
       await convertHeicformat(URL.createObjectURL(file));
     }
     if (file.type === "image/png" || file.type === "image/jpeg" || (file.name).toLowerCase().includes(".png") || (file.name).toLowerCase().includes(".jpg")) {
-      console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
       const compressOptions = {
         maxSizeMB: 1,
         maxWidthOrHeight: 2000,
         useWebWorker: true,
       };
       const compressedFile = await imageCompression(file, compressOptions);
-      console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`);
       const compressedUrl = URL.createObjectURL(compressedFile);
       setCompressedImageUrl(compressedUrl);
       let newFile = new File([compressedFile], "drawing.png", {
@@ -285,12 +281,10 @@ const Upload = (props) => {
       // get image bytes from character_selected url 
       const data = {}
       data['character_selected'] = character_selected;
-      console.log(character_selected)
       get_bounding_box(data, (res) => {
         const drawing_url = res['drawing_url']
         const Char_id = res['char_id']
         const bounding_box = res['bounding_box'];
-        console.log(bounding_box)
         dispatch(setCurrentDrawingID(Char_id));
         dispatch(setDrawingUrl(drawing_url));
         dispatch(setCoordinates(bounding_box));
@@ -316,7 +310,6 @@ const Upload = (props) => {
           const Char_id = res['char_id']
 
           const bounding_box = res['bounding_box'];
-          console.log(bounding_box)
           dispatch(setCurrentDrawingID(Char_id));
           dispatch(setDrawingUrl(drawing_url));
           dispatch(setCoordinates(bounding_box));

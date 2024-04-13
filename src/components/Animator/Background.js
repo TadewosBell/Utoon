@@ -137,11 +137,9 @@ const Backgrounds = (props) => {
       if (elmnt.offsetLeft - pos1 < (backgroundx - 50) || elmnt.offsetLeft - pos1 > (backgroundx + backgroundwidth - elmnt.offsetWidth + 50)) {
         return;
       }
-      console.log(elmnt.offsetTop - pos2, elmnt.offsetLeft - pos1)
       // set the element's new position:
       elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
       elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-      console.log(elmnt.style.top, elmnt.style.left)
     }
 
     function closeDragElement() {
@@ -184,10 +182,8 @@ const Backgrounds = (props) => {
         Swal.showLoading();
       },
     });
-    console.log(backgroundUrl)
 
     await final_render(post_req, (res) => {
-      console.log(res);
       const new_animation_url = res['animation_url']
       dispatch(setWithBackgroundUrl(new_animation_url))
       // set_animating_in_progress(false);
@@ -244,7 +240,6 @@ const Background = (props) => {
     // fetch background from https://utoon-animator.s3.amazonaws.com/Background/{selectable_character.name}.png
     let background_url_list = []
     selectable_backgrounds.forEach((selectable_background) => {
-      console.log(`https://utoon-animator.s3.amazonaws.com/Backgrounds/${selectable_background.name}.png`)
       background_url_list.push(`https://utoon-animator.s3.amazonaws.com/Backgrounds/${selectable_background.name}.png`)
     })
     setBackgrounds(background_url_list);
@@ -283,20 +278,17 @@ const Background = (props) => {
   };
 
   const onFileChange = async (event) => {
-    console.log(event.target.files[0]);
     const file = event.target.files[0];
     if (file.type === "image/heic" || (file.name).toLowerCase().includes(".heic")) {
       await convertHeicformat(URL.createObjectURL(file));
     }
     if(file.type === "image/png" || file.type === "image/jpeg" || (file.name).toLowerCase().includes(".png") || (file.name).toLowerCase().includes(".jpg")){
-      console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
       const compressOptions = {
         maxSizeMB: 1,
         maxWidthOrHeight: 2000,
         useWebWorker: true,
       };
       const compressedFile = await imageCompression(file, compressOptions);
-      console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`);
       const compressedUrl = URL.createObjectURL(compressedFile);
       setCompressedImageUrl(compressedUrl);
       let newFile = new File([compressedFile], "drawing.png", {
@@ -307,7 +299,6 @@ const Background = (props) => {
       setImage(newFile);
       let preview = URL.createObjectURL(file);
       setPreview(preview);
-      console.log("PREIVEW: ", preview)
       dispatch(displaybackground(preview));
       const tempImage = new Image();
       setUploadedBackground(true)

@@ -89,7 +89,6 @@ const Animations = () => {
   const [animataing_in_progress, set_animating_in_progress] = useState(false);
   const [triedTwice, setTriedTwice] = useState(false);
   const onAnimationSelected = async (animation_id, retarget_id) => {
-    console.log(animation_id, drawingID);
 
     const data = {
       'animation_id': animation_id,
@@ -112,7 +111,6 @@ const Animations = () => {
     set_animating_in_progress(true);
 
     await animate_character(data, (res) => {
-      console.log(res);
       const new_animation_url = res['animation_url']
       dispatch(setCurrentAnimationUrl(new_animation_url))
       Swal.close();

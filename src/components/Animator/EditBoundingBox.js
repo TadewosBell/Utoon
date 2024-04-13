@@ -48,23 +48,12 @@ const EditBoundingBox = (props) => {
             imageDimenstions.width,
             imageDimenstions.height
         );
-        console.log(boundingBox, imageDimenstions, "Ratio: ", ratio);
 
         const calculatedWidth = imageDimenstions.width * ratio;
         const calculatedHeight = imageDimenstions.height * ratio;
         setImageWidth(calculatedWidth);
         setImageHeight(calculatedHeight);
         setRatio(ratio);
-        console.log({
-            x:
-            coordinates.x1 * ratio +
-              (canvasWindow.current?.offsetWidth / 2 - calculatedWidth / 2),
-            width: coordinates.x2 * ratio - coordinates.x1 * ratio,
-            y:
-            coordinates.y1 * ratio +
-              (canvasWindow.current?.offsetHeight / 2 - calculatedHeight / 2),
-            height: coordinates.y2 * ratio - coordinates.y1 * ratio,
-          })
         dispatch(setBoundingBox({
             x:
             coordinates.x1 * ratio +
@@ -104,7 +93,6 @@ const EditBoundingBox = (props) => {
           ),
         };
 
-        console.log(coordinates);
         dispatch(setCoordinates(coordinates));
 
         const data = {
@@ -123,7 +111,6 @@ const EditBoundingBox = (props) => {
         });
 
         set_bounding_box(data, (data) => {
-            console.log(data);
             const cropped_image_url = data.cropped_image_url;
             const mask_url = data.mask_url;
             dispatch(setCroppedImageUrl(cropped_image_url));

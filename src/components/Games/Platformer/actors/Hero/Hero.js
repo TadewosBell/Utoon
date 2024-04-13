@@ -62,7 +62,6 @@ export class Hero extends ex.Actor {
         }
     }
 
-    console.log(animationMap["PAIN"])
 
 
     this.graphics.use(this.animationMap["IDLE"][1]);

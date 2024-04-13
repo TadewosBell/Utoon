@@ -71,7 +71,6 @@ const Animations = () => {
   const [animataing_in_progress, set_animating_in_progress] = useState(false);
   const [triedTwice, setTriedTwice] = useState(false);
   const onAnimationSelected = async (animation_id, retarget_id) => {
-    console.log(animation_id, drawingID);
 
     const data = {
       'animation_id': animation_id,
@@ -177,9 +176,7 @@ const AnimationPreview = (props) => {
     const { StepForward, StepBackward } = props;
 
     const DownloadSprite = async () => {
-        console.log("Download Sprite");
         const animation_id = selected_animation
-        console.log(animation_id, drawingID);
 
         const data = {
           'animation': animation_id,
@@ -204,7 +201,6 @@ const AnimationPreview = (props) => {
         const generate_sprite_resp = await get_gif_spritesheet(data);
         Swal.close();
         
-        console.log(generate_sprite_resp);
         const sprite_url = generate_sprite_resp['spritesheet_url']
             // download gif from with_background_url
         fetch(sprite_url, {

@@ -168,7 +168,6 @@ const BoundingBoxStage = ({
             canvasWidth={canvasWidth}
             canvasHeight={canvasHeight}
             onChange={(newAttrs) => {
-              console.log(newAttrs);
               dispatch(setBoundingBox(newAttrs));
             }}
           />

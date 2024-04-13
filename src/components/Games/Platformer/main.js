@@ -113,13 +113,11 @@ export const initialize_game = async (urls) =>
         const pain_left = ex.Animation.fromSpriteSheet(pain_sheet, ex.range(0, 4), 150);
         pain_left.flipHorizontal = true;
         customAnimationsMap.PAIN = [pain_left, pain_right, pain_left, pain_right]
-        console.log("Loaded pain animations")
     }
 
     const hero = new Hero(45 * SCALED_CELL, 2 * SCALED_CELL, customAnimationsMap);
     game.add(hero);
     const cameraStrategy = new MM_CameraStrategy(hero);
-    console.log("Limits: ", stage.firstMap.limits)
     cameraStrategy.setRoomLimits(stage.firstMap.limits);
     
     const lifebar = new Lifebar();

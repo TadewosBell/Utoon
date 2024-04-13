@@ -26,7 +26,6 @@ export const GameAssets = createSlice({
         },
         generateAllSpritesheetUrls: (state, action) => {
             const drawingID = action.payload;
-            console.log("generateAllSpritesheetUrls", drawingID);
             const running_spritesheet_url = `https://s3.amazonaws.com/utoon-animator/Animations/SpriteSheets/${drawingID}_Running_sprite_sheet.png`;
             const idle_spritesheet_url = `https://s3.amazonaws.com/utoon-animator/Animations/SpriteSheets/${drawingID}_Idle_sprite_sheet.png`;
             const jump_spritesheet_url = `https://s3.amazonaws.com/utoon-animator/Animations/SpriteSheets/${drawingID}_Game_Jump_sprite_sheet.png`;
@@ -35,7 +34,6 @@ export const GameAssets = createSlice({
             state.idle_spritesheet_url = idle_spritesheet_url;
             state.jump_spritesheet_url = jump_spritesheet_url;
             state.pain_spritesheet_url = pain_spritesheet_url;
-            console.log(state.running_spritesheet_url)
         }
 
     },

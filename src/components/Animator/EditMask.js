@@ -93,7 +93,6 @@ const EditMask = (props) => {
 
       }
 
-      console.log(drawingID)
       const get_skeleton_req = {
         'char_id': drawingID,
       }
@@ -107,16 +106,13 @@ const EditMask = (props) => {
         char_id: drawingID,
       };
 
-      console.log("INITIAL ANIMATION REQ REACHED: ", intial_animation_req)
       await intial_animation(intial_animation_req, (res) => {
         const animation_1 = res['animation_url']
         const Char_id = res['char_id']
         dispatch(setCurrentAnimationUrl(animation_1));
         dispatch(addCharacter(Char_id));
-        console.log("intial_animation", res)
         StepForward();
       }, () => {
-        console.log("intial_animation failed")
         // retry animation
         if(!triedTwice){
           setTriedTwice(true);
@@ -127,7 +123,6 @@ const EditMask = (props) => {
         }
       })
 
-      console.log("Next Step await worked?")
       Swal.close();
 
     };

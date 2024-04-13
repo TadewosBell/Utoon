@@ -37,7 +37,6 @@ const EditSkeleton = (props) => {
 
 
   const NextStep = async () => {
-    console.log("Game: ", Game )
     if(Game) {
       StepForward();
       return;
@@ -65,17 +64,14 @@ const EditSkeleton = (props) => {
     const intial_animation_req = {
       char_id: drawingID,
     };
-    console.log("INITIAL ANIMATION REQ REACHED: ", intial_animation_req)
     await intial_animation(intial_animation_req, (res) => {
       const animation_1 = res['animation_url']
       const Char_id = res['char_id']
       dispatch(setCurrentAnimationUrl(animation_1));
       dispatch(addCharacter(Char_id));
-      console.log("intial_animation", res)
       StepForward();
 
     }, () => {
-      console.log("intial_animation failed")
       // retry animation
       if(!triedTwice){
         setTriedTwice(true);
