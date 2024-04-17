@@ -11,7 +11,6 @@ import Swal from "sweetalert2"; // Import Swal from SweetAlert2
 import { useSelector, useDispatch } from "react-redux";
 import { upload_image, get_bounding_box } from "../../Utility/Api";
 import { setImageDimenstions, setCoordinates, setDrawingUrl, setCurrentDrawingID } from "../../redux/DrawingStore";
-import Swal from "sweetalert2";
 import { BsUpload } from "react-icons/bs";
 
 const selectable_characters = [

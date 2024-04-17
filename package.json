@@ -29,7 +29,7 @@
     "react-scripts": "5.0.1",
     "react-stepper-horizontal": "^1.0.11",
     "redux": "^4.2.1",
-    "sweetalert2": "^11.7.20",
+    "sweetalert2": "^11.10.8",
     "use-image": "^1.1.1",
     "web-vitals": "^2.1.4",
     "yarn": "^1.22.19"
