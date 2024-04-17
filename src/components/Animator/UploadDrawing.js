@@ -86,7 +86,7 @@ const Characters = (props) => {
         </div>}
 
       </div>
-      <label className={classes["pre-upload-btn"]} label="file">
+      <label className={classes["pre-upload-btn"]} label="file"/>
         <input
           type="file"
           name="file"
@@ -95,7 +95,6 @@ const Characters = (props) => {
           style={{ display: "none" }}
         />
         <img src={imgFrame} alt="Frame" />
-      </div>
       <input type="file" name="file" id="file" /> <br />
       <div className={classes["button-row"]}>
         <div className={classes["button-col"]}>
