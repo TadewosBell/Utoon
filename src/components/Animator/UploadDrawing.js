@@ -6,8 +6,10 @@ import imgFrame from "../../assets/Frame.png";
 import React, { Fragment, useState, useEffect } from "react";
 import imageCompression from "browser-image-compression";
 import heic2any from "heic2any";
-import { useDispatch } from "react-redux";
-import { get_bounding_box } from "../../Utility/Api";
+import Swal from "sweetalert2"; // Import Swal from SweetAlert2
+
+import { useSelector, useDispatch } from "react-redux";
+import { upload_image, get_bounding_box } from "../../Utility/Api";
 import { setImageDimenstions, setCoordinates, setDrawingUrl, setCurrentDrawingID } from "../../redux/DrawingStore";
 import Swal from "sweetalert2";
 import { BsUpload } from "react-icons/bs";
@@ -68,7 +70,7 @@ const Characters = (props) => {
       <div className={classes["pre-img-box"]}>
         {preview ? <img
           className={classes["pre-img"]}
-          src={preview}
+          src={preview ? preview : imgBackground}
           alt="Animation preview"
         /> : <div
           className={`${classes["upload-img-box"]} ${isDragOver ? "drag-over" : ""}`}
@@ -84,9 +86,14 @@ const Characters = (props) => {
         </div>}
 
       </div>
-      <div className={classes["file-uploader"]}>
-        <input type="file" name="file" accept=".jpg, .png, .heic" onChange={onFileChange}
-          ref={fileInputRef} style={{ display: 'none' }} />
+      <label className={classes["pre-upload-btn"]} label="file">
+        <input
+          type="file"
+          name="file"
+          accept=".jpg, .png, .heic"
+          onChange={onFileChange}
+          style={{ display: "none" }}
+        />
         <img src={imgFrame} alt="Frame" />
       </div>
       <input type="file" name="file" id="file" /> <br />
@@ -107,9 +114,11 @@ const Characters = (props) => {
 // on the bottom there is a coursel of images of different characters
 
 const Upload = (props) => {
-  const [character, setCharacter] = useState([]);
   const [character_selected, setCharacterSelected] = useState(null);
 
+  const [loading, setLoading] = useState(false);
+
+  const [character, setCharacter] = useState(null);
 
   useEffect(() => {
     // fetch characters from https://utoon-animator.s3.amazonaws.com/characters/{selectable_character.name}.png
@@ -174,10 +183,10 @@ const Upload = (props) => {
   const ActiveClassName = `${classes["steps-color"]} ${classes["active"]}`;
   const InActiveClassName = `${classes["steps-color"]}`;
 
-
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [compressedImageUrl, setCompressedImageUrl] = useState(null);
+  const [dragging, setDragging] = useState(false);
   const dispatch = useDispatch();
 
 
@@ -200,10 +209,12 @@ const Upload = (props) => {
       if (imgUrl !== null && imgUrl !== undefined) tempImage.src = imgUrl;
 
       tempImage.onload = function (e) {
-        dispatch(setImageDimenstions({
-          width: tempImage.naturalWidth,
-          height: tempImage.naturalHeight,
-        }));
+        dispatch(
+          setImageDimenstions({
+            width: tempImage.naturalWidth,
+            height: tempImage.naturalHeight,
+          })
+        );
       };
       let preview = URL.createObjectURL(newFile);
       setPreview(preview);
@@ -213,26 +224,53 @@ const Upload = (props) => {
     }
   };
 
-  useEffect(() => {
-    if (image) {
-      onFileUpload()
-    }
-  }, [image])
 
-  const onFileChange = async (event) => {
-    const eventTarget = event.target.files || event.dataTransfer.files;
-    const file = eventTarget[0];
-    setCharacterSelected(null);
-    if (file.type === "image/heic" || (file.name).toLowerCase().includes(".heic")) {
+  const onDragOver = (event) => {
+    event.preventDefault();
+    setDragging(true);
+  };
+
+  const onDragLeave = () => {
+    setDragging(false);
+  };
+
+  const onDrop = async (event) => {
+    event.preventDefault();
+    setDragging(false);
+
+    const droppedFiles = event.dataTransfer.files;
+
+    if (droppedFiles && droppedFiles.length > 0) {
+      const file = droppedFiles[0];
+      await handleFile(file);
+    }
+  };
+
+  const handleFile = async (file) => {
+    console.log(file);
+    
+    if (
+      file.type === "image/heic" ||
+      file.name.toLowerCase().includes(".heic")
+    ) {
       await convertHeicformat(URL.createObjectURL(file));
     }
-    if (file.type === "image/png" || file.type === "image/jpeg" || (file.name).toLowerCase().includes(".png") || (file.name).toLowerCase().includes(".jpg")) {
+    if (
+      file.type === "image/png" ||
+      file.type === "image/jpeg" ||
+      file.name.toLowerCase().includes(".png") ||
+      file.name.toLowerCase().includes(".jpg")
+    ) {
+      console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
       const compressOptions = {
         maxSizeMB: 1,
         maxWidthOrHeight: 2000,
         useWebWorker: true,
       };
       const compressedFile = await imageCompression(file, compressOptions);
+      console.log(
+        `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
+      );
       const compressedUrl = URL.createObjectURL(compressedFile);
       setCompressedImageUrl(compressedUrl);
       let newFile = new File([compressedFile], "drawing.png", {
@@ -244,13 +282,15 @@ const Upload = (props) => {
       let preview = URL.createObjectURL(file);
       setPreview(preview);
       const tempImage = new Image();
-      if (compressedUrl !== null && compressedUrl !== undefined) tempImage.src = compressedUrl;
+      if (compressedUrl !== null && compressedUrl !== undefined)
+        tempImage.src = compressedUrl;
 
       tempImage.onload = function (e) {
-        dispatch(setImageDimenstions({
-          width: tempImage.naturalWidth,
-          height: tempImage.naturalHeight,
-        })
+        dispatch(
+          setImageDimenstions({
+            width: tempImage.naturalWidth,
+            height: tempImage.naturalHeight,
+          })
         );
       };
 
@@ -259,6 +299,16 @@ const Upload = (props) => {
 
 
   const onFileUpload = async () => {
+        // Create an object of formData
+        Swal.fire({
+          title: "Uploading...",
+          html: "Please wait...",
+          allowEscapeKey: false,
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
 
     // if image or character selected is null, show alert and return
     if (!image && !character_selected) {
@@ -288,6 +338,7 @@ const Upload = (props) => {
         dispatch(setCurrentDrawingID(Char_id));
         dispatch(setDrawingUrl(drawing_url));
         dispatch(setCoordinates(bounding_box));
+        // close Swal
         Swal.close();
         props.StepForward();
       })
@@ -313,20 +364,35 @@ const Upload = (props) => {
           dispatch(setCurrentDrawingID(Char_id));
           dispatch(setDrawingUrl(drawing_url));
           dispatch(setCoordinates(bounding_box));
+          // close Swal
           Swal.close();
+
           props.StepForward();
 
         })
         // props.StepForward();
       };
     }
+  };
 
 
 
     // after uploud
     // props.StepForward();
-  };
+  // const onFileUpload = () => {
+  //   // Create an object of formData
+  //   Swal.fire({
+  //     title: "Uploading...",
+  //     html: "Please wait...",
+  //     allowEscapeKey: false,
+  //     allowOutsideClick: false,
+  //     didOpen: () => {
+  //       Swal.showLoading();
+  //     },
+  //   });
 
+  //   handleFile(image); // Pass the image directly to handleFile
+  // };
 
   return (
     <Fragment>
@@ -338,9 +404,45 @@ const Upload = (props) => {
         CSSClassNames4={InActiveClassName}
         CSSClassNames5={InActiveClassName}
       >
-        <Characters StepForward={onFileUpload} onFileChange={onFileChange} preview={preview} />
+        <div>
+          <div
+            className={`${classes["pre-img-box"]} ${
+              dragging ? classes["dragging"] : ""
+            }`}
+            onDragOver={onDragOver}
+            onDragLeave={onDragLeave}
+            onDrop={onDrop}
+          >
+            <img
+              className={classes["pre-img"]}
+              src={preview ? preview : imgBackground}
+              alt="Animation preview"
+            />
+          </div>
+          <label className={classes["pre-upload-btn"]} label="file">
+            <input
+              type="file"
+              name="file"
+              accept=".jpg, .png, .heic"
+              onChange={handleFile}
+              style={{ display: "none" }}
+            />
+            <img src={imgFrame} alt="Frame" />
+            upload creation
+          </label>
+          <input type="file" name="file" id="file" /> <br />
+          <div className={classes["button-row"]}>
+            <div className={classes["button-col"]}></div>
+            <div className={classes["button-col"]}>
+              <button onClick={onFileUpload} className={classes["next-btn"]}>
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
       </Instruction>
     </Fragment>
+
   );
 };
 
