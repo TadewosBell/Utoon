@@ -3,10 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 export const DrawingStore = createSlice({
   name: "image",
   initialState: {
-    drawingID: null,
+    drawingID: "",
     drawing_url: "",
     backgroundUrl: null,
     current_animation_url: null,
+    selected_animation: null,
     with_background_url: null,
     coordinates: null,
     boundingBox: { x: 200, width: 100, y: 200, height: 100, id: "1" },
@@ -25,6 +26,9 @@ export const DrawingStore = createSlice({
     },
     setCurrentAnimationUrl: (state, action) => {
       state.current_animation_url = action.payload;
+    },
+    setSelectedAnimation: (state, action) => {
+      state.selected_animation = action.payload;
     },
     setWithBackgroundUrl: (state, action) => {
       state.with_background_url = action.payload;
@@ -51,8 +55,23 @@ export const DrawingStore = createSlice({
       state.cropped_image_dimensions = action.payload;
     },
     setSkeleton: (state, action) => {
-      console.log("skeleton", action.payload)
       state.skeleton = action.payload;
+    },
+    resetState: (state, action) => {
+      state = {
+        drawingID: null,
+        drawing_url: "",
+        backgroundUrl: null,
+        current_animation_url: null,
+        with_background_url: null,
+        coordinates: null,
+        boundingBox: { x: 200, width: 100, y: 200, height: 100, id: "1" },
+        imageDimenstions: { width: 10, height: 10 },
+        mask_url: null,
+        cropped_image_url: null,
+        cropped_image_dimensions: { width: 10, height: 10 },
+        skeleton: null,
+      };
     }
   },
 });
@@ -69,6 +88,8 @@ export const {
   setCroppedImageUrl,
   setCroppedImageDimensions,
   setSkeleton,
-  setCurrentAnimationUrl
+  setCurrentAnimationUrl,
+  setSelectedAnimation,
+  resetState
 } = DrawingStore.actions;
 export default DrawingStore.reducer;

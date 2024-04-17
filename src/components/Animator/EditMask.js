@@ -1,6 +1,7 @@
 //import classes from "./Animator.module.css";
 import Instruction from "./Instructions";
 import React, { Fragment, useEffect, useRef, useState } from "react";
+import Swal from "sweetalert2";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setCoordinates,
@@ -21,6 +22,8 @@ import classes from "./Animator.module.css";
 import MaskingToolbar from "../Canvas/MaskingToolbar";
 // component with one one side showing directions and the other side showing an image of the character
 // on the bottom there is a coursel of images of different characters
+
+const masking_tutorial = require("../../assets/Tutorial/Mask_Tutorial.gif")
 
 const EditMask = (props) => {
   const canvasWindow = useRef(null);
@@ -106,7 +109,7 @@ const EditMask = (props) => {
   const instructions = {
     Title: "Select Character",
     PreText:
-      "Upload drawing of ONE humanlike character. Make sure to not make the arms and legs overlap in the drawing.",
+      "Select the body of the character you want to animate.",
     Directions: [
       "Draw your character on a white background, like a piece of paper or white board. Make sure the background is as clean and smooth as possible.",
       "Make sure to take the picture of your drawing in a well lit area, and hold the camera further away to minimize shadows.",

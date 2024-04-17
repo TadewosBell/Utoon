@@ -22,14 +22,14 @@ export default function JointEditor({ imageUrl, imageHeight, imageWidth, origina
         }, [points])
 
   return (
-    <>
-        <div style={{ position: "absolute" }}>
+    <div className="mx-auto my-auto" style={{alignContent: "center"}}>
+        <div style={{ position: "absolute",alignContent: "center" }}>
           <img
             src={imageUrl}
             style={{ height: imageHeight * scale, width: imageWidth * scale }}
           />
         </div>
-        <div style={{ position: "absolute" }}>
+        <div style={{ position: "absolute", alignContent: "center" }}>
           <svg
             style={{ width: imageWidth * scale, height: imageHeight *scale }}
             viewBox={`0 0 ${imageWidth} ${imageHeight}`}
@@ -79,10 +79,10 @@ export default function JointEditor({ imageUrl, imageHeight, imageWidth, origina
           </svg>
           {hoveredJoint ? (
             <div className="tooltip">
-              {hoveredJoint?.replace("l_", "left ")?.replace("r_", "right ")}
+              {hoveredJoint?.replace("l_", "left ")?.replace("r_", "right ").replace("_", " ")}
             </div>
           ) : null}
         </div>
-    </>
+    </div>
   );
 }

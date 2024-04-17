@@ -97,8 +97,6 @@ const GifCanvas = ({gifUrl}) => {
         let rect = gifCanvasRef.current.getBoundingClientRect();
         let x = event.clientX - rect.left;
         let y = event.clientY - rect.top;
-        console.log("Coordinate x: " + x, 
-                    "Coordinate y: " + y);
         setPositionX(x);
         setPositionY(y);
         setChangedPos(true);
@@ -108,7 +106,6 @@ const GifCanvas = ({gifUrl}) => {
   
     useEffect(() => {
       gifCtx = gifCanvasRef.current?.getContext('2d');
-      console.log(canvasRef.current)
       if (!gifCtx || !canvasRef.current) return;
   
       const playpause = () => {

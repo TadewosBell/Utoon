@@ -6,7 +6,7 @@ import imgLogo from "../../assets/Logo.png";
 // on the bottom there is a coursel of images of different characters
 
 const Instructions = (props) => {
-  const { Title, PreText, Directions } = props.instructions;
+  const { Title, PreText, Directions, Direction_Alt_Title } = props.instructions;
   const {
     CSSClassNames1,
     CSSClassNames2,
@@ -37,7 +37,7 @@ const Instructions = (props) => {
               <div className={classes["upload-content"]}>
                 {Directions && (
                   <h3 className={classes["upload-direction-title"]}>
-                    Directions
+                    {Direction_Alt_Title? Direction_Alt_Title : "Directions"}
                   </h3>
                 )}
                 <div className={classes["directions-content"]}>

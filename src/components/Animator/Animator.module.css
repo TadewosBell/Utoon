@@ -12,19 +12,25 @@
   margin-bottom: 25px;
 }
 
+.tutorial_image {
+  width: 80%;
+  object-fit: cover;
+  margin-bottom: 25px;
+}
+
 .pre-img-box {
   width: 600px;
   object-fit: cover;
   height: 600px;
   margin-bottom: 25px;
-  cursor: crosshair;
+  cursor: pointer;
 }
-
 .button-row {
   display: flex;
   align-items: center;
   margin: 0 -10px;
   margin-bottom: 25px;
+  padding-top: 20px;
 }
 .button-col {
   width: 50%;
@@ -67,6 +73,28 @@
   cursor: pointer;
 }
 
+.mask-tool-rapper {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.canvas-wrapper {
+  position: relative;
+  display: flex;
+  width: 528px;
+  height: 528px;
+  border-radius: 16px;
+  background: #fff;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 0 16px rgba(0,0,0,.35);
+  margin-bottom: auto!important;
+}
+
 .upload-box-img {
   width: 100%;
 }
@@ -87,11 +115,37 @@
   width: 142px;
 }
 
+@media screen and (max-width: 576px){
+  .pre-img-box{
+      width: 350px;
+      height: 350px;
+      border-radius: 5%;
+  }
+  .canvas-wrapper {
+    position: relative;
+    display: flex;
+    width: 350px;
+    height: 350px;
+    border-radius: 16px;
+    background: #fff;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 0 16px rgba(0,0,0,.35);
+    margin-bottom: auto!important;
+  }
+  .button-row{
+    padding-top: 100px;
+  }
+}
+
 @media screen and (max-width: 800px) {
   .inner-grid {
     flex: 50%;
     max-width: 50%;
   }
+
+  
 }
 @media screen and (max-width: 600px) {
   .inner-grid {

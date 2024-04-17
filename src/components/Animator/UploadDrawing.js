@@ -11,7 +11,8 @@ import Swal from "sweetalert2"; // Import Swal from SweetAlert2
 import { useSelector, useDispatch } from "react-redux";
 import { upload_image, get_bounding_box } from "../../Utility/Api";
 import { setImageDimenstions, setCoordinates, setDrawingUrl, setCurrentDrawingID } from "../../redux/DrawingStore";
-import { setCurrentCharacterId, addCharacter, removeCharacter, saveToLocalStorage, loadFromLocalStorage } from "../../redux/charactersLibrary";
+import Swal from "sweetalert2";
+import { BsUpload } from "react-icons/bs";
 
 const selectable_characters = [
   {
@@ -23,8 +24,8 @@ const selectable_characters = [
     name: "Donny.png"
   },
   {
-    id: 3,
-    name: "Berry.jpg"
+    id: 9,
+    name: "Piggy.png"
   },
   {
     id: 4,
@@ -32,34 +33,60 @@ const selectable_characters = [
   },
   {
     id: 5,
-    name: "George.jpg"
-  },
-  {
-    id: 6,
     name: "Ginger.jpg"
   },
   {
-    id: 7,
-    name: "Panda.jpg"
-  },
-  {
-    id: 8,
+    id: 6,
     name: "Tommy.png"
-  }
+  },
 ]
 
 const Characters = (props) => {
   const { StepForward, onFileChange, preview } = props;
+  const fileInputRef = React.useRef(null);
+  const [isDragOver, setIsDragOver] = React.useState(false);
+
+  const handleUploadBoxClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragOver(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragOver(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragOver(false);
+    onFileChange(e);
+  };
+
   return (
     <div>
       <div className={classes["pre-img-box"]}>
-        <img
+        {preview ? <img
           className={classes["pre-img"]}
           src={preview ? preview : imgBackground}
           alt="Animation preview"
-        />
+        /> : <div
+          className={`${classes["upload-img-box"]} ${isDragOver ? "drag-over" : ""}`}
+          onClick={handleUploadBoxClick}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        >
+          <p>Click and upload image or Drag/Drop</p>
+          <BsUpload size={70} />
+
+          <p>to upload your character</p>
+        </div>}
+
       </div>
-      <label className={classes["pre-upload-btn"]} label="file">
+      <label className={classes["pre-upload-btn"]} label="file"/>
         <input
           type="file"
           name="file"
@@ -68,12 +95,9 @@ const Characters = (props) => {
           style={{ display: "none" }}
         />
         <img src={imgFrame} alt="Frame" />
-        upload creation
-      </label>
       <input type="file" name="file" id="file" /> <br />
       <div className={classes["button-row"]}>
         <div className={classes["button-col"]}>
-          {/* <button className={classes["prev-btn"]}>Previous</button> */}
         </div>
         <div className={classes["button-col"]}>
           <button onClick={StepForward} className={classes["next-btn"]}>
@@ -99,7 +123,6 @@ const Upload = (props) => {
     // fetch characters from https://utoon-animator.s3.amazonaws.com/characters/{selectable_character.name}.png
     let character_url_list = []
     selectable_characters.forEach((selectable_character) => {
-      console.log(`https://utoon-animator.s3.amazonaws.com/Characters/${selectable_character.name}.png`)
       // character_url_list.push(`https://utoon-animator.s3.amazonaws.com/Characters/${selectable_character.name}.png`)
       character_url_list.push(selectable_character.name);
     })
@@ -107,7 +130,6 @@ const Upload = (props) => {
   }, []);
 
   const onCharacterClick = async (character_name) => {
-    console.log(character_name);
     setCharacterSelected(character_name);
     setPreview(`https://utoon-animator.s3.amazonaws.com/Characters/${character_name}`);
     // get image dimensions from url
@@ -129,32 +151,32 @@ const Upload = (props) => {
   const instructions = {
     Title: "Upload a character/Pick one",
     PreText:
-      "Upload drawing of ONE humanlike character. Make sure to not make the arms and legs overlap in the drawing.",
+      "Upload drawing of ONE character at a time.",
     Directions: [
-      "Draw your character on a white background, like a piece of paper or white board. Make sure the background is as clean and smooth as possible.",
-      "Make sure to take the picture of your drawing in a well lit area, and hold the camera further away to minimize shadows.",
-      <div key="direciton_div" class="h-[600px] border overflow-y-auto mx-[-30px]">
-      <div class="grid grid-cols-3 gap-3">
-        {character?.map((item) => {
-          return (
-            <div
-              class="border-2 border-gray-300"
-              onClick={() => onCharacterClick(item)}
-              key={item.id}
-            >
-              <img
-                key={item}
-                src={`https://utoon-animator.s3.amazonaws.com/Characters/${item}`}
-                alt=""
-                height={200}
-                width={200}
-                className="bg-auto bg-no-repeat bg-center"
-              />
-            </div>
-          );
-        })}
-      </div>
-    </div>,
+      "Make sure to take the picture of your character in a well lit area, and hold the camera further away to minimize shadows.",
+      "Keep any identifiable of personal information out of the picture.",
+      <div key="direciton_div" className="h-[600px] border overflow-y-auto mx-[-30px]">
+        <div className="grid grid-cols-3 gap-3">
+          {character?.map((item) => {
+            return (
+              <div
+                className="border-2 border-gray-300"
+                onClick={() => onCharacterClick(item)}
+                key={item.id}
+              >
+                <img
+                  key={item}
+                  src={`https://utoon-animator.s3.amazonaws.com/Characters/${item}`}
+                  alt=""
+                  height={200}
+                  width={200}
+                  className="bg-auto bg-no-repeat bg-center"
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>,
     ],
   };
   const ActiveClassName = `${classes["steps-color"]} ${classes["active"]}`;
@@ -270,6 +292,7 @@ const Upload = (props) => {
           })
         );
       };
+
     }
   };
 
@@ -287,22 +310,30 @@ const Upload = (props) => {
         });
 
     // if image or character selected is null, show alert and return
-    if(!image && !character_selected){
+    if (!image && !character_selected) {
       alert("Please select a drawing to upload or a character");
       return;
     }
- 
+
+    Swal.fire({
+      title: "Uploading...",
+      html: "The server is starting up. This may take around 1-2 minutes.",
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
     // Create an object of formData
-    if(character_selected){
+    if (character_selected) {
       // get image bytes from character_selected url 
       const data = {}
       data['character_selected'] = character_selected;
-      console.log(character_selected)
       get_bounding_box(data, (res) => {
         const drawing_url = res['drawing_url']
         const Char_id = res['char_id']
         const bounding_box = res['bounding_box'];
-        console.log(bounding_box)
         dispatch(setCurrentDrawingID(Char_id));
         dispatch(setDrawingUrl(drawing_url));
         dispatch(setCoordinates(bounding_box));
@@ -313,23 +344,22 @@ const Upload = (props) => {
     }
     else {
       const data = {}
-    
+
 
       const reader = new FileReader();
       reader.readAsDataURL(image);
-  
+
       reader.onload = () => {
         const base64Data = reader.result.split(',')[1]; // Extract the base64 data portion
-  
-        
+
+
         data['name'] = image.name;
         data['image_bytes'] = base64Data;
         get_bounding_box(data, (res) => {
           const drawing_url = res['drawing_url']
           const Char_id = res['char_id']
-  
+
           const bounding_box = res['bounding_box'];
-          console.log(bounding_box)
           dispatch(setCurrentDrawingID(Char_id));
           dispatch(setDrawingUrl(drawing_url));
           dispatch(setCoordinates(bounding_box));
@@ -337,7 +367,7 @@ const Upload = (props) => {
           Swal.close();
 
           props.StepForward();
-  
+
         })
         // props.StepForward();
       };

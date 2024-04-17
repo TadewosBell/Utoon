@@ -9,6 +9,24 @@ input[type="file"] {
   border-radius: 50px;
   margin-bottom: 22px;
 }
+
+.upload-img-box {
+  border: 2px solid #0e2d52;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 400px 0px 400px 0px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.file-uploader {
+  display: hidden;
+}
+
 .pre-upload-btn {
   background: #000000;
   border: 2px solid #000000;
@@ -89,3 +107,5 @@ input[type="file"] {
   background: #0e2d52;
   width: 142px;
 }
+
+

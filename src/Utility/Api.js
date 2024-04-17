@@ -1,7 +1,27 @@
 
-const apiUrl = 'http://127.0.0.1:80'
+// const apiUrl = 'https://animator-swsknjcjbq-uc.a.run.app'
+// check if app is development or production
+const apiUrl = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:80' : 'https://animator-swsknjcjbq-uc.a.run.app'
 
-export const intial_animation = async (data, callBack, finalCallBack = null) => {
+export const wake_up_backend = async (data, callBack, finalCallBack = null) => {
+    try {
+        const response = await fetch(`${apiUrl}`, 
+        {
+            method: 'GET'
+        });
+        callBack(response);
+    
+        } catch (error) {
+        console.error(error);
+    } finally {
+        if(finalCallBack !== null){
+            finalCallBack()
+        }
+    }
+}
+
+
+export const intial_animation = async (data, callBack, errorCallBack, finalCallBack = null) => {
     try {
         const response = await fetch(`${apiUrl}/intial_animation`, 
         {
@@ -17,6 +37,7 @@ export const intial_animation = async (data, callBack, finalCallBack = null) => 
     
         } catch (error) {
         console.error(error);
+        errorCallBack()
     } finally {
         if(finalCallBack !== null){
             finalCallBack()
@@ -24,9 +45,33 @@ export const intial_animation = async (data, callBack, finalCallBack = null) => 
     }
 }
 
-export const animate_character = async (data, callBack, finalCallBack = null) => {
+export const animate_character = async (data, callBack, errorCallBack, finalCallBack = null) => {
     try {
         const response = await fetch(`${apiUrl}/animate_character`, 
+        {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        const json = await response.json();
+        callBack(json);
+    
+        } catch (error) {
+        console.error(error);
+        errorCallBack();
+    } finally {
+        if(finalCallBack !== null){
+            finalCallBack()
+        }
+    }
+}
+
+export const get_bounding_box = async (data, callBack, finalCallBack = null) => {
+    try {
+        const response = await fetch(`${apiUrl}/get_bounding_box`, 
         {
             method: 'POST',
             headers: {
@@ -47,9 +92,9 @@ export const animate_character = async (data, callBack, finalCallBack = null) =>
     }
 }
 
-export const get_bounding_box = async (data, callBack, finalCallBack = null) => {
+export const upload_background = async (data, callBack, finalCallBack = null) => {
     try {
-        const response = await fetch(`${apiUrl}/get_bounding_box`, 
+        const response = await fetch(`${apiUrl}/upload_background`, 
         {
             method: 'POST',
             headers: {
@@ -182,5 +227,68 @@ export const final_render = async (data, callBack, finalCallBack = null) => {
         if(finalCallBack !== null){
             finalCallBack()
         }
+    }
+}
+
+export const generate_spritesheets = async (data) => {
+    try {
+        const response = await fetch(`${apiUrl}/generate_spritesheets`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        throw new Error(`API Error: ${error.message}`);
+    }
+};
+
+export const get_gif_spritesheet = async (data) => {
+    try {
+        const response = await fetch(`${apiUrl}/get_gif_spritesheet`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        throw new Error(`API Error: ${error.message}`);
+    }
+};
+
+export const subscribe_waitlist = async (data) => {
+    try {
+        const response = await fetch(`${apiUrl}/subscribe_waitlist`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        throw new Error(`API Error: ${error.message}`);
     }
 }

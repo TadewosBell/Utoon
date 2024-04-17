@@ -43,7 +43,7 @@ export const MaskPlaceHolder = forwardRef(
     const { lines } = useSelector((state) => state.MaskEditor);
 
     return (
-      <div className="ml-auto mr-auto">
+      <div>
         <Stage
           width={canvasWidth * scale}
           height={canvasHeight * scale}
@@ -115,7 +115,6 @@ const MaskStage = React.forwardRef(
       const point = stage.getRelativePointerPosition();
       let tempLine = [... lines]
       let lastLine = {...lines[lines.length - 1]};
-      console.log(lastLine, lines);
       lastLine.points = lastLine.points.concat([point.x, point.y]);
       tempLine.splice(lines.length - 1, 1, lastLine);
       dispatch(setLines(tempLine.concat()));

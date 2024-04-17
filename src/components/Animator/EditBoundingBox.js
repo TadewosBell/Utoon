@@ -16,6 +16,8 @@ import { set_bounding_box } from "../../Utility/Api";
 import classes from "./Animator.module.css";
 import BoundingBoxStage from "../Canvas/BoundingBoxStage";
 
+const bounding_box_image = require("../../assets/Tutorial/Bounding_Box.JPG")
+
 const calculateRatio = (
   canvasWidth,
   canvasHeight,
@@ -147,13 +149,16 @@ const EditBoundingBox = (props) => {
   const instructions = {
     Title: "Edit Bounding Box",
     PreText:
-      "Upload drawing of ONE humanlike character. Make sure to not make the arms and legs overlap in the drawing.",
+      "Use the bounding box to select the area of the image that you want to animate.",
     Directions: [
       "Draw your character on a white background, like a piece of paper or white board. Make sure the background is as clean and smooth as possible.",
       "Make sure to take the picture of your drawing in a well lit area, and hold the camera further away to minimize shadows.",
       <div class="h-[600px] border overflow-y-auto mx-[-30px]"></div>,
     ],
+
   };
+
+
 
   return (
     <Fragment>
