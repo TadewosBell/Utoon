@@ -111,11 +111,9 @@ const EditMask = (props) => {
     PreText:
       "Select the body of the character you want to animate.",
     Directions: [
-      "Use Pen to select the body of the character you want to animate.",
-      "Use eraser to remove any unwanted selections.",
-      <div class="h-[600px] border overflow-y-auto mx-[-30px]">
-        <img src={masking_tutorial} alt="" className={classes["tutorial_image"]} />
-    </div>,
+      "Draw your character on a white background, like a piece of paper or white board. Make sure the background is as clean and smooth as possible.",
+      "Make sure to take the picture of your drawing in a well lit area, and hold the camera further away to minimize shadows.",
+      <div class="h-[600px] border overflow-y-auto mx-[-30px]"></div>,
     ],
   };
 

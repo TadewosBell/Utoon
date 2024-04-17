@@ -154,12 +154,12 @@ const Upload = (props) => {
     Directions: [
       "Make sure to take the picture of your character in a well lit area, and hold the camera further away to minimize shadows.",
       "Keep any identifiable of personal information out of the picture.",
-      <div key="direciton_div" class="h-[600px] border overflow-y-auto mx-[-30px]">
-        <div class="grid grid-cols-3 gap-3">
+      <div key="direciton_div" className="h-[600px] border overflow-y-auto mx-[-30px]">
+        <div className="grid grid-cols-3 gap-3">
           {character?.map((item) => {
             return (
               <div
-                class="border-2 border-gray-300"
+                className="border-2 border-gray-300"
                 onClick={() => onCharacterClick(item)}
                 key={item.id}
               >

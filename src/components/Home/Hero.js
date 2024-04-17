@@ -23,55 +23,58 @@ const Hero = () => {
       "https://a.co/d/clzul2Y", "_blank");
   }
   return (
-    <section class="bg-white dark:bg-[#FFD2D7] mt-[80px] border">
-      <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
-        <div class="mr-auto place-self-center lg:col-span-7">
-          <h1 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-transparent text-6xl bg-clip-text bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500">
+    <section className="bg-white dark:bg-[#FFD2D7] mt-[80px] border">
+      <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+        <div className="mr-auto place-self-center lg:col-span-7">
+          <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-transparent text-6xl bg-clip-text bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500">
             Make your drawings come to life!
           </h1>
-          <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-xl lg:text-[2rem] dark:text-[#333333]">
+          <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-xl lg:text-[2rem] dark:text-[#333333]">
           </p>
           <div className={classes["site-footer-right"]}>
-            <div className={classes["footer-newsletter-row"]}>
-              <button className={classes["footer-submit-button"]}
-              onClick={subscribe_to_waitlist}
-              >
-                Get the coloring book
-              </button>
-            </div>
-          </div>
           <Link
-            to="/Animator"
+            to="https://a.co/d/clzul2Y"
             href="#"
-            class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-black rounded-lg bg-primary-700 hover:text-[#EC7179] focus:ring-4 focus:ring-#[FFD2D7] dark:focus:ring-[#FFD2D7] text-lg"
+            target="_blank"
+            className={"inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-black rounded-lg hover:text-[#EC7179] focus:ring-4 focus:ring-#[FFD2D7] dark:focus:ring-[#FFD2D7] text-lg get-color-book"}
           >
-            Animate
+            Get Coloring Book
             <svg
-              class="w-5 h-5 ml-2 -mr-1"
+              className="w-5 h-5 ml-2 -mr-1"
               fill="currentColor"
               viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               ></path>
             </svg>
 
           </Link>
-          <Link
-            to="/GameSetup"
+            <Link
+            to="/Animator"
             href="#"
-            class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-black rounded-lg bg-primary-700 hover:text-[#EC7179] focus:ring-4 focus:ring-#[FFD2D7] dark:focus:ring-[#FFD2D7] text-lg"
+            className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-black rounded-lg bg-primary-700 hover:text-[#EC7179] focus:ring-4 focus:ring-#[FFD2D7] dark:focus:ring-[#FFD2D7] text-lg"
           >
-            Game
-            <BsController size={25} class="w-6 h-6 ml-2 -mr-1" />
+            Animate
+            <svg
+              className="w-5 h-5 ml-2 -mr-1"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                clipRule="evenodd"
+              ></path>
+            </svg>
 
           </Link>
+          </div>
         </div>
         
-        <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
+        <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
         <div className={classes["four_squares"]}>
           <div className={classes["i1"]}><img src={fourSquares[0]}/></div>
           <div className={classes["i2"]}><img src={fourSquares[1]}/></div>
