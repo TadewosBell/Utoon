@@ -131,12 +131,12 @@ const Animations = () => {
     }
   }, [animataing_in_progress])
   return (
-    <div className="h-[600px] border overflow-y-auto mx-[-30px]">
-      <div className="grid grid-cols-3 gap-3">
+    <div class="h-[600px] border overflow-y-auto mx-[-30px]">
+      <div class="grid grid-cols-3 gap-3">
         {/* map animations, three columns per row */}
         {Object.keys(AnimationOptions).map((key) => {
           return (
-            <div className="border-2 border-gray-300" >
+            <div class="border-2 border-gray-300" >
               <img
                 onClick={() => onAnimationSelected(AnimationOptions[key]['animation_id'], AnimationOptions[key]['retarget_id'])}
                 src={AnimationOptions[key]['image']}
