@@ -50,17 +50,17 @@ const Instruction = () => {
           {instructionSteps.map((step) => {
             return (
               <div className={classes["work-col"]}>
-                <div class="max-w-sm bg-white border rounded-lg shadow dark:bg-[#F4E0B9] dark:border-[#FAD723]">
+                <div className="max-w-sm bg-white border rounded-lg shadow dark:bg-[#F4E0B9] dark:border-[#FAD723]">
                   <div className="flex justify-center">
                     <img src={step.image} alt="" />
                   </div>
-                  <div class="p-5">
+                  <div className="p-5">
                     <a href="#">
                       <h5 className={classes["work-title-box"]}>
                         {step.title}
                       </h5>
                     </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-black text-center">
+                    <p className="mb-3 font-normal text-gray-700 dark:text-black text-center">
                       {step.description}
                     </p>
                   </div>

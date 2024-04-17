@@ -314,10 +314,10 @@ const Background = (props) => {
     Title: "Background",
     PreText: "Select a background to set the scene",
     Directions: [
-      <div class="h-[600px] border overflow-y-auto mx-[-30px]">
-        <div class="grid grid-cols-3 gap-3">
+      <div className="h-[600px] border overflow-y-auto mx-[-30px]">
+        <div className="grid grid-cols-3 gap-3">
           <div
-            class="border-2 border-gray-300"
+            className="border-2 border-gray-300"
           >
             <label className={classes["pre-upload-btn"]} label="file">
               <input type="file" name="file" accept=".jpg, .png, .heic"  onChange={onFileChange} style={{display: 'none'}}/>
@@ -328,7 +328,7 @@ const Background = (props) => {
           {backgrounds?.map((item) => {
             return (
               <div
-                class="border-2 border-gray-300"
+                className="border-2 border-gray-300"
                 onClick={() => dispatch(displaybackground(item))}
               >
                 <img
@@ -342,7 +342,7 @@ const Background = (props) => {
             );
           })}
           {/* <div
-            class="border-2 h-[150px] border-gray-300"
+            className="border-2 h-[150px] border-gray-300"
             onClick={() => dispatch(displaybackground(imgAnimate))}
           >
             <img

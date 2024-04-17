@@ -93,7 +93,7 @@ const EditSkeleton = (props) => {
       "Edit skeleton to match the pose of the character.",
     Directions: [
       "Click and move the joints to match the character's pose.",
-      <div class="h-[600px] border overflow-y-auto mx-[-30px]">
+      <div className="h-[600px] border overflow-y-auto mx-[-30px]">
         <img src={skeleton_image} alt="" className={classes["tutorial_image"]}  />
       </div>,
     ],

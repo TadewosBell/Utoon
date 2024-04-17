@@ -134,7 +134,7 @@ const EditMask = (props) => {
     Directions: [
       "Use Pen to select the body of the character you want to animate.",
       "Use eraser to remove any unwanted selections.",
-      <div class="h-[600px] border overflow-y-auto mx-[-30px]">
+      <div className="h-[600px] border overflow-y-auto mx-[-30px]">
         <img src={masking_tutorial} alt="" className={classes["tutorial_image"]} />
     </div>,
     ],

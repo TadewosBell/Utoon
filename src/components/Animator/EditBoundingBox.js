@@ -133,7 +133,7 @@ const EditBoundingBox = (props) => {
       "Use the bounding box to select the area of the image that you want to animate.",
     Directions: [
       "Select your drawing from the bottom carousel.",
-      <div class="h-[600px] border overflow-y-auto mx-[-30px]">
+      <div className="h-[600px] border overflow-y-auto mx-[-30px]">
         <img src={bounding_box_image} alt="" className={classes["tutorial_image"]} />
     </div>,
     ],
