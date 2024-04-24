@@ -36,14 +36,14 @@ const Nav = () => {
                   How This Works
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a
                   href="/GenerateSprite"
                   className="text-gray-900 hover:text-blue-700 text-xl dark:text-[#1f1f1f] dark:hover:text-[#F36C57]"
                 >
                   Generate Sprite
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
           {/* <div className="flex md:order-3">

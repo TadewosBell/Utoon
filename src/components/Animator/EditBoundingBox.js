@@ -151,8 +151,8 @@ const EditBoundingBox = (props) => {
     PreText:
       "Use the bounding box to select the area of the image that you want to animate.",
     Directions: [
-      "Draw your character on a white background, like a piece of paper or white board. Make sure the background is as clean and smooth as possible.",
-      "Make sure to take the picture of your drawing in a well lit area, and hold the camera further away to minimize shadows.",
+      "Take a picture of you character",
+      "Make sure to take the picture of your Character in a well lit area, and hold the camera further away to minimize shadows.",
       <div class="h-[600px] border overflow-y-auto mx-[-30px]"></div>,
     ],
 

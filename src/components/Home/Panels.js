@@ -2,7 +2,6 @@ import React from "react";
 import classes from "./Panels.module.css";
 import KidImages from "../../assets/Draw instruction 3.png";
 import AnimateImages from "../../assets/animate 1.gif";
-import Give2Images from "../../assets/Give-2 2.png";
 
 const Panels = () => {
   return (
@@ -13,7 +12,7 @@ const Panels = () => {
             <div className={classes["home-block-col"]}>
               <div className={classes["block-inner"]}>
                 <img src={KidImages} className={classes["panel-img"]} alt="Draw" />
-                <h3 className={classes["work-inner-title"]}>Draw</h3>
+                <h3 className={classes["work-inner-title"]}>Color</h3>
               </div>
             </div>
             <div className={classes["home-block-col"]}>

@@ -1,9 +1,7 @@
 import React from "react";
 import classes from "./Instruction.module.css";
 import DrawInstructionImage from "../../assets/Draw instruction 3.png";
-import Background1Image from "../../assets/Background 1.png";
-import WhaleAnimateImage from "../../assets/whale animate 1.png";
-import VoiceOver1Image from "../../assets/voiceover 1.png";
+import WhaleAnimateImage from "../../assets/Animations/astro_dab.gif";
 import Send1Image from "../../assets/send 1.png";
 import Button from "../UI/Button";
 import { Link } from "react-router-dom";
@@ -11,24 +9,14 @@ import { Link } from "react-router-dom";
 const instructionSteps = [
   {
     image: DrawInstructionImage,
-    title: "Draw",
-    description: "Draw your favorite character or anything you want to animate",
+    title: "Color",
+    description: "Color each character or draw anything you want to animate",
   },
   {
     image: WhaleAnimateImage,
     title: "Animate",
     description: "Upload your creation and watch them come to life.",
   },
-  {
-    image: Background1Image,
-    title: "Edit",
-    description: "Add backgrounds and text to make it special.",
-  },
-  // {
-  //   image: VoiceOver1Image,
-  //   title: "Add Voices",
-  //   description: "Record voice overs, music or sound effects.",
-  // },
   {
     image: Send1Image,
     title: "Share",

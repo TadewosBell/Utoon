@@ -2,19 +2,11 @@ import { Fragment } from "react";
 import classes from "./Sound.module.css";
 import Instructions from "./Instructions";
 import imgSoundRecord from "../../assets/record.png";
-import imgAnimate from "../../assets/Background-1.png";
 
 const Sounds = (props) => {
   const { StepForward, StepBackward } = props;
   return (
     <div>
-      <div className={classes["pre-img-box"]}>
-        <img
-          className={classes["pre-img"]}
-          src={imgAnimate}
-          alt="Sound preview"
-        />
-      </div>
       <div className={classes["button-row"]}>
         <div className={classes["button-col"]}>
           <button className={classes["prev-btn"]} onClick={StepBackward}>

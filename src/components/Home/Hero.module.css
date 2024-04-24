@@ -95,6 +95,35 @@
     background-color: purple;
 }
 
+.flip_between {
+  perspective: 1000px; /* Add perspective for the 3D effect */
+  width: 100%;
+  height: 500px;
+  position: relative;
+}
+
+.flip_between > div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden; /* Hide the back face of the flipped element */
+  transition: transform 0.8s; /* Add transition for smooth flipping */
+  transform-style: preserve-3d; /* Preserve 3D transformations */
+}
+
+.flip_between > div:first-child {
+  transform: rotateY(180deg); /* Initially rotate the four squares div */
+}
+
+.flip_between:hover > div:first-child {
+  transform: rotateY(0deg); /* Rotate the four squares div back to 0 degrees on hover */
+}
+
+.flip_between:hover > div:last-child {
+  transform: rotateY(180deg); /* Rotate the image div to 180 degrees on hover */
+}
+
+/* Your existing styles for .four_squares, .i1, .i2, .i3, and .i4 */
 .get-color-book{
   background-color: orange;
 }

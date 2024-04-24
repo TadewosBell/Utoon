@@ -1,7 +1,6 @@
 //import classes from "./Animator.module.css";
 import Instruction from "./Instructions";
 import classes from "./Upload.module.css";
-import imgBackground from "../../assets/Background-1.png";
 import imgFrame from "../../assets/Frame.png";
 import React, { Fragment, useState, useEffect } from "react";
 import imageCompression from "browser-image-compression";

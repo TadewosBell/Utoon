@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./Footer.module.css";
 import LogoImages from "../../assets/Logo.png";
 import { subscribe_waitlist } from "../../Utility/Api";
-import Button from "../UI/Button";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const [email, setEmail] = React.useState("");
@@ -49,28 +49,23 @@ const Footer = () => {
           </div>
           <div className={classes["site-footer-right"]}>
             <p className={classes["newsletter-text"]}>
-              Subscribe to our newsletter to get updates
+              Buy our coloring book and watch the characters come to life!
             </p>
-            <div className={classes["footer-newsletter-row"]}>
-              <input
-                className={classes["footer-input"]}
-                type="text"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value)}}
-              />
-              <button className={classes["footer-submit-button"]} 
-              onClick={subscribe_to_waitlist} >
-                Subscribe
-              </button>
-            </div>
-            {
-            success &&
-            <p className={classes["newsletter-text"]}>
-            You are all set!
-            </p>
-            }
+            <Link
+              to="https://a.co/d/clzul2Y"
+              href="#"
+              target="_blank"
+              className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 text-lg get-color-book"
+            >
+              Buy the book
+              <svg className="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fillRule="evenodd"
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                ></path>
+              </svg>
+            </Link>
           </div>
         </div>
       </div>
