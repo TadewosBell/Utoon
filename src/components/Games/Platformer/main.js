@@ -43,6 +43,7 @@ export const initialize_game = async (urls) =>
     customResources.astroIdleSheet = new ex.ImageSource(urls.idle_spritesheet_url);
     customResources.astroJumpSheet = new ex.ImageSource(urls.jump_spritesheet_url);
     customResources.pain = new ex.ImageSource(urls.pain_spritesheet_url);
+    console.log(customResources)
     await customResources.astroIdleSheet.load();
     if (customResources.astroIdleSheet.isLoaded()) {
 

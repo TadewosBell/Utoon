@@ -50,9 +50,10 @@ export class Hero extends ex.Actor {
       color: ex.Color.Green
     });
     this.animations = {...anims};
+    console.log(this.animations)
     this.animationMap = {...animationMap};
+    console.log(this.animationMap)
 
-    console.log("CUSTOM ANIMATION MAP", customAnimationMap)
     // replace default animationMap with only values provided in customAnimationMap
 
     if(customAnimationMap) {

@@ -12,6 +12,7 @@ import GenerarateSprite from "./components/GenerateSprite"
 import GameSelection from "./components/Games/GameSelection";
 import CharacterSelection from "./components/Games/CharacterSelection";
 import Game from "./components/Games/Platformer";
+// import JumperGame from "./components/Games/Jumper"
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path='/GameSelection' element={<GameSelection/>} />
         {/* <Route path='/CharacterSelection' element={<CharacterSelection/>} /> */}
         <Route path='/SpaceAdventure' element={<Game/>} />
+        {/* <Route path='/JumperGame' element={<JumperGame/>} /> */}
         <Route path='/GenerateSprite' element={<GenerarateSprite/>} />
       </Routes>
     </Router>
