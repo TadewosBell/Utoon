@@ -1,5 +1,5 @@
-import { engine } from "$game";
-import { getBaseY, getSafeArea, pxScale, pxScaleVec } from "../lib/util";
+import { game } from "$game";
+import { getBaseY, getSafeArea, pxScale, pxScaleVec } from "$lib/util";
 
 export class Vehicle extends ex.Actor {
   scene;
