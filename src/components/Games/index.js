@@ -17,7 +17,7 @@ const GameSetup = (props) => {
       { title: "Upload" },
       { title: "Bounding Box"},
       { title: "Mask" },
-      { title: "Skeleton"},
+      // { title: "Skeleton"},
       { title: "Play!"}
     ];
   
@@ -31,13 +31,13 @@ const GameSetup = (props) => {
           );
         case 2:
           return (
-            <EditMask StepForward={StepForward} StepBackward={StepBackward} />
+            <EditMask StepForward={StepForward} StepBackward={StepBackward} Game={true} />
           );
+        // case 3:
+        //   return (
+        //     <EditSkeleton StepForward={StepForward} StepBackward={StepBackward} Game={true} />
+        //   );
         case 3:
-          return (
-            <EditSkeleton StepForward={StepForward} StepBackward={StepBackward} Game={true} />
-          );
-        case 4:
             return (
                 <GenerateSprites />
             );

@@ -20,7 +20,7 @@ const masking_tutorial = require("../../assets/Tutorial/Mask_Tutorial.gif")
 const EditMask = (props) => {
 
     const canvasWindow = useRef(null);
-    const { StepForward, StepBackward } = props;
+    const { StepForward, StepBackward, Game } = props;
     const { drawingID, cropped_image_url, cropped_image_dimensions } = useSelector((state) => state.image);
     const dispatch = useDispatch();
     const layerRef = useRef(null);
@@ -59,15 +59,6 @@ const EditMask = (props) => {
         cropped_image_dimensions.height
       );
       setMaskBase64(newDataUri); // base64
-      Swal.fire({
-        title: "Animating Character",
-        imageUrl: require("../../assets/Animations/astro_YMCA.gif"),
-        allowEscapeKey: false,
-        allowOutsideClick: false,
-        didOpen: () => {
-          Swal.showLoading();
-        },
-      });
 
       const response = await fetch(newDataUri || uri);
       const blob = await response.blob();
@@ -101,6 +92,21 @@ const EditMask = (props) => {
         let skeleton = res.skeleton;
         dispatch(setSkeleton(skeleton));
       })
+
+      if(Game) {
+        StepForward();
+        return;
+      }
+
+      Swal.fire({
+        title: "Animating Character",
+        imageUrl: require("../../assets/Animations/astro_YMCA.gif"),
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
 
       const intial_animation_req = {
         char_id: drawingID,

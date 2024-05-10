@@ -27,7 +27,7 @@ const Hero = () => {
         <div className="lg:col-span-7">
           <div className="flex flex-col items-center lg:items-start">
             <h1 className="max-w-2xl mb-4 text-3xl font-extrabold tracking-tight leading-none md:text-4xl xl:text-5xl dark:text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500">
-            The Magical Coloring Book: Where Drawings Come to Life!
+              The Magical Coloring Book: Where Drawings Come to Life!
             </h1>
             <div className="flex flex-col items-start lg:items-start">
               <p className="max-w-2xl mb-2 font-light text-gray-500 lg:mb-2 md:text-lg lg:text-xl dark:text-[#333333]">
@@ -78,30 +78,39 @@ const Hero = () => {
                   </svg>
 
                 </Link>
+                <Link
+                  to="/GameSetup"
+                  href="#"
+                  class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-black rounded-lg bg-primary-700 hover:text-[#EC7179] focus:ring-4 focus:ring-#[FFD2D7] dark:focus:ring-[#FFD2D7] text-lg"
+                >
+                  Game
+                  <BsController size={25} class="w-6 h-6 ml-2 -mr-1" />
+
+                </Link>
               </div>
-            </div>
-            </div>
-          </div>
-          <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
-            <div className={classes["flip_between"]}>
-              <div className={classes["four_squares"]}>
-                <div className={classes["i1"]}>
-                  <img src={fourSquares[0]} />
-                </div>
-                <div className={classes["i2"]}>
-                  <img src={fourSquares[1]} />
-                </div>
-                <div className={classes["i3"]}>
-                  <img src={fourSquares[2]} />
-                </div>
-                <div className={classes["i4"]}>
-                  <img src={fourSquares[3]} />
-                </div>
-              </div>
-              <img src={Coloring_Book}></img>
             </div>
           </div>
         </div>
+        <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
+          <div className={classes["flip_between"]}>
+            <div className={classes["four_squares"]}>
+              <div className={classes["i1"]}>
+                <img src={fourSquares[0]} />
+              </div>
+              <div className={classes["i2"]}>
+                <img src={fourSquares[1]} />
+              </div>
+              <div className={classes["i3"]}>
+                <img src={fourSquares[2]} />
+              </div>
+              <div className={classes["i4"]}>
+                <img src={fourSquares[3]} />
+              </div>
+            </div>
+            <img src={Coloring_Book}></img>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

@@ -2,11 +2,15 @@ import { useDispatch, useSelector } from "react-redux";
 // import react router
 import { useNavigate } from "react-router-dom";
 import './GenerateSprite.css'
+
 import ProgressBar from "@ramonak/react-progress-bar";
 import { GenerationQueue } from './classes/GenerationQueue'; 
 import React, { useState, useEffect } from 'react';
 
 import { setRunningSpritesheetUrl, setJumpSpritesheetUrl, setIdleSpritesheetUrl, setPainSpritesheetUrl } from "../../redux/GameStore";
+
+const ymca = require("../../assets/Animations/astro_YMCA.gif")
+
 
 const CustomModal = ({ steps, history }) => {
     const dispatch = useDispatch();
@@ -79,7 +83,8 @@ const CustomModal = ({ steps, history }) => {
   return (
     <div className="modal">
       <div className="modal-content">
-        <h2 className="genrateSpriteTitle">Give us a moment so we can bring your character to life.</h2>
+        <h2 className="genrateSpriteTitle">Game Loading...</h2>
+        <img src={ymca}></img>
         <div className="progressbar-container">
             <ProgressBar 
             completed={progress} 
